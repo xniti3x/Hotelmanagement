@@ -1,25 +1,3 @@
-<p align="center">
-  <img src="/assets/core/img/logo.svg">
-</p>
-<p>&nbsp;</p>
-
-<p align="center">
-<a href="https://github.com/InvoicePlane/InvoicePlane/releases"><img src="https://img.shields.io/badge/dynamic/json.svg?label=Current%20Version&url=https%3A%2F%2Fapi.github.com%2Frepos%2FInvoicePlane%2FInvoicePlane%2Freleases%2Flatest&query=%24.name&colorB=%23429ae1"></a>
-<a href="https://github.com/InvoicePlane/InvoicePlane/releases"><img src="https://img.shields.io/github/downloads/invoiceplane/invoiceplane/total?colorB=%23429ae1"></a>
-<a href="https://translations.invoiceplane.com/project/fusioninvoice"><img src="https://img.shields.io/badge/Translations-%40%20Crowdin-429ae1"></a>
-</p>
-
-<p align="center" bgcolor="#429ae1"><b>InvoicePlane is a self-hosted open source application for managing your invoices, clients and payments.<br>
-  For more information visit <a href="https://invoiceplane.com">InvoicePlane.com</a> or try the <a href="https://demo.invoiceplane.com">Demo</a>.</b></p>
-
----
-
-Since the start of the project in 2014, InvoicePlane evolved into a software that is used world wide. However, it is
-still developed in our free time, as a hobby. We do your best to fulfill any legal requirements but please note that we
-cannot make sure that the app is working 100% correct. Also, due to the fact that InvoicePlane is a free and open
-source software without an income, there are no professional audits of the app yet.
-
----
 
 ### Quick Installation
 
