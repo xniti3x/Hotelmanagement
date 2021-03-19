@@ -13,12 +13,12 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Class Mdl_Reservations
  */
-class Mdl_Reservations extends Response_Model
+class Mdl_Rooms extends Response_Model
 {
-    public $table = 'ip_reservations';
-    public $primary_key = 'ip_reservations.id';
+    public $table = 'ip_rooms';
+    public $primary_key = 'ip_rooms.id';
 
-    public function getAll(){
-        return $this->db->query("select id,title as name,start,end,room_id as resource,description as text from ip_reservations")->result();
+    public function getAllRooms(){
+        return $this->db->get("ip_rooms")->result();
     }
 }

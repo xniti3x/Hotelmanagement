@@ -87,8 +87,14 @@
                       var start = args.start.addHours(14);
                       var end = args.end.addDays(0).addHours(12);
 
-                        //modal.showUrl("new.php?start=" + start + "&end=" + end + "&resource=" + args.resource);
-                        modal.showUrl("<?php echo site_url('reservations/new'); ?>");
+                      $.get("<?php echo site_url('reservations/ajax/new_view'); ?>",function(data){
+                          //console.log(data);
+                          modal.showUrl("<?php echo site_url('reservations/ajax/new_view'); ?>");
+                      });
+                        //modal.showUrl("<?php echo site_url('reservations/new'); ?>"+"?start=" + start + "&end=" + end + "&room_id=" + args.resource);
+                        console.log(start,end,args.resource);
+                        //modal.showUrl("<?php echo site_url('reservations/new'); ?>");
+
                     };
 
                     dp.onEventClick = function(args) {
@@ -165,7 +171,7 @@
                     }
 
                     function loadResources() {
-                        $.get("<?php echo site_url('reservations/ajax/backend_rooms'); ?>",
+                        $.get("<?php echo site_url('rooms/ajax/backend_rooms'); ?>",
                         { capacity: $("#filter").val() },
                         function(data) {
                           console.log(data);

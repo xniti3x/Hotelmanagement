@@ -12,6 +12,8 @@
     <title>New Reservation</title>
   </head>
   <body>
+
+
 <form class="mb-6" id="f" action="<?php echo site_url("reservations/ajax/new"); ?>">
 
   <div class="card">
@@ -39,7 +41,7 @@
      <div class="mb-3 row">
     <label for="end" class="col-sm-2 col-form-label">Room</label>
     <div class="col-sm-10">
-     <select class="form-select" aria-label="Default select example">
+     <select name="room" id="room" class="form-select" aria-label="Default select example">
     <option selected>Room 1</option>
     <option value="1">One</option>
     <option value="2">Two</option>
@@ -50,7 +52,7 @@
   </div>
     <div class="space" align="right">
 
-    <a class="btn btn-success" href="javascript:close()">Save</a>
+    <a class="btn btn-success" id="btnSave" href="javascript:close()">Save</a>
     <a class="btn btn-danger" href="javascript:close()">Cancel</a>
     </div>
     <div class="space">&nbsp;</div>
@@ -61,6 +63,21 @@
 </form>
 <script type="text/javascript">
 
+        $("#btnSave").click(function() {
+            $.post("<?php echo site_url("reservations/ajax/new"); ?>",{
+                name:$("name").val(),
+                start:$("start").val(),
+                end:$("end").val(),
+                room:$("room").val()
+
+
+
+            },function(data){
+
+            });
+
+
+        });
         function close(result) {
             if (parent && parent.DayPilot && parent.DayPilot.ModalStatic) {
                 parent.DayPilot.ModalStatic.close(result);
@@ -71,11 +88,5 @@
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
-    -->
   </body>
 </html>
