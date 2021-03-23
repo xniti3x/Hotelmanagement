@@ -48,6 +48,11 @@
             $('#modal-placeholder').load("<?php echo site_url('invoices/ajax/modal_create_invoice'); ?>");
         });
 
+        $(document).on('click', '.show-reservations', function () {
+            console.log("res");
+            $('#modal-placeholder').load("<?php echo site_url('reservations/ajax/modal_show_reservations'); ?>");
+        });
+
         $(document).on('click', '.create-quote', function () {
             $('#modal-placeholder').load("<?php echo site_url('quotes/ajax/modal_create_quote'); ?>");
         });
