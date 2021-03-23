@@ -26,9 +26,9 @@
     <label for="name" class="col-sm-2 col-form-label">Name</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" id="name" placeholder="name" required>
-        <div id="error" hidden style="color:red;">
-        Please choose a unique and valid username.
-    </div>
+        <p id="error" style="display:none;color:red;">
+        Bitte wählen sie einen namen aus.
+        </p>
     </div>
   </div>
   <div class="mb-3 row">
@@ -62,7 +62,7 @@
   </div>
     <div class="space" align="right">
 
-    <a class="btn btn-success" id="btnSave"  href="javascript:close()">Save</a>
+    <a class="btn btn-success" id="btnSave">Save</a>
     <a class="btn btn-danger" href="javascript:close()">Cancel</a>
     </div>
     <div class="space">&nbsp;</div>
@@ -77,23 +77,22 @@
 
 console.log("asd");
 
-            $("#btnSave").click(function() {
-                if($("#name").val().length===0){
-                    $("#error").removeAttr("hidden");
-                    console.log("empty");
-                }
-                $.post("<?php echo site_url("reservations/newPost"); ?>",{
-                    name:$("#name").val(),
-                    start:$("#start").val(),
-                    end:$("#end").val(),
-                    room_id:$("#room").val()
-                },function(data){
+$("#btnSave").click(function() {
+    if($("#name").val()==""){
+        $("#error").css("display","inline");
+    }else{
+        $.post("<?php echo site_url("reservations/newPost"); ?>",{
+            name:$("#name").val(),
+            start:$("#start").val(),
+            end:$("#end").val(),
+            room_id:$("#room").val()
+        },function(data){
+            close();
+        });
+    }
 
-                    close();
-                });
 
-
-            });
+});
 
             function close(result) {
             if (parent && parent.DayPilot && parent.DayPilot.ModalStatic) {
