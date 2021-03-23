@@ -77,23 +77,15 @@
 
                         modal.closed = function() {
                             dp.clearSelection();
+                            loadEvents();
 
-                            // reload all events
-                            var data = this.result;
-                            if (data && data.result === "OK") {
-                                loadEvents();
-                            }
+
                         };
                       var start = args.start.addHours(14);
-                      var end = args.end.addDays(0).addHours(12);
+                      var end = args.end.addDays(-1).addHours(12);
 
-                      $.get("<?php echo site_url('reservations/ajax/new_view'); ?>",function(data){
-                          //console.log(data);
-                          modal.showUrl("<?php echo site_url('reservations/ajax/new_view'); ?>");
-                      });
-                        //modal.showUrl("<?php echo site_url('reservations/new'); ?>"+"?start=" + start + "&end=" + end + "&room_id=" + args.resource);
-                        console.log(start,end,args.resource);
-                        //modal.showUrl("<?php echo site_url('reservations/new'); ?>");
+
+                        modal.showUrl("<?php echo site_url('reservations/new'); ?>"+"?start=" + start + "&end=" + end + "&room_id=" + args.resource);
 
                     };
 
@@ -101,18 +93,14 @@
                         var modal = new DayPilot.Modal();
                         modal.closed = function() {
                             // reload all events
-                            var data = this.result;
-                            if (data && data.result === "OK") {
-                                loadEvents();
-                            }
+                            loadEvents();
                         };
                         //modal.showUrl("edit.php?id=" + args.e.id());
-                        modal.showUrl("<?php echo site_url('reservations/edit'); ?>");
+                        modal.showUrl("<?php echo site_url('reservations/edit'); ?>"+"?id=" + args.e.id());
 
                     };
 
                     dp.onBeforeEventRender = function(args) {
-                        console.log(args.e);
                         var start = new DayPilot.Date(args.e.start);
                         var end = new DayPilot.Date(args.e.end);
 
@@ -144,14 +132,12 @@
                         var start = dp.visibleStart();
                         var end = dp.visibleEnd();
 
-                        $.get("<?php echo site_url('reservations/ajax/backend_reservations'); ?>",
+                        $.post("<?php echo site_url('reservations/backend_reservations'); ?>",
                             {
                                 start: start.toString(),
                                 end: end.toString()
                             },
                             function(data) {
-                          console.log(data);
-
                                 dp.events.list = data;
                                 dp.update();
                             }
@@ -174,7 +160,6 @@
                         $.get("<?php echo site_url('rooms/ajax/backend_rooms'); ?>",
                         { capacity: $("#filter").val() },
                         function(data) {
-                          console.log(data);
                             dp.resources = data;
                             dp.update();
                         });

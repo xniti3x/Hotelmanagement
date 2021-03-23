@@ -13,46 +13,56 @@
   </head>
   <body>
 
-
-<form class="mb-6" id="f" action="<?php echo site_url("reservations/ajax/new"); ?>">
+<form method="post" class="mb-6 needs-validation" novalidate action="<?php echo site_url("reservations/newPost"); ?>" id="f">
 
   <div class="card">
   <div class="card-header"><h5 class="card-title">Reservierung erstellen</h5></div>
   <div class="card-body">
 
+    <input type="hidden" id="csrf_token_name" name="<?php echo $this->config->item('csrf_token_name'); ?>"
+           value="<?php echo $this->security->get_csrf_hash() ?>">
+
 <div class="mb-3 row">
     <label for="name" class="col-sm-2 col-form-label">Name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="name" placeholder="name">
+      <input type="text" class="form-control" id="name" placeholder="name" required>
+        <div id="error" hidden style="color:red;">
+        Please choose a unique and valid username.
+    </div>
     </div>
   </div>
   <div class="mb-3 row">
     <label for="start" class="col-sm-2 col-form-label">Start</label>
     <div class="col-sm-10">
-      <input type="date" class="form-control" id="start" placeholder="start">
+      <input type="date" class="form-control" value="<?php echo  date_format($start, 'Y-m-d'); ?>" id="start" placeholder="start">
     </div>
   </div>
    <div class="mb-3 row">
     <label for="end" class="col-sm-2 col-form-label">End</label>
     <div class="col-sm-10">
-      <input type="date" class="form-control" id="end" placeholder="end">
+      <input type="date" class="form-control" id="end" value="<?php echo  date_format($end, 'Y-m-d'); ?>" placeholder="end">
     </div>
   </div>
      <div class="mb-3 row">
     <label for="end" class="col-sm-2 col-form-label">Room</label>
     <div class="col-sm-10">
      <select name="room" id="room" class="form-select" aria-label="Default select example">
-    <option selected>Room 1</option>
-    <option value="1">One</option>
-    <option value="2">Two</option>
-    <option value="3">Three</option>
+    <?php foreach($rooms as $room){
+        $selected="";
+        if($room->id==$room_id){
+            $selected="selected";
+        }
+        echo "<option ".$selected." value=".$room->id.">".$room->name."</option>";
+
+
+    } ?>
     </select>
 
     </div>
   </div>
     <div class="space" align="right">
 
-    <a class="btn btn-success" id="btnSave" href="javascript:close()">Save</a>
+    <a class="btn btn-success" id="btnSave"  href="javascript:close()">Save</a>
     <a class="btn btn-danger" href="javascript:close()">Cancel</a>
     </div>
     <div class="space">&nbsp;</div>
@@ -63,22 +73,29 @@
 </form>
 <script type="text/javascript">
 
-        $("#btnSave").click(function() {
-            $.post("<?php echo site_url("reservations/ajax/new"); ?>",{
-                name:$("name").val(),
-                start:$("start").val(),
-                end:$("end").val(),
-                room:$("room").val()
 
 
+console.log("asd");
 
-            },function(data){
+            $("#btnSave").click(function() {
+                if($("#name").val().length===0){
+                    $("#error").removeAttr("hidden");
+                    console.log("empty");
+                }
+                $.post("<?php echo site_url("reservations/newPost"); ?>",{
+                    name:$("#name").val(),
+                    start:$("#start").val(),
+                    end:$("#end").val(),
+                    room_id:$("#room").val()
+                },function(data){
+
+                    close();
+                });
+
 
             });
 
-
-        });
-        function close(result) {
+            function close(result) {
             if (parent && parent.DayPilot && parent.DayPilot.ModalStatic) {
                 parent.DayPilot.ModalStatic.close(result);
             }

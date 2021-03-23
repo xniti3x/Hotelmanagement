@@ -21,4 +21,19 @@ class Mdl_Reservations extends Response_Model
     public function getAll(){
         return $this->db->query("select id,title as name,start,end,room_id as resource,description as text from ip_reservations")->result();
     }
+    public function add($data,$id){
+        if($id==null){
+          return  $this->db->insert($this->table,$data);
+        }else{
+            $this->db->where('id', $id);
+        return    $this->db->update($this->table,$data);
+        }
+    }
+    public function getById($id){
+         return $this->db->query("select * from ip_reservations where id=".$id)->result();
+    }
+    public function delete($id){
+        $this->db->where('id', $id);
+        $this->db->delete($this->table);
+    }
 }

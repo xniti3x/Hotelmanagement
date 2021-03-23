@@ -23,30 +23,5 @@ class Ajax extends Admin_Controller
 
     }
 
-    public function backend_reservations(){
-        $this->load->model("mdl_reservations");
-    foreach($this->mdl_reservations->getAll() as $res){
-        $res->bgcolor="green";
-        $result[]=$res;
-    }
-        header('Content-Type: application/json');
-        echo json_encode($result);
 
-    }
-
-    public function new_view(){
-    $this->load->view("reservations/new");
-    }
-    public function new(){
-        $this->load->model("mdl_reservations");
-        $data=array(
-            "name"=>$this->input->post("name"),
-            "start"=>$this->input->post("start"),
-            "end" => $this->input->post("end"),
-            "room_id" => $this->input->post("room_id")
-        );
-        //$res=$this->mdl_reservations->save($data);
-         header('Content-Type: application/json');
-        echo json_encode($data);
-    }
 }
