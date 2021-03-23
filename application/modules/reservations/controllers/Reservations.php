@@ -77,17 +77,24 @@ class Reservations extends Admin_Controller
     public function newPost($id=null){
 
         $this->load->model("mdl_reservations");
-
+        $name=$this->input->post("name");
         $start = date("Y-m-d", strtotime($this->input->post("start")));
         $end = date("Y-m-d", strtotime($this->input->post("end")));
 
         $reservation=array(
-            "title"=>$this->input->post("name"),
+            "title"=>$name,
             "start"=>$start."T14:00:00",
             "end"=>$end."T12:00:00",
             "room_id"=>$this->input->post("room_id"),
         );
-        $this->mdl_reservations->add($reservation,$id);
+
+        if(empty($name)){
+            echo "name is empty";
+        }else{
+
+            $this->mdl_reservations->add($reservation,$id);
+            echo "add successfully.";
+        }
     }
 
     public function delete($id){
