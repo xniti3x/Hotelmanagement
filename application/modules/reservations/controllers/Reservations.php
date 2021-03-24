@@ -35,6 +35,9 @@ class Reservations extends Admin_Controller
     public function backend_reservations(){
         $this->load->model("mdl_reservations");
         foreach($this->mdl_reservations->getAll() as $res){
+            $res->start=$res->start."T14:00:00";
+            $res->end=$res->end."T12:00:00";
+
             $res->bgcolor="green";
             $result[]=$res;
         }

@@ -44,7 +44,7 @@
                         <i class="visible-md-inline fa fa-file"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="show-reservations"><?php _trans('show Gant'); ?></a></li>
+                        <li><a href="#" class="show-reservations"><?php _trans('Gantt'); ?></a></li>
                     </ul>
                 </li>
 
