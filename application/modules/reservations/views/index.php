@@ -2,6 +2,7 @@
     <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/assets/reservations/css/demo.css?v=2019.3.3903" />
     <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/assets/reservations/css/layout.css?v=2019.3.3903" />
     <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/assets/reservations/css/elements.css?v=2019.3.3903" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/assets/reservations/themes/scheduler_8.css" />
 	<!-- helper libraries -->
 	<script src="https://code.jquery.com/jquery-1.12.2.js" type="text/javascript"></script>
 	<!-- daypilot libraries -->
@@ -15,7 +16,6 @@
                     </div>
 
                 <script type="text/javascript">
-
                     $("#add-room").click(function(ev) {
                         ev.preventDefault();
                         var modal = new DayPilot.Modal();
@@ -28,6 +28,7 @@
 
                 <script>
                     var dp = new DayPilot.Scheduler("dp");
+                    dp.theme = "scheduler_8";
                     dp.cellWidth = 70;
                     dp.allowEventOverlap = true;
                     dp.locale= "de-de";
@@ -81,9 +82,15 @@
 
 
                         };
-                      var start = args.start.addHours(14);
-                      var end = args.end.addDays(-1).addHours(12);
-
+                        var start = args.start;
+                        var end = args.end;
+                        var temp=args.end.addDays(-1);
+                        if(start.equals(temp)){
+                            end=end.addHours(12);
+                        }else{
+                            start=start.addHours(14);
+                            end=temp.addHours(12);
+                        }
 
                         modal.showUrl("<?php echo site_url('reservations/new'); ?>"+"?start=" + start + "&end=" + end + "&room_id=" + args.resource);
 
@@ -99,14 +106,16 @@
                         modal.showUrl("<?php echo site_url('reservations/edit'); ?>"+"?id=" + args.e.id());
 
                     };
-
+                    dp.onBeforeCellRender = function(args) {
+                        if (args.cell.start.getDayOfWeek() === 0 || args.cell.start.getDayOfWeek() === 6) {
+                            args.cell.bgColor = "#eee";
+                        }
+                    };
                     dp.onBeforeEventRender = function(args) {
                         var start = new DayPilot.Date(args.e.start);
                         var end = new DayPilot.Date(args.e.end);
-
                         var today = DayPilot.Date.today();
                         var now = new DayPilot.Date();
-
                         args.e.html = args.e.name;
                         args.e.barColor = args.e.bgcolor;
                     };

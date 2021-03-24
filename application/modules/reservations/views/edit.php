@@ -62,7 +62,7 @@
   </div>
     <div style="display: inline;">
         <div style="display: inline;">
-          <a class="btn btn-light" id="btnDelete"  href="#">Delete</a>
+          <a class="btn btn-outline-danger" id="btnDelete">Delete</a>
         </div>
         <div style="display: inline; float:right;">
             <a class="btn btn-success" id="btnSave">Save</a>
