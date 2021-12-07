@@ -26,3 +26,4 @@ RUN sudo apt-get remove -yq php7.2 && \
     sudo rm -rf /var/lib/apt/lists/*
     
 RUN sudo npm install -g grunt 
+RUN nvm install v14.16.0
