@@ -18,3 +18,11 @@ COPY mysql-bashrc-launch.sh /etc/mysql/mysql-bashrc-launch.sh
 USER gitpod
 
 RUN echo "/etc/mysql/mysql-bashrc-launch.sh" >> ~/.bashrc
+
+RUN sudo apt-get remove -yq php7.2 && \
+    sudo add-apt-repository ppa:ondrej/php && \
+    sudo apt-get update -q && \
+    sudo apt-get install -yq php7.3 && \
+    sudo rm -rf /var/lib/apt/lists/*
+    
+RUN sudo npm install -g grunt 
