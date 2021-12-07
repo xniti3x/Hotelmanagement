@@ -29,7 +29,9 @@ class Reservations extends Admin_Controller
      * @param int $page
      */
     public function index(){
-        $this->load->view("reservations/index");
+       
+        $this->layout->buffer('content', 'reservations/index');
+        $this->layout->render();
     }
 
     public function backend_reservations(){

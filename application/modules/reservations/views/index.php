@@ -15,16 +15,6 @@
                         <a href="javascript:window.location.href=window.location.href" id="reload">RELOAD</a>
                     </div>
 
-                <script type="text/javascript">
-                    $("#add-room").click(function(ev) {
-                        ev.preventDefault();
-                        var modal = new DayPilot.Modal();
-                        modal.onClosed = function(args) {
-                            loadResources();
-                        };
-                        modal.showUrl("room_new.php");
-                    });
-                </script>
 
                 <script>
                     var dp = new DayPilot.Scheduler("dp");

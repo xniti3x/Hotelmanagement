@@ -37,16 +37,8 @@
                     </ul>
                 </li>
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-caret-down"></i> &nbsp;
-                        <span class="hidden-md"><?php _trans('Reservations'); ?></span>
-                        <i class="visible-md-inline fa fa-file"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class="show-reservations"><?php _trans('Gantt'); ?></a></li>
-                    </ul>
-                </li>
+                <li><?php echo anchor('reservations/index', trans('Reservation')); ?></li>
+                   
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
