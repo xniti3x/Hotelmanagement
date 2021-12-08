@@ -1,12 +1,12 @@
 <div>
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/assets/reservations/css/demo.css?v=2019.3.3903" />
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/assets/reservations/css/layout.css?v=2019.3.3903" />
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/assets/reservations/css/elements.css?v=2019.3.3903" />
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/assets/reservations/themes/scheduler_8.css" />
+    <link type="text/css" rel="stylesheet" href="../styles/css/demo.css?v=2019.3.3903" />
+    <link type="text/css" rel="stylesheet" href="../styles/css/layout.css?v=2019.3.3903" />
+    <link type="text/css" rel="stylesheet" href="../styles/css/elements.css?v=2019.3.3903" />
+    <link type="text/css" rel="stylesheet" href="../styles/reservations/themes/scheduler_8.css" />
 	<!-- helper libraries -->
 	<script src="https://code.jquery.com/jquery-1.12.2.js" type="text/javascript"></script>
 	<!-- daypilot libraries -->
-    <script src="<?php echo base_url(); ?>/assets/reservations/js/daypilot-all.min.js" type="text/javascript"></script>
+    <script src="../styles/js/daypilot-all.min.js" type="text/javascript"></script>
 
 
                     <div id="dp" style="z-index:1;"></div>
