@@ -5,6 +5,7 @@ how to build it:
 <br>npm install
 <br>npm install -g grunt
 <br> grunt
+<br> yarn build
 
 <p align="center">
   <img src="readme/001.png">
