@@ -1,5 +1,5 @@
 image: gitpod/workspace-mysql
 tasks:
-- init: nvm install v14.16.0 && npm install -g grunt 
+- init: nvm install v14.18.1 && npm install -g grunt 
   command: npm install && grunt
   
