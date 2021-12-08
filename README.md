@@ -4,6 +4,7 @@ how to build it:
 <br>nvm install node v14.18.1
 <br>npm install
 <br>npm install -g grunt
+<br> grunt
 
 <p align="center">
   <img src="readme/001.png">
