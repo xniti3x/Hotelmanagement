@@ -4,4 +4,3 @@ tasks:
   - name: Dependencies 
     init: |
      nvm install node v14.18.1
-      npm install
