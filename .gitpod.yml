@@ -1,5 +1,6 @@
 image: gitpod/workspace-mysql
 
+
  tasks:
  - name: install proejct
    init: nvm install node v14.18.1
