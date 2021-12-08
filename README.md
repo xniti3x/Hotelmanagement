@@ -1,7 +1,9 @@
-this project dose not run with node version > 14.
-nvm install node v14.18.1
-npm install
-npm install -g grunt
+how to build it:
+<br>composer install --ignore-platform-reqs
+<br>this project dose not run with node version > 14.
+<br>nvm install node v14.18.1
+<br>npm install
+<br>npm install -g grunt
 
 <p align="center">
   <img src="readme/001.png">
