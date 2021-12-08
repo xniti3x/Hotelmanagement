@@ -5,7 +5,9 @@ how to build it:
 <br>npm install
 <br>npm install -g grunt
 <br> yarn build
-
+<br> php -S localhost:8080 to start the server and view on browser.
+<br> rename ip_config_org.php file to ipconfig.php
+<br> open the ipconfig.php and set IP_URL parameter to your domainname for example https://localhost:8080 
 <p align="center">
   <img src="readme/001.png">
   <img src="readme/002.png">
