@@ -1,7 +1,7 @@
 image: gitpod/workspace-mysql
 
-
- tasks:
- - name: install proejct
-   init: nvm install node v14.18.1
-   command: npm install
+tasks:
+  - name: Dependencies 
+    init: |
+     nvm install node v14.18.1
+      npm install
