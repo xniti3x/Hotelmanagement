@@ -1,7 +1,7 @@
 how to build it:
-<br>composer install --ignore-platform-reqs
+<br>composer install or composer install --ignore-platform-reqs
 <br>this project dose not run with node version > 14.
-<br>nvm install node v14.18.1
+<br>nvm install node v14
 <br>npm install
 <br>npm install -g grunt
 <br> grunt
