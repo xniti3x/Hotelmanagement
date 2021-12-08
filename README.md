@@ -4,7 +4,6 @@ how to build it:
 <br>nvm install node v14
 <br>npm install
 <br>npm install -g grunt
-<br> grunt
 <br> yarn build
 
 <p align="center">
