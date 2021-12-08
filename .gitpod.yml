@@ -1,7 +1,1 @@
 image: gitpod/workspace-mysql
-
-tasks:
-  - name: Dependencies 
-    init: |
-     nvm install node v14
-     npm install
