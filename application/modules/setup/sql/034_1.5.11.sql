@@ -28,3 +28,10 @@ INSERT INTO ip_rooms (name) VALUES ("Room 2");
 INSERT INTO ip_rooms (name) VALUES ("Room 3");
 INSERT INTO ip_rooms (name) VALUES ("Room 4");
 INSERT INTO ip_rooms (name) VALUES ("Room 5");
+INSERT INTO ip_rooms (name) VALUES ("Room 6");
+INSERT INTO ip_rooms (name) VALUES ("Room 7");
+
+# Table ip_invoice_items
+ALTER TABLE `ip_invoice_items` ADD `item_date_start` DATE NULL;
+ALTER TABLE `ip_invoice_items` ADD `item_date_end` DATE NULL;
+ALTER TABLE `ip_invoice_items` ADD `item_room` TINYINT NULL DEFAULT NULL

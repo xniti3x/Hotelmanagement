@@ -26,6 +26,7 @@ class Ajax extends Admin_Controller
         $this->load->model('invoices/mdl_invoices');
         $this->load->model('units/mdl_units');
         $this->load->model('invoices/mdl_invoice_sumex');
+        $this->load->model('reservations/mdl_reservations');
 
         $invoice_id = $this->input->post('invoice_id');
 
@@ -35,6 +36,7 @@ class Ajax extends Admin_Controller
             $items = json_decode($this->input->post('items'));
 
             foreach ($items as $item) {
+
                 // Check if an item has either a quantity + price or name or description
                 if (!empty($item->item_name)) {
                     $item->item_quantity = ($item->item_quantity ? standardize_amount($item->item_quantity) : floatval(0));
@@ -50,8 +52,8 @@ class Ajax extends Admin_Controller
                     if (property_exists($item, 'item_date_end')) {
                         $item->item_date_end = ($item->item_date_end ? date_to_mysql($item->item_date_end) : null);
                     }
-                    $item->item_product_unit_id = ($item->item_product_unit_id ? $item->item_product_unit_id : null);
-                    $item->item_product_unit = $this->mdl_units->get_name($item->item_product_unit_id, $item->item_quantity);
+                    //$item->item_product_unit_id = ($item->item_product_unit_id ? $item->item_product_unit_id : null);
+                    //$item->item_product_unit = $this->mdl_units->get_name($item->item_product_unit_id, $item->item_quantity);
                     $item_id = ($item->item_id) ?: null;
                     
                     unset($item->item_id);

@@ -47,6 +47,25 @@ class Reservations extends Admin_Controller
         echo json_encode($result);
     }
 
+    public function getBackendReservationsAsItem(){
+        
+        $this->load->model("mdl_reservations");
+        foreach($this->mdl_reservations->getAllItemAsReservation() as $res){
+          
+            $event=array(
+                "text"=>$res->item_id."hallo",
+                "id"=>$res->item_id,
+                "start"=>$res->item_date_start."T14:00:00",
+                "end"=>$res->item_date_end."T12:00:00",
+                "resource"=>$res->item_room
+                
+            );
+            $result[]=$event;
+        }
+        header('Content-Type: application/json');
+        echo json_encode($result);
+    }
+
     public function new(){
 
         $start = date_create($this->input->get("start"));
