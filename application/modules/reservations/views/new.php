@@ -16,7 +16,7 @@
 <form method="post" class="mb-6 needs-validation" novalidate action="<?php echo site_url("reservations/newPost"); ?>" id="f">
 
   <div class="card">
-  <div class="card-header"><h5 class="card-title">Reservierung erstellen</h5></div>
+  <div class="card-header"><h5 class="card-title">New Reservation</h5></div>
   <div class="card-body">
 
     <input type="hidden" id="csrf_token_name" name="<?php echo $this->config->item('csrf_token_name'); ?>"

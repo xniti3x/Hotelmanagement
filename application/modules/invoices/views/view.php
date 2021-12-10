@@ -26,9 +26,18 @@ $cv = $this->controller->view_data["custom_values"];
             );
         });
 
+        $('.btn_calc').click(function () {
+            console.log("asd");
+        });
+
         $('.btn_add_row').click(function () {
             $('#new_row').clone().appendTo('#item_table').removeAttr('id').addClass('item').show();
         });
+
+        $('.btn_copy_row').click(function () {
+            $('#item_table tbody:last').clone().appendTo('#item_table');
+        });
+
 
         <?php if (!$items) { ?>
         $('#new_row').clone().appendTo('#item_table').removeAttr('id').addClass('item').show();

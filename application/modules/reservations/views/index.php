@@ -1,13 +1,13 @@
 <div>
-    <link type="text/css" rel="stylesheet" href="../styles/css/demo.css?v=2019.3.3903" />
-    <link type="text/css" rel="stylesheet" href="../styles/css/layout.css?v=2019.3.3903" />
-    <link type="text/css" rel="stylesheet" href="../styles/css/elements.css?v=2019.3.3903" />
-    <link type="text/css" rel="stylesheet" href="../styles/reservations/themes/scheduler_8.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/assets/styles/css/demo.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/assets/styles/css/layout.css?v=2019.3.3903" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/assets/styles/css/elements.css?v=2019.3.3903" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/assets/styles/themes/scheduler_8.css" />
 	<!-- helper libraries -->
-	<script src="https://code.jquery.com/jquery-1.12.2.js" type="text/javascript"></script>
 	<!-- daypilot libraries -->
-    <script src="../styles/js/daypilot-all.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url(); ?>/assets/styles/js/daypilot-all.min.js" type="text/javascript"></script>
 
+</script>
 
                     <div id="dp" style="z-index:1;"></div>
                     <div class="space">
@@ -131,12 +131,13 @@
                         var start = dp.visibleStart();
                         var end = dp.visibleEnd();
 
-                        $.post("<?php echo site_url('reservations/backend_reservations'); ?>",
+                        $.post("<?php echo site_url('reservations/getBackendReservationsAsItem'); ?>",
                             {
                                 start: start.toString(),
                                 end: end.toString()
                             },
                             function(data) {
+                                console.log(data);
                                 dp.events.list = data;
                                 dp.update();
                             }
@@ -184,3 +185,4 @@
             <div class="clear">
             </div>
 </div>
+
