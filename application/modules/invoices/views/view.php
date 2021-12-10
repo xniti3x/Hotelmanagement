@@ -15,7 +15,8 @@ $cv = $this->controller->view_data["custom_values"];
         $('.btn_add_product').click(function () {
             $('#modal-placeholder').load(
                 "<?php echo site_url('products/ajax/modal_product_lookups'); ?>/" + Math.floor(Math.random() * 1000)
-            );
+            ); 
+            
         });
 
         $('.btn_add_task').click(function () {
