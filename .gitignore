@@ -12,6 +12,10 @@
 .idea
 .sass-cache
 adminer.php
+ipconfig.php
+yarn.lock
+package-lock.json
+package.json
 /nbproject
 /.php_cs.cache
 /doc
