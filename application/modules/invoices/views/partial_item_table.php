@@ -53,9 +53,6 @@
             </td>
             <td class="td-amount">
                 <div class="input-group">
-                    <a href="#" class="btn_calc input-group-addon">
-                        <i class="fa fa-calculator"></i>
-                    </a>
                     <span class="input-group-addon"><?php _trans('quantity'); ?></span>
                     <input type="number" name="item_quantity" class="input-sm form-control amount" value="">
                 </div>
@@ -164,9 +161,6 @@
                 </td>
                 <td class="td-amount td-quantity">
                     <div class="input-group">
-                                            <a href="#" class="btn_calc input-group-addon">
-                        <i class="fa fa-calculator"></i>
-                    </a>
                         <span class="input-group-addon"><?php _trans('quantity'); ?></span>
                         <input type="number" min="1" name="item_quantity" class="input-sm form-control amount"
                         value="<?php echo format_amount($item->item_quantity); ?>"
