@@ -466,7 +466,7 @@ if ($this->config->item('disable_read_only') == true) {
                                     </select>
                                 </div>
 
-                                <div class="invoice-properties">
+                                <div class="hidden invoice-properties">
                                     <label><?php _trans('invoice_password'); ?></label>
                                     <input type="text" id="invoice_password" class="form-control input-sm"
                                            value="<?php _htmlsc($invoice->invoice_password); ?>"
