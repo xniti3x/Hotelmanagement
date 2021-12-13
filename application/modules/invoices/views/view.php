@@ -26,9 +26,6 @@ $cv = $this->controller->view_data["custom_values"];
             );
         });
 
-        $('.btn_calc').click(function () {
-            console.log("asd");
-        });
 
         $('.btn_add_row').click(function () {
             $('#new_row').clone().appendTo('#item_table').removeAttr('id').addClass('item').show();
@@ -62,6 +59,8 @@ $cv = $this->controller->view_data["custom_values"];
         $('#btn_save_invoice').click(function () {
             var items = [];
             var item_order = 1;
+            var same=null; //variable for same item_id
+            var temp=null; // temp variable for storing item_id
             $('table tbody.item').each(function () {
                 var row = {};
                 $(this).find('input,select,textarea').each(function () {
@@ -73,7 +72,12 @@ $cv = $this->controller->view_data["custom_values"];
                 });
                 row['item_order'] = item_order;
                 item_order++;
-                items.push(row);
+                temp=row['item_id'];
+                if(row['item_id']==same){
+                    row['item_id']=null;
+                }
+                same=temp;
+                items.push(row);                
             });
             $.post("<?php echo site_url('invoices/ajax/save'); ?>", {
                     invoice_id: <?php echo $invoice_id; ?>,
@@ -462,7 +466,7 @@ if ($this->config->item('disable_read_only') == true) {
                                     </select>
                                 </div>
 
-                                <div class="invoice-properties">
+                                <div class="hidden invoice-properties">
                                     <label><?php _trans('invoice_password'); ?></label>
                                     <input type="text" id="invoice_password" class="form-control input-sm"
                                            value="<?php _htmlsc($invoice->invoice_password); ?>"
