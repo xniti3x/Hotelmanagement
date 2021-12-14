@@ -119,7 +119,7 @@ class Invoices extends Admin_Controller
     /**
      * @param $invoice_id
      */
-    public function view($invoice_id)
+    public function view($invoice_id,$layout="layout")
     {
         $this->load->model(
             [
@@ -227,9 +227,27 @@ class Invoices extends Admin_Controller
             );
         }
 
-        $this->layout->render();
+        $this->layout->render($layout);
     }
 
+
+    public function create_invoice_view()
+    {
+        $this->load->module('layout');
+        $this->load->model('invoice_groups/mdl_invoice_groups');
+        $this->load->model('tax_rates/mdl_tax_rates');
+        $this->load->model('clients/mdl_clients');
+
+        $this->layout->set([
+            'invoice_groups' => $this->mdl_invoice_groups->get()->result(),
+            'tax_rates' => $this->mdl_tax_rates->get()->result(),
+            'client' => $this->mdl_clients->get_by_id($this->input->post('client_id')),
+            'clients' => $this->mdl_clients->get_latest(),
+        ]);
+        $this->layout->buffer('content', 'invoices/modal_create_invoice_item');
+        $this->layout->render('layout_no_navbar');
+
+    }
     /**
      * @param $invoice_id
      */
