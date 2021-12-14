@@ -357,4 +357,23 @@ class Invoices extends Admin_Controller
         }
     }
 
+    public function getBackendReservationsAsItem(){
+        
+        $this->load->model("mdl_items");
+        foreach($this->mdl_items->getAllInvoiceItems() as $res){
+          
+            $event=array(
+                "text"=>$res->client_name,
+                "id"=>$res->item_id, //ip_invoices.invoice_id
+                "start"=>$res->item_date_start."T14:00:00",
+                "end"=>$res->item_date_end."T12:00:00",
+                "resource"=>$res->item_room,
+                "invoice_id"=>$res->invoice_id
+            );
+            
+            $result[]=$event;
+        }
+        header('Content-Type: application/json');
+        echo json_encode($result);
+    }
 }

@@ -31,8 +31,12 @@
                     dp.eventResizeHandling = "Disabled";
                     dp.eventResizeHandling= "Disabled",
                     dp.eventDeleteHandling= "Disabled",
-                    dp.eventHoverHandling= "Disabled",
+                    //dp.eventHoverHandling= "Disabled",
                     dp.eventHeight = 50;
+                    var modal = new DayPilot.Modal();
+                        modal.autoStretch = true;
+                        modal.width="1920";
+                        modal.theme="modal_min";
                     //dp.bubble = new DayPilot.Bubble({});
                     //dp.startDate = new DayPilot.Date().firstDayOfMonth();
                     //dp.eventClickHandling="Disabled",
@@ -53,7 +57,7 @@
                                     width:14,
                                     action:"JavaScript",
                                     js: function(r) {
-                                        var modal = new DayPilot.Modal();
+                                        
                                         modal.onClosed = function(args) {
                                             loadResources();
                                         };
@@ -64,8 +68,6 @@
                                 }];
                     };
                     dp.onTimeRangeSelected = function (args) {
-                        var modal = new DayPilot.Modal();
-
                         modal.closed = function() {
                             dp.clearSelection();
                             loadEvents();
@@ -82,18 +84,18 @@
                             end=temp.addHours(12);
                         }
 
-                        modal.showUrl("<?php echo site_url('reservations/new'); ?>"+"?start=" + start + "&end=" + end + "&room_id=" + args.resource);
+                        //modal.showUrl("<?php echo site_url('reservations/new'); ?>"+"?start=" + start + "&end=" + end + "&room_id=" + args.resource);
+                        modal.showUrl("<?php echo site_url('invoices/create_invoice_view'); ?>");
+                        
 
                     };
 
                     dp.onEventClick = function(args) {
-                        var modal = new DayPilot.Modal();
                         modal.closed = function() {
                             // reload all events
                             loadEvents();
                         };
-                        //modal.showUrl("edit.php?id=" + args.e.id());
-                        modal.showUrl("<?php echo site_url('reservations/edit'); ?>"+"?id=" + args.e.id());
+                        modal.showUrl("<?php echo site_url('invoices/view'); ?>"+"/" + args.e.data.invoice_id+"/layout_no_navbar");
 
                     };
                     dp.onBeforeCellRender = function(args) {
@@ -131,29 +133,17 @@
                         var start = dp.visibleStart();
                         var end = dp.visibleEnd();
 
-                        $.post("<?php echo site_url('reservations/getBackendReservationsAsItem'); ?>",
+                        $.post("<?php echo site_url('invoices/getBackendReservationsAsItem'); ?>",
                             {
                                 start: start.toString(),
                                 end: end.toString()
                             },
                             function(data) {
-                                console.log(data);
+                                
                                 dp.events.list = data;
                                 dp.update();
                             }
                             );
-
-                         /* dp.events.list = [
-                                {
-                                    start:"2021-03-18T14:00:00",
-                                    end:"2021-03-20T16:00:00",
-                                    id: 1,
-                                    text: "Meeting",
-                                    resource: "1"
-                                }
-                            ];
-                            dp.update();
-                           */
                     }
 
                     function loadResources() {
@@ -163,25 +153,13 @@
                             dp.resources = data;
                             dp.update();
                         });
-
-                     /*   dp.resources = [
-                        { name: "Room A", id: "1"},
-                        { name: "Room B", id: "2" },
-                        { name: "Room C", id: "3" }
-                    ];
-                    dp.update();
-                   */
                     }
-
                     $(document).ready(function() {
                         $("#filter").change(function() {
                             loadResources();
                         });
                     });
-
                 </script>
-
-
             <div class="clear">
             </div>
 </div>

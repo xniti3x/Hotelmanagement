@@ -26,7 +26,6 @@ class Ajax extends Admin_Controller
         $this->load->model('invoices/mdl_invoices');
         $this->load->model('units/mdl_units');
         $this->load->model('invoices/mdl_invoice_sumex');
-        $this->load->model('reservations/mdl_reservations');
 
         $invoice_id = $this->input->post('invoice_id');
 
