@@ -1,13 +1,8 @@
 <script>
     $(function () {
-        // Display the create invoice modal
-        $('#create-invoice').modal('show');
-
         // Enable select2 for all selects
         $('.simple-select').select2();
-
         <?php $this->layout->load_view('clients/script_select2_client_id.js'); ?>
-
         // Toggle on/off permissive search on clients names
         $('#toggle_permissive_search_clients').click(function () {
             if ($('input#input_permissive_search_clients').val() == ('1')) {
@@ -26,7 +21,6 @@
                 $('span#toggle_permissive_search_clients i').addClass('fa-toggle-on');
             }
         });
-
         // Creates the invoice
         $('#invoice_create_confirm').click(function () {
             // Posts the data to validate and create the invoice;
@@ -57,24 +51,18 @@
                 });
         });
     });
-
 </script>
-
-<div id="create-invoice" class="modal modal-lg"
+<div id="create-invoice" class="panel panel-default"
      role="dialog" aria-labelledby="modal_create_invoice" aria-hidden="true">
-    <form class="modal-content">
+    <form class="col-sm-6 col-sm-offset-3">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><i class="fa fa-close"></i></button>
             <h4 class="panel-title"><?php _trans('create_invoice'); ?></h4>
         </div>
         <div class="modal-body">
-
             <input class="hidden" id="payment_method_id"
                    value="<?php echo get_setting('invoice_default_payment_method'); ?>">
-
             <input class="hidden" id="input_permissive_search_clients"
                    value="<?php echo get_setting('enable_permissive_search_clients'); ?>">
-
             <div class="form-group has-feedback">
                 <label for="create_invoice_client_id"><?php _trans('client'); ?></label>
                 <div class="input-group">
@@ -130,9 +118,6 @@
             <div class="btn-group">
                 <button class="btn btn-success ajax-loader" id="invoice_create_confirm" type="button">
                     <i class="fa fa-check"></i> <?php _trans('submit'); ?>
-                </button>
-                <button class="btn btn-danger" type="button" data-dismiss="modal">
-                    <i class="fa fa-times"></i> <?php _trans('cancel'); ?>
                 </button>
             </div>
         </div>

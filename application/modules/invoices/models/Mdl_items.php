@@ -151,4 +151,12 @@ class Mdl_Items extends Response_Model
 
         return true;
     }
+
+    public function getAllInvoiceItems(){
+        return $this->db->query("SELECT * FROM ip_invoice_items,ip_invoices,ip_clients WHERE ip_invoice_items.invoice_id=ip_invoices.invoice_id AND ip_invoices.client_id = ip_clients.client_id")->result();
+    }
+
+    public function getInvoiceItemById($id){
+        return $this->db->query("SELECT * FROM ip_invoice_items,ip_invoices,ip_clients WHERE ip_invoice_items.item_id=".$id." AND ip_invoice_items.invoice_id=ip_invoices.invoice_id AND ip_invoices.client_id = ip_clients.client_id")->result();
+    }
 }

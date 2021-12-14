@@ -119,7 +119,7 @@ class Invoices extends Admin_Controller
     /**
      * @param $invoice_id
      */
-    public function view($invoice_id)
+    public function view($invoice_id,$layout="layout")
     {
         $this->load->model(
             [
@@ -227,9 +227,27 @@ class Invoices extends Admin_Controller
             );
         }
 
-        $this->layout->render();
+        $this->layout->render($layout);
     }
 
+
+    public function create_invoice_view()
+    {
+        $this->load->module('layout');
+        $this->load->model('invoice_groups/mdl_invoice_groups');
+        $this->load->model('tax_rates/mdl_tax_rates');
+        $this->load->model('clients/mdl_clients');
+
+        $this->layout->set([
+            'invoice_groups' => $this->mdl_invoice_groups->get()->result(),
+            'tax_rates' => $this->mdl_tax_rates->get()->result(),
+            'client' => $this->mdl_clients->get_by_id($this->input->post('client_id')),
+            'clients' => $this->mdl_clients->get_latest(),
+        ]);
+        $this->layout->buffer('content', 'invoices/modal_create_invoice_item');
+        $this->layout->render('layout_no_navbar');
+
+    }
     /**
      * @param $invoice_id
      */
@@ -339,4 +357,23 @@ class Invoices extends Admin_Controller
         }
     }
 
+    public function getBackendReservationsAsItem(){
+        
+        $this->load->model("mdl_items");
+        foreach($this->mdl_items->getAllInvoiceItems() as $res){
+          
+            $event=array(
+                "text"=>$res->client_name,
+                "id"=>$res->item_id, //ip_invoices.invoice_id
+                "start"=>$res->item_date_start."T14:00:00",
+                "end"=>$res->item_date_end."T12:00:00",
+                "resource"=>$res->item_room,
+                "invoice_id"=>$res->invoice_id
+            );
+            
+            $result[]=$event;
+        }
+        header('Content-Type: application/json');
+        echo json_encode($result);
+    }
 }
