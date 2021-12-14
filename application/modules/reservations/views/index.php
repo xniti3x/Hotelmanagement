@@ -8,13 +8,11 @@
     <script src="<?php echo base_url(); ?>/assets/styles/js/daypilot-all.min.js" type="text/javascript"></script>
 
 </script>
-
                     <div id="dp" style="z-index:1;"></div>
                     <div class="space">
                         <!-- <a href="#" id="add-room">Add Room</a> -->
                         <a href="javascript:window.location.href=window.location.href" id="reload">RELOAD</a>
                     </div>
-
 
                 <script>
                     var dp = new DayPilot.Scheduler("dp");
@@ -29,9 +27,8 @@
                     dp.useEventBoxes = "Never";
                     dp.eventMoveHandling = "Disabled";
                     dp.eventResizeHandling = "Disabled";
-                    dp.eventResizeHandling= "Disabled",
                     dp.eventDeleteHandling= "Disabled",
-                    //dp.eventHoverHandling= "Disabled",
+                    dp.eventHoverHandling= "Disabled",
                     dp.eventHeight = 50;
                     var modal = new DayPilot.Modal();
                         modal.autoStretch = true;
@@ -71,8 +68,6 @@
                         modal.closed = function() {
                             dp.clearSelection();
                             loadEvents();
-
-
                         };
                         var start = args.start;
                         var end = args.end;
@@ -84,10 +79,7 @@
                             end=temp.addHours(12);
                         }
 
-                        //modal.showUrl("<?php echo site_url('reservations/new'); ?>"+"?start=" + start + "&end=" + end + "&room_id=" + args.resource);
                         modal.showUrl("<?php echo site_url('invoices/create_invoice_view'); ?>");
-                        
-
                     };
 
                     dp.onEventClick = function(args) {
