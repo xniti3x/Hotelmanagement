@@ -368,6 +368,9 @@
                                 <option value="4" <?php check_select(get_setting('read_only_toggle'), '4'); ?>>
                                     <?php _trans('paid'); ?>
                                 </option>
+                                <option value="0" <?php check_select(get_setting('read_only_toggle'), '0'); ?>>
+                                    <?php _trans('never'); ?>
+                                </option>
                             </select>
                         </div>
 

@@ -231,7 +231,7 @@ class Invoices extends Admin_Controller
     }
 
 
-    public function create_invoice_view()
+    public function create_invoice_view($client_id=null)
     {
         $this->load->module('layout');
         $this->load->model('invoice_groups/mdl_invoice_groups');
@@ -241,7 +241,7 @@ class Invoices extends Admin_Controller
         $this->layout->set([
             'invoice_groups' => $this->mdl_invoice_groups->get()->result(),
             'tax_rates' => $this->mdl_tax_rates->get()->result(),
-            'client' => $this->mdl_clients->get_by_id($this->input->post('client_id')),
+            'client' => $this->mdl_clients->get_by_id($client_id),
             'clients' => $this->mdl_clients->get_latest(),
         ]);
         $this->layout->buffer('content', 'invoices/modal_create_invoice_item');
