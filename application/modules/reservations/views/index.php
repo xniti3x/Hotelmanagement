@@ -78,7 +78,6 @@
                             start=start.addHours(14);
                             end=temp.addHours(12);
                         }
-
                         modal.showUrl("<?php echo site_url('invoices/create_invoice_view'); ?>");
                     };
 

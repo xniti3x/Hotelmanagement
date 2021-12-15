@@ -72,7 +72,7 @@ $cv = $this->controller->view_data['custom_values'];
                                    value="<?php echo $this->mdl_clients->form_value('client_surname', true); ?>">
                         </div>
 
-                        <div class="form-group no-margin">
+                        <div class="hidden form-group no-margin">
                             <label for="client_language">
                                 <?php _trans('language'); ?>
                             </label>
@@ -90,22 +90,6 @@ $cv = $this->controller->view_data['custom_values'];
                                 <?php } ?>
                             </select>
                         </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-6">
-                <div class="panel panel-default">
-
-                    <div class="panel-heading">
-                        <?php _trans('address'); ?>
-                    </div>
-
-                    <div class="panel-body">
                         <div class="form-group">
                             <label for="client_address_1"><?php _trans('street_address'); ?></label>
 
@@ -115,7 +99,7 @@ $cv = $this->controller->view_data['custom_values'];
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="hidden form-group">
                             <label for="client_address_2"><?php _trans('street_address_2'); ?></label>
 
                             <div class="controls">
@@ -133,7 +117,7 @@ $cv = $this->controller->view_data['custom_values'];
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="hidden form-group">
                             <label for="client_state"><?php _trans('state'); ?></label>
 
                             <div class="controls">
