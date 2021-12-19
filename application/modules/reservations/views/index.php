@@ -7,7 +7,7 @@
 	<!-- daypilot libraries -->
     <script src="<?php echo base_url(); ?>/assets/styles/js/daypilot-all.min.js" type="text/javascript"></script>
 
-</script>
+</script> 
                     <div id="dp" style="z-index:1;"></div>
                     <div class="space">
                         <!-- <a href="#" id="add-room">Add Room</a> -->
