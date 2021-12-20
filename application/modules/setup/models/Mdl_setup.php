@@ -105,10 +105,10 @@ class Mdl_Setup extends CI_Model
 
         $default_settings = array(
             'default_language' => $this->session->userdata('ip_lang'),
-            'date_format' => 'm/d/Y',
+            'date_format' => 'd-m-Y',
             'currency_symbol' => '$',
             'currency_symbol_placement' => 'before',
-            'currency_code' => 'USD',
+            'currency_code' => 'EUR',
             'invoices_due_after' => 30,
             'quotes_expire_after' => 15,
             'default_invoice_group' => 3,
@@ -124,6 +124,10 @@ class Mdl_Setup extends CI_Model
             'public_invoice_template' => 'InvoicePlane_Web',
             'public_quote_template' => 'InvoicePlane_Web',
             'disable_sidebar' => 1,
+            'first_day_of_week' => 1,
+            'default_country'   => 'DE',
+            'currency_symbol'   => '€',
+            'read_only_toggle' => 0
         );
 
         foreach ($default_settings as $setting_key => $setting_value) {
