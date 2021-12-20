@@ -320,6 +320,7 @@ $lang = array(
     'month_prefix'                                 => 'Month Prefix',
     'multiple_choice'                              => 'Multiple Choice',
     'name'                                         => 'Name',
+    'never'                                        => 'Never',
     'new'                                          => 'New',
     'new_password'                                 => 'New password',
     'new_product'                                  => 'New product',
