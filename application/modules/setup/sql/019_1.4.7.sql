@@ -187,6 +187,10 @@ ALTER TABLE ip_products
 
 # Change values for read-only setting
 UPDATE ip_settings
+SET setting_value = 0
+WHERE setting_key = 'read_only_toggle' AND
+      setting_value = 'never';
+UPDATE ip_settings
 SET setting_value = 2
 WHERE setting_key = 'read_only_toggle' AND
       setting_value = 'sent';
