@@ -14,4 +14,5 @@
 
 $lang = array(
 
+    'copy_last_row' => 'Kopy last row'
 );
