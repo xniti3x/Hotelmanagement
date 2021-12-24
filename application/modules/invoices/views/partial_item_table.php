@@ -33,16 +33,11 @@
                 </div>
             </td>
             <td class="td-amount">
-                <div class="input-group">
-                    <span class="input-group-addon"><?php _trans('von'); ?></span> 
-                    <input type="text" name="item_date_start" autocomplete="off" class="input-sm form-control datepicker" value="">
-                </div> 
-            </td>
-            <td class="td-amount">
-                <div class="input-group">
-                    <span class="input-group-addon"><?php _trans('bis'); ?></span> 
-                    <input type="text" name="item_date_end" autocomplete="off" class="input-sm form-control datepicker" value="">
-                </div>
+            <div class="input-group input-daterange">
+                <input type="text" name="item_date_start" autocomplete="off" class="input-sm form-control datepicker" value="">
+                <div class="input-group-addon">bis</div>
+                <input type="text" name="item_date_end" autocomplete="off" class="input-sm form-control datepicker" value="">
+            </div>
             </td>
             <td class="td-amount">
                 <div class="input-group">
@@ -131,26 +126,21 @@
                     </div>
                 </td>
                 <td>
-                    <div class="input-group">
-                        <span class="input-group-addon"><?php _trans('von'); ?></span>
-                        <input name="item_date_start" autocomplete="off" class="input-sm form-control datepicker"
+                <div class="input-group input-daterange">
+                <input name="item_date_start" autocomplete="off" class="input-sm form-control datepicker"
                         value="<?php if (property_exists($item, 'item_date_start')) echo format_date($item->item_date_start); ?>"
                         
                         <?php if ($invoice->is_read_only == 1) {
                             echo 'disabled="disabled"';
                         } ?>>
-                    </div>
-                </td>
-                <td>           
-                    <div class="input-group">
-                        <span class="input-group-addon"><?php _trans('bis'); ?></span>
-                        <input type="text" name="item_date_end" autocomplete="off" class="input-sm form-control datepicker"
+                    <div class="input-group-addon">bis</div>
+                    <input type="text" name="item_date_end" autocomplete="off" class="input-sm form-control datepicker"
                         value="<?php if (property_exists($item, 'item_date_end')) echo format_date($item->item_date_end); ?>"
                         
                         <?php if ($invoice->is_read_only == 1) {
                             echo 'disabled="disabled"';
                         } ?>>
-                    </div>
+                </div>
                 </td>
                 <td class="td-amount">
                     <div class="input-group">
