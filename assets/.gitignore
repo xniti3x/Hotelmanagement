@@ -10,3 +10,5 @@
 !invoiceplane/**/*
 !invoiceplane_blue
 !invoiceplane_blue/**/*
+!styles
+!styles/**/*
