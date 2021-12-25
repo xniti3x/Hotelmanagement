@@ -25,7 +25,7 @@
                     </ul>
                 </li>
 
-                <li class="dropdown">
+               <!-- <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i> &nbsp;
                         <span class="hidden-md"><?php _trans('quotes'); ?></span>
@@ -35,9 +35,9 @@
                         <li><a href="#" class="create-quote"><?php _trans('create_quote'); ?></a></li>
                         <li><?php echo anchor('quotes/index', trans('view_quotes')); ?></li>
                     </ul>
-                </li>
+                </li> -->
 
-                <li><?php echo anchor('reservations/index', trans('Reservation')); ?></li>
+                <li><?php echo anchor('reservations/index', trans('reservations')); ?></li>
                    
 
                 <li class="dropdown">
@@ -80,7 +80,7 @@
                     </ul>
                 </li>
 
-                <li class="dropdown <?php echo get_setting('projects_enabled') == 1 ?: 'hidden'; ?>">
+               <!-- <li class="dropdown <?php echo get_setting('projects_enabled') == 1 ?: 'hidden'; ?>">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i> &nbsp;
                         <span class="hidden-md"><?php _trans('tasks'); ?></span>
@@ -93,7 +93,7 @@
                         <li><?php echo anchor('projects/form', trans('create_project')); ?></li>
                         <li><?php echo anchor('projects/index', trans('view_projects')); ?></li>
                     </ul>
-                </li>
+                </li> -->
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
