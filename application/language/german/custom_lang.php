@@ -14,5 +14,6 @@
 
 $lang = array(
 
-    'copy_last_row' => 'Letzte Zeile kopieren'
+    'copy_last_row' => 'Letzte Zeile kopieren',
+    'reservations' => 'Reservierungen'
 );
