@@ -15,5 +15,6 @@
 $lang = array(
 
     'copy_last_row' => 'Kopy last row',
-    'reservations' => 'Reservations'
+    'reservations' => 'Reservations',
+    'invoice_table_Header'=>'Sehr geehrte Damen und Herren,<br> wir danken für ihr Verständnis und erlauben uns Ihnen folgende Rechnung zu stellen',
 );

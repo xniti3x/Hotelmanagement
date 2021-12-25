@@ -15,5 +15,6 @@
 $lang = array(
 
     'copy_last_row' => 'Letzte Zeile kopieren',
-    'reservations' => 'Reservierungen'
+    'reservations' => 'Reservierungen',
+    'invoice_table_Header'=>'Sehr geehrte Damen und Herren,<br> wir danken für ihr Verständnis und erlauben uns Ihnen folgende Rechnung zu stellen',
 );
