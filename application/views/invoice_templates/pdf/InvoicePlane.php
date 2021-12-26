@@ -117,7 +117,7 @@
             <th class="item-desc"><?php _trans(''); ?></th>
             <th class="item-amount text-right"><?php _trans('Anzahl'); ?></th>
             <th class="item-price text-right">E-<?php _trans('price'); ?></th>
-            <th class="item-tax text-right"><?php _trans('Personen'); ?></th>
+          
             <?php if ($show_item_discounts) : ?>
                 <th class="item-discount text-right"><?php _trans('discount'); ?></th>
             <?php endif; ?>
@@ -151,9 +151,6 @@
                 <td class="text-right">
                     <?php echo format_currency($item->item_price); ?>
                 </td>
-                    <td class="text-right">
-                        <?php echo($item->item_person); ?>
-                    </td>
                 <td class="text-right">
                     <?php echo format_currency($item->item_total); ?>
                 </td>
