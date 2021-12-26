@@ -19,3 +19,6 @@ INSERT INTO ip_rooms (name) VALUES ("Room 7");
 ALTER TABLE `ip_invoice_items` ADD `item_date_start` DATE NULL;
 ALTER TABLE `ip_invoice_items` ADD `item_date_end` DATE NULL;
 ALTER TABLE `ip_invoice_items` ADD `item_room` TINYINT NULL DEFAULT NULL
+
+# set enable permissive search clients to true
+UPDATE `ip_settings` SET `setting_value` = '1' WHERE ip_settings.setting_key ='enable_permissive_search_clients';
