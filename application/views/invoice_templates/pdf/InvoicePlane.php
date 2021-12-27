@@ -36,7 +36,7 @@
         if ($invoice->client_city || $invoice->client_state || $invoice->client_zip) {
             echo '<div>';
             if ($invoice->client_zip) {
-                echo htmlsc($invoice->client_zip);
+                echo htmlsc($invoice->client_zip). ' ';
             }
             if ($invoice->client_city) {
                 echo htmlsc($invoice->client_city) . ' ';
@@ -114,7 +114,6 @@
         <thead>
         <tr>
             <th class="item-name"><?php _trans('description'); ?></th>
-            <th class="item-desc"><?php _trans(''); ?></th>
             <th class="item-amount text-right"><?php _trans('Anzahl'); ?></th>
             <th class="item-price text-right">E-<?php _trans('price'); ?></th>
           
@@ -126,23 +125,27 @@
         </thead>
         <tbody>
 
-        <?php
-          $tax_rate_totalsp=0;
-          $tax_rate_totalntp=0;
-        foreach ($items as $item) {  ?>
-            <tr>
-                <td><?php _htmlsc($item->item_name); ?> 
-                  <br><br><div style="font-size:8pt;">
+        <?php //print_r($invoice);
+        //every prozent sum need to be added for every diffrent prozent
+          $tax_rate_totalfp=0; //sum of 5%
+          $tax_rate_totalsp=0; //sum of 7%
+          $tax_rate_totalntp=0; //sum of 19%
+        foreach ($items as $item) {  
+                if($item->item_tax_rate_percent==19){  
+                  $tax_rate_totalntp+=$item->item_tax_total; 
+                 } 
+                if($item->item_tax_rate_percent==7){  
+                  $tax_rate_totalsp+=$item->item_tax_total; 
+                 } 
+                if($item->item_tax_rate_percent==5){  
+                  $tax_rate_totalfp+=$item->item_tax_total; 
+                 }
+        ?><tr>
+                <td><b><?php _htmlsc($item->item_name); ?></b> 
+                <?php echo " | ".date_from_mysql($item->item_date_start)." | ".date_from_mysql($item->item_date_end)." | Zimmer ".$item->item_room; ?>
+                  <br><div style="font-size:8pt;">
                   <?php echo nl2br(htmlsc($item->item_description)); 
-                                   
-                                   if($item->item_tax_rate_percent==19){  
-                                     $tax_rate_totalntp+=$item->item_tax_total; } 
-                                   if($item->item_tax_rate_percent==7){  
-                                     $tax_rate_totalsp+=$item->item_tax_total; } 
-                                   if($item->item_tax_rate_percent==5){  
-                                     $tax_rate_totalsp+=$item->item_tax_total; } 
                   ?></div></td>
-               <td></td> 
                 <td class="text-right">
                     <?php echo format_amount($item->item_quantity); ?>
                     <?php if ($item->item_product_unit) : ?>
@@ -159,9 +162,8 @@
 
         </tbody>
         <tbody class="invoice-sums">
-
         <tr>
-            <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="5"'); ?> class="text-right">
+            <td colspan="3" class="text-right">
                 <?php _trans('subtotal'); ?>
             </td>
             <td class="text-right"><?php echo format_currency($invoice->invoice_item_subtotal); ?></td>
@@ -169,8 +171,8 @@
 
         <?php if ($tax_rate_totalsp > 0) { ?>
             <tr>
-                <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="5"'); ?> class="text-right">
-                    <?php _trans('MWST. '.$item->item_tax_rate_percent.' %'); ?>
+                <td colspan="3" class="text-right">
+                    <?php _trans('MWST. 7 %'); ?>
                 </td>
                 <td class="text-right">
                     <?php echo format_currency($tax_rate_totalsp); ?>
@@ -179,7 +181,7 @@
         <?php } ?>
         <?php if ($tax_rate_totalntp > 0) { ?>
             <tr>
-                <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="5"'); ?> class="text-right">
+                <td colspan="3" class="text-right">
                     <?php _trans('MWST. 19%'); ?>
                 </td>
                 <td class="text-right">
@@ -190,7 +192,7 @@
 
         <?php foreach ($invoice_tax_rates as $invoice_tax_rate) : ?>
             <tr>
-                <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="5"'); ?> class="text-right">
+                <td colspan="3" class="text-right">
                     <?php echo htmlsc($invoice_tax_rate->invoice_tax_rate_name) . ' (' . format_amount($invoice_tax_rate->invoice_tax_rate_percent) . '%)'; ?>
                 </td>
                 <td class="text-right">
@@ -201,7 +203,7 @@
 
         <?php if ($invoice->invoice_discount_percent != '0.00') : ?>
             <tr>
-                <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="5"'); ?> class="text-right">
+                <td colspan="3" class="text-right">
                     <?php _trans('discount'); ?>
                 </td>
                 <td class="text-right">
@@ -211,7 +213,7 @@
         <?php endif; ?>
         <?php if ($invoice->invoice_discount_amount != '0.00') : ?>
             <tr>
-                <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="5"'); ?> class="text-right">
+                <td colspan="3" class="text-right">
                     <?php _trans('discount'); ?>
                 </td>
                 <td class="text-right">
@@ -221,7 +223,7 @@
         <?php endif; ?>
 
         <tr>
-            <td <?php echo($show_item_discounts ? 'colspan="5"' : 'colspan="5"'); ?> class="text-right">
+            <td colspan="3" class="text-right">
                 <b><?php _trans('total'); ?></b>
             </td>
             <td class="text-right">
@@ -240,5 +242,8 @@
     <?php endif; ?>
 </footer>
 Zahlungsziel: Zahlbar innerhalb von 14 Tagen
+<p>
+IBAN:<?php echo $invoice->user_iban; ?>
+</p>
 </body>
 </html>

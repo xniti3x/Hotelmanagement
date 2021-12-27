@@ -45,7 +45,7 @@
 
                         <div class="form-group">
                             <label for="product_sku">
-                                <?php _trans('product_sku'); ?>
+                                <?php _trans('product_sku'). " "._trans(' (sku< 0 wont be displayed on reservation scheduler)'); ?> 
                             </label>
 
                             <input type="text" name="product_sku" id="product_sku" class="form-control"

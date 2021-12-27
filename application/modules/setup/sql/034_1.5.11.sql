@@ -14,6 +14,8 @@ INSERT INTO ip_rooms (name) VALUES ("Room 4");
 INSERT INTO ip_rooms (name) VALUES ("Room 5");
 INSERT INTO ip_rooms (name) VALUES ("Room 6");
 INSERT INTO ip_rooms (name) VALUES ("Room 7");
+INSERT INTO ip_rooms (name) VALUES ("Room 8");
+INSERT INTO ip_rooms (name) VALUES ("Room 9");
 
 # Table ip_invoice_items
 ALTER TABLE `ip_invoice_items` ADD `item_date_start` DATE NULL;
@@ -30,4 +32,7 @@ INSERT INTO `ip_tax_rates` (`tax_rate_id`, `tax_rate_name`, `tax_rate_percent`) 
 INSERT INTO `ip_units` (`unit_id`, `unit_name`, `unit_name_plrl`) VALUES (NULL, 'Nacht', 'Nächte');
 
 # insert product DEFAULT
-INSERT INTO `ip_products` (`product_id`, `family_id`, `product_sku`, `product_name`, `product_description`, `product_price`, `purchase_price`, `provider_name`, `tax_rate_id`, `unit_id`, `product_tariff`) VALUES (NULL, NULL, NULL, 'Übernachtung ohne Frühstück', '', '50', NULL, NULL, '1', '1', NULL);
+INSERT INTO `ip_products` (`product_id`, `family_id`, `product_sku`, `product_name`, `product_description`, `product_price`, `purchase_price`, `provider_name`, `tax_rate_id`, `unit_id`, `product_tariff`) VALUES (NULL, NULL, 1, 'Übernachtung ohne Frühstück', '', '50', NULL, NULL, '1', '1', NULL);
+INSERT INTO `ip_products` (`product_id`, `family_id`, `product_sku`, `product_name`, `product_description`, `product_price`, `purchase_price`, `provider_name`, `tax_rate_id`, `unit_id`, `product_tariff`) VALUES (NULL, NULL, 1, 'Übernachtung', '', '50', NULL, NULL, '1', '1', NULL);
+INSERT INTO `ip_products` (`product_id`, `family_id`, `product_sku`, `product_name`, `product_description`, `product_price`, `purchase_price`, `provider_name`, `tax_rate_id`, `unit_id`, `product_tariff`) VALUES (NULL, NULL, -1, 'Frühstück', '', '10', NULL, NULL, '2', NULL, NULL);
+
