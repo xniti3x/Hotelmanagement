@@ -46,6 +46,32 @@
             });
         });
 
+        $('body').on('focus', '.datepickerItem', function () {
+            $(this).datepicker({
+                autoclose: true,
+                disableTouchKeyboard: true,
+                Readonly: true,
+                format: '<?php echo date_format_datepicker(); ?>',
+                language: '<?php _trans('cldr'); ?>',
+                weekStart: '<?php echo get_setting('first_day_of_week'); ?>',
+                todayBtn: "linked"
+            });
+            $(this).datepicker().on('changeDate', function(e) {
+                tstart=$(this).closest('table tbody.item').find('[name="item_date_start"]').val();
+                tend=$(this).closest('table tbody.item').find('[name="item_date_end"]').val();
+                
+                var dateAr = tstart.split('-');
+                var start = new Date("'"+dateAr[2] + '-' + dateAr[1] + '-' + dateAr[0]+"'");
+                
+                dateAr=tend.split('-');
+                
+                var end = new Date(dateAr[2] + '-' + dateAr[1] + '-' + dateAr[0]);
+                var diffDays = parseInt((end - start) / (1000 * 60 * 60 * 24), 10); 
+                
+                $(this).closest('table tbody.item').find('[name="item_quantity"]').val(diffDays);
+            });
+        });
+
         $(document).on('click', '.create-invoice', function () {
             $('#modal-placeholder').load("<?php echo site_url('invoices/ajax/modal_create_invoice'); ?>");
         });

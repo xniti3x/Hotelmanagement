@@ -86,7 +86,7 @@
                             // reload all events
                             loadEvents();
                         };
-                        modal.showUrl("<?php echo site_url('invoices/view'); ?>"+"/" + args.e.data.invoice_id+"/layout_no_navbar");
+                        modal.showUrl("<?php echo site_url('invoices/view'); ?>"+"/" + args.e.data.invoice_id);
 
                     };
                     dp.onBeforeCellRender = function(args) {

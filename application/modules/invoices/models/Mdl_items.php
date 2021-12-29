@@ -153,7 +153,7 @@ class Mdl_Items extends Response_Model
     }
 
     public function getAllInvoiceItems(){
-        return $this->db->query("SELECT * FROM ip_invoice_items,ip_invoices,ip_clients WHERE ip_invoice_items.invoice_id=ip_invoices.invoice_id AND ip_invoices.client_id = ip_clients.client_id")->result();
+        return $this->db->query("SELECT * FROM ip_invoice_items,ip_invoices,ip_clients,ip_products WHERE ip_invoice_items.invoice_id=ip_invoices.invoice_id AND ip_invoices.client_id = ip_clients.client_id AND ip_products.product_id=ip_invoice_items.item_product_id AND (ip_products.product_sku>0 OR ip_products.product_sku='')")->result();
     }
 
     public function getInvoiceItemById($id){

@@ -119,7 +119,7 @@ class Invoices extends Admin_Controller
     /**
      * @param $invoice_id
      */
-    public function view($invoice_id,$layout="layout")
+    public function view($invoice_id)
     {
         $this->load->model(
             [
@@ -227,7 +227,7 @@ class Invoices extends Admin_Controller
             );
         }
 
-        $this->layout->render($layout);
+        $this->layout->render();
     }
 
 
@@ -245,7 +245,7 @@ class Invoices extends Admin_Controller
             'clients' => $this->mdl_clients->get_latest(),
         ]);
         $this->layout->buffer('content', 'invoices/modal_create_invoice_item');
-        $this->layout->render('layout_no_navbar');
+        $this->layout->render();
 
     }
     /**
