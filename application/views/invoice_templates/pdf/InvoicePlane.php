@@ -21,12 +21,7 @@
           </div>
             <b><?php _htmlsc(format_client($invoice)); ?></b>
         </div>
-        <?php if ($invoice->client_vat_id) {
-            echo '<div>' . trans('vat_id_short') . ': ' . $invoice->client_vat_id . '</div>';
-        }
-        if ($invoice->client_tax_code) {
-            echo '<div>' . trans('tax_code_short') . ': ' . $invoice->client_tax_code . '</div>';
-        }
+        <?php 
         if ($invoice->client_address_1) {
             echo '<div>' . htmlsc($invoice->client_address_1) . '</div>';
         }
@@ -52,16 +47,20 @@
         echo '<br/>';
         if ($invoice->client_phone) {
             echo '<div>' . trans('phone_abbr') . ': ' . htmlsc($invoice->client_phone) . '</div>';
-        } ?>
+        } 
+        
+        if ($invoice->client_vat_id) {
+            echo '<div>' . trans('vat_id_short') . ': ' . $invoice->client_vat_id . '</div>';
+        }
+        if ($invoice->client_tax_code) {
+            echo '<div>' . trans('tax_code_short') . ': ' . $invoice->client_tax_code . '</div>';
+        }
+        ?>
     </div>
+
     <div id="company">
         <div><b><?php _htmlsc($invoice->user_name); ?></b></div>
-        <?php if ($invoice->user_vat_id) {
-            echo '<div>' . trans('vat_id_short') . ': ' . $invoice->user_vat_id . '</div>';
-        }
-        if ($invoice->user_tax_code) {
-            echo '<div>' . trans('tax_code_short') . ': ' . $invoice->user_tax_code . '</div>';
-        }
+        <?php
         if ($invoice->user_address_1) {
             echo '<div>' . htmlsc($invoice->user_address_1) . '</div>';
         }
@@ -113,9 +112,11 @@
     <table class="item-table">
         <thead>
         <tr>
-            <th class="item-name"><?php _trans('description'); ?></th>
+            <th class="item-name"><?php _trans('Zimmer'); ?></th>
+        <th class="item-name"><?php _trans('description'); ?></th>
+        <th class="item-name"><?php _trans('Zeitraum'); ?></th>
             <th class="item-amount text-right"><?php _trans('Anzahl'); ?></th>
-            <th class="item-price text-right">E-<?php _trans('price'); ?></th>
+            <th class="item-price text-right"><?php _trans('price'); ?></th>
           
             <?php if ($show_item_discounts) : ?>
                 <th class="item-discount text-right"><?php _trans('discount'); ?></th>
@@ -141,11 +142,13 @@
                   $tax_rate_totalfp+=$item->item_tax_total; 
                  }
         ?><tr>
+            <td><?php echo $item->item_room; ?></td>
                 <td><b><?php _htmlsc($item->item_name); ?></b> 
-                <?php echo " | ".date_from_mysql($item->item_date_start)." | ".date_from_mysql($item->item_date_end)." | Zimmer ".$item->item_room; ?>
                   <br><div style="font-size:8pt;">
                   <?php echo nl2br(htmlsc($item->item_description)); 
                   ?></div></td>
+                  <td><?php echo date_from_mysql($item->item_date_start)."|".date_from_mysql($item->item_date_end); ?></td>
+                  
                 <td class="text-right">
                     <?php echo format_amount($item->item_quantity); ?>
                     <?php if ($item->item_product_unit) : ?>
@@ -163,7 +166,7 @@
         </tbody>
         <tbody class="invoice-sums">
         <tr>
-            <td colspan="3" class="text-right">
+            <td colspan="5" class="text-right">
                 <?php _trans('subtotal'); ?>
             </td>
             <td class="text-right"><?php echo format_currency($invoice->invoice_item_subtotal); ?></td>
@@ -171,7 +174,7 @@
 
         <?php if ($tax_rate_totalsp > 0) { ?>
             <tr>
-                <td colspan="3" class="text-right">
+                <td colspan="5" class="text-right">
                     <?php _trans('MWST. 7 %'); ?>
                 </td>
                 <td class="text-right">
@@ -181,7 +184,7 @@
         <?php } ?>
         <?php if ($tax_rate_totalntp > 0) { ?>
             <tr>
-                <td colspan="3" class="text-right">
+                <td colspan="5" class="text-right">
                     <?php _trans('MWST. 19%'); ?>
                 </td>
                 <td class="text-right">
@@ -192,7 +195,7 @@
 
         <?php foreach ($invoice_tax_rates as $invoice_tax_rate) : ?>
             <tr>
-                <td colspan="3" class="text-right">
+                <td colspan="5" class="text-right">
                     <?php echo htmlsc($invoice_tax_rate->invoice_tax_rate_name) . ' (' . format_amount($invoice_tax_rate->invoice_tax_rate_percent) . '%)'; ?>
                 </td>
                 <td class="text-right">
@@ -203,7 +206,7 @@
 
         <?php if ($invoice->invoice_discount_percent != '0.00') : ?>
             <tr>
-                <td colspan="3" class="text-right">
+                <td colspan="5" class="text-right">
                     <?php _trans('discount'); ?>
                 </td>
                 <td class="text-right">
@@ -213,7 +216,7 @@
         <?php endif; ?>
         <?php if ($invoice->invoice_discount_amount != '0.00') : ?>
             <tr>
-                <td colspan="3" class="text-right">
+                <td colspan="5" class="text-right">
                     <?php _trans('discount'); ?>
                 </td>
                 <td class="text-right">
@@ -223,7 +226,7 @@
         <?php endif; ?>
 
         <tr>
-            <td colspan="3" class="text-right">
+            <td colspan="5" class="text-right">
                 <b><?php _trans('total'); ?></b>
             </td>
             <td class="text-right">
@@ -242,8 +245,15 @@
     <?php endif; ?>
 </footer>
 Zahlungsziel: Zahlbar innerhalb von 14 Tagen
-<p>
-IBAN:<?php echo $invoice->user_iban; ?>
+<p>    
+IBAN:<?php echo $invoice->user_iban." | ";         
+        if ($invoice->user_tax_code) {
+            echo trans('tax_code_short') . ': ' . $invoice->user_tax_code;
+        }
+        if ($invoice->user_vat_id) {
+            echo ' | ' . trans('vat_id_short') . ': ' . $invoice->user_vat_id;
+        }
+     ?>
 </p>
 </body>
 </html>
