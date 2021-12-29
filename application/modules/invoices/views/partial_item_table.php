@@ -34,9 +34,9 @@
             </td>
             <td class="td-amount">
             <div class="input-group input-daterange">
-                <input type="text" name="item_date_start" autocomplete="off" class="input-sm form-control datepicker" value="">
+                <input type="text" name="item_date_start" autocomplete="off" class="input-sm form-control datepickerItem" value="">
                 <div class="input-group-addon">bis</div>
-                <input type="text" name="item_date_end" autocomplete="off" class="input-sm form-control datepicker" value="">
+                <input type="text" name="item_date_end" autocomplete="off" class="input-sm form-control datepickerItem" value="">
             </div>
             </td>
             <td class="td-amount">
@@ -127,14 +127,14 @@
                 </td>
                 <td>
                 <div class="input-group input-daterange">
-                <input name="item_date_start" autocomplete="off" class="input-sm form-control datepicker"
+                <input name="item_date_start" autocomplete="off" class="input-sm form-control datepicker datepickerItem"
                         value="<?php if (property_exists($item, 'item_date_start')) echo format_date($item->item_date_start); ?>"
                         
                         <?php if ($invoice->is_read_only == 1) {
                             echo 'disabled="disabled"';
                         } ?>>
                     <div class="input-group-addon">bis</div>
-                    <input type="text" name="item_date_end" autocomplete="off" class="input-sm form-control datepicker"
+                    <input type="text" name="item_date_end" autocomplete="off" class="input-sm form-control datepicker datepickerItem"
                         value="<?php if (property_exists($item, 'item_date_end')) echo format_date($item->item_date_end); ?>"
                         
                         <?php if ($invoice->is_read_only == 1) {

@@ -12,7 +12,6 @@
     <div id="logo">
         <?php echo invoice_logo_pdf(); ?>
     </div>
-
 <br> <br><br>
     <div id="client">
         <div>
@@ -57,7 +56,6 @@
         }
         ?>
     </div>
-
     <div id="company">
         <div><b><?php _htmlsc($invoice->user_name); ?></b></div>
         <?php
@@ -113,8 +111,8 @@
         <thead>
         <tr>
             <th class="item-name"><?php _trans('Zimmer'); ?></th>
-        <th class="item-name"><?php _trans('description'); ?></th>
-        <th class="item-name"><?php _trans('Zeitraum'); ?></th>
+            <th class="item-name"><?php _trans('description'); ?></th>
+            <th class="item-name"><?php _trans('Zeitraum'); ?></th>
             <th class="item-amount text-right"><?php _trans('Anzahl'); ?></th>
             <th class="item-price text-right"><?php _trans('price'); ?></th>
           
@@ -233,8 +231,8 @@
                 <b><?php echo format_currency($invoice->invoice_total); ?></b>
             </td>
         </tr>
-        </tbody>
-    </table>
+    </tbody>
+</table>    
 </main>
 <footer>
     <?php if ($invoice->invoice_terms) : ?>
@@ -244,16 +242,22 @@
         </div>
     <?php endif; ?>
 </footer>
-Zahlungsziel: Zahlbar innerhalb von 14 Tagen
-<p>    
-IBAN:<?php echo $invoice->user_iban." | ";         
-        if ($invoice->user_tax_code) {
-            echo trans('tax_code_short') . ': ' . $invoice->user_tax_code;
-        }
-        if ($invoice->user_vat_id) {
-            echo ' | ' . trans('vat_id_short') . ': ' . $invoice->user_vat_id;
-        }
-     ?>
-</p>
+<!--
+    <table width="100%">
+    <tr>
+        <td><?php echo ($invoice->user_iban); ?></td>
+        <td><?php echo ($invoice->user_tax_code); ?></td>
+        <td><?php echo ($invoice->user_vat_id); ?></td>
+        <td><?php echo ($invoice->user_vat_id); ?></td> 
+    </tr>
+    <tr>
+        <td><?php echo ($invoice->user_phone); ?></td>
+        <td><?php echo ($invoice->user_web); ?></td>
+        <td><?php echo ($invoice->user_email); ?></td>
+        <td><?php echo ($invoice->user_vat_id); ?></td> 
+    </tr>
+</table>
+    -->
+
 </body>
 </html>
