@@ -4,8 +4,8 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Mdl_Employee extends Response_Model
 {
 
-    public function getAllTimesheets(){
-        return $this->db->query('Select * from ip_timesheet')->result();
+    public function getAllTimesheets($user_id){
+        return $this->db->query('Select * from ip_timesheet where user_id='.$user_id)->result();
     }
 
     public function saveTimesheet($db_array){
