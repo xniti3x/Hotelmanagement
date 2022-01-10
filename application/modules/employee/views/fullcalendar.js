@@ -14,8 +14,13 @@ document.addEventListener('DOMContentLoaded', function() {
                             notes: $('#notes').val(), 
                         },
                         function (data) {
-                            console.log(data);
-                            if(data==200) window.parent.closeModal();
+                            data=JSON.parse(data);
+                            if(data.status==200) {
+                                $.toaster({ priority : 'success',message : data.message });
+                            }
+                            if(data.status==400) {
+                                $.toaster({ priority : 'danger',message : data.message });
+                            }
                             calendar.refetchEvents();
                         });
                     } 
@@ -38,8 +43,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         notes: $('#notes').val(), 
                     },
                     function (data) {
-                        console.log(data);
-                        if(data==200) window.parent.closeModal();
+                        data=JSON.parse(data);
+                        if(data.status==200) {
+                            $.toaster({ priority : 'success',message : data.message });
+                        }
+                        if(data.status==400) {
+                            $.toaster({ priority : 'danger',message : data.message });
+                        }
                         calendar.refetchEvents();
                     });
                 } },
@@ -51,9 +61,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         notes: $('#notes').val(), 
                     },
                     function (data) {
-                        console.log(data);
-                        if(data==200) window.parent.closeModal();
-                        calendar.refetchEvents();
+                        data=JSON.parse(data);
+                            if(data.status==200) {
+                                $.toaster({ priority : 'success',message : data.message });
+                            }
+                            if(data.status==400) {
+                                $.toaster({ priority : 'danger',message : data.message });
+                            }
+                            calendar.refetchEvents();
                     });
                  } 
                 },

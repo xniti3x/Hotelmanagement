@@ -30,8 +30,8 @@
     <script src='<?php echo base_url(); ?>/node_modules/fullcalendar/main.js'></script>
     <script src='<?php echo base_url(); ?>/node_modules/fullcalendar/locales/de.js'></script>
     <script><?php $this->layout->load_view('employee/fullcalendar.js'); ?></script>
+    <script><?php $this->layout->load_view('employee/jquery-toast.js'); ?></script>
     <script src="https://unpkg.com/emodal@1.2.69/dist/eModal.min.js"></script>
-    <script>window.closeModal = function(){$('#myModal').modal('hide');};</script> <!-- global close modal  -->
 </head>
 <body class="hidden-sidebar">
 <nav class="navbar navbar-inverse" role="navigation">
@@ -65,6 +65,5 @@
     <div id="main-content">
         <?php echo $content; ?>
     </div>
-</div>
 </body>
 </html>
