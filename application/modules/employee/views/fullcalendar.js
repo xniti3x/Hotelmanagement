@@ -93,8 +93,30 @@ document.addEventListener('DOMContentLoaded', function() {
         myCustomButton: {
         text: 'Bericht PDF',
             click: function(e) {
-                console.log(e,'clicked the custom button!');
-                
+                var options = {
+                    url: "<?php echo site_url('employee/requestViewReport'); ?>",
+                    title:'Report Timesheet - Zeitraum',
+                    buttons: [
+                        {text: 'PDF Report', style: 'warning',   close: true, click: function(e){
+                            $.post("<?php echo site_url('employee/requestGenerate_pdf/'); ?>",{
+                                start: $('#start').val(),
+                                end: $('#end').val(),      
+                            },
+                            function (data) {
+                                data=JSON.parse(data);
+                                    if(data.status==200) {
+                                        window.open("<?php echo site_url('employee/generate_pdf'); ?>"+"/"+$('#start').val()+"/"+$('#end').val(), '_blank');
+                                    }
+                                    if(data.status==400) {
+                                        $.toaster({ priority : 'danger',message : data.message });
+                                    }
+                            });
+                            } 
+                        },
+                        {text: 'cancel', style: 'default', close: true, click: function(e){console.log(e);} }
+                    ]
+                };
+                eModal.ajax(options);
             }
         }
     },
