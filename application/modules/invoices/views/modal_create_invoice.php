@@ -76,7 +76,7 @@
                    value="<?php echo get_setting('enable_permissive_search_clients'); ?>">
 
             <div class="form-group has-feedback">
-                <label for="create_invoice_client_id"><?php _trans('client'); ?></label>
+            <label for="create_invoice_client_id"><a href="<?php echo site_url('clients/form'); ?>" class="btn primary"><i class="fa fa-plus"></i></a><?php _trans('client'); ?></label>    
                 <div class="input-group">
                     <select name="client_id" id="create_invoice_client_id" class="client-id-select form-control"
                             autofocus="autofocus">
