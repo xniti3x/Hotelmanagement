@@ -49,7 +49,9 @@ class Sessions extends Base_Controller
                             redirect('dashboard');
                         } elseif ($this->session->userdata('user_type') == 2) {
                             redirect('guest');
-                        }
+                        } elseif ($this->session->userdata('user_type') == 3) {
+                            redirect('employee');
+                        }                   
                     } else {
                         $this->session->set_flashdata('alert_error', trans('loginalert_credentials_incorrect'));
                         redirect('sessions/login');
