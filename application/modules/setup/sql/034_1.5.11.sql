@@ -17,17 +17,9 @@ INSERT INTO ip_rooms (name) VALUES ("Room 7");
 INSERT INTO ip_rooms (name) VALUES ("Room 8");
 INSERT INTO ip_rooms (name) VALUES ("Room 9");
 
-# Table ip_invoice_items
-ALTER TABLE `ip_invoice_items` ADD `item_date_start` DATE NULL;
-ALTER TABLE `ip_invoice_items` ADD `item_date_end` DATE NULL;
-ALTER TABLE `ip_invoice_items` ADD `item_room` TINYINT NULL DEFAULT NULL
-
-# set enable permissive search clients to true
-UPDATE `ip_settings` SET `setting_value` = '1' WHERE ip_settings.setting_key ='enable_permissive_search_clients';
 
 # insert default tax_rates
 INSERT INTO `ip_tax_rates` (`tax_rate_id`, `tax_rate_name`, `tax_rate_percent`) VALUES (NULL, '7', '7'), (NULL, '19', '19');
-
 # insert default units
 INSERT INTO `ip_units` (`unit_id`, `unit_name`, `unit_name_plrl`) VALUES (NULL, 'Nacht', 'Nächte');
 

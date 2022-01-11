@@ -143,6 +143,9 @@ CREATE TABLE `ip_invoice_items` (
   `item_description` LONGTEXT       NOT NULL,
   `item_quantity`    DECIMAL(10, 2) NOT NULL,
   `item_price`       DECIMAL(10, 2) NOT NULL,
+  `item_date_start`  DATE               NULL,
+  `item_date_end`    DATE               NULL,
+  `item_room`      TINYINT              NULL,
   `item_order`       INT(2)         NOT NULL DEFAULT '0',
   PRIMARY KEY (`item_id`),
   KEY `invoice_id` (`invoice_id`, `item_tax_rate_id`, `item_date_added`, `item_order`)
