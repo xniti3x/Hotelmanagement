@@ -41,6 +41,7 @@
     "build": "grunt build"
   },
   "dependencies": {
+    "fullcalendar": "^5.10.1",
     "yarn": "^1.22.17"
   }
 }
