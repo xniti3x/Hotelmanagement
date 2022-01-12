@@ -16,7 +16,8 @@ class Employee extends Employee_Controller
                 'timesheets' => $timesheet,
             )
         );
-        
+        //change when dashboard exists
+        redirect('employee/timesheet');
         $this->layout->buffer('content', 'employee/dashboard');
         $this->layout->render('layout_employee');
     }
