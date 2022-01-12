@@ -45,7 +45,7 @@
         </div>
         <div class="collapse navbar-collapse" id="ip-navbar-collapse">
             <ul class="nav navbar-nav">
-            <li><?php echo anchor('employee/index', trans('dashboard')); ?></li>
+            <!-- <li><?php echo anchor('employee/index', trans('dashboard')); ?></li> -->
             <li><?php echo anchor('employee/timesheet', trans('timesheet')); ?></li>
             </ul>
             <ul class="nav navbar-nav navbar-right settings">
