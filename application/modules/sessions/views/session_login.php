@@ -15,7 +15,7 @@
         if (get_setting('custom_title') != '') {
             echo get_setting('custom_title');
         } else {
-            echo 'InvoicePlane';
+            echo 'Hotelmanagement';
         } ?>
     </title>
 
