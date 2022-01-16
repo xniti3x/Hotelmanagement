@@ -24,6 +24,19 @@
                         <input type="hidden" name="<?php echo $this->config->item('csrf_token_name'); ?>"
                                value="<?php echo $this->security->get_csrf_hash() ?>">
 
+                        <div class="form-group">
+                            <label for="payment_method">
+                                <?php _trans('payment_method'); ?>
+                            </label>
+                            <div class="input-group">
+                                <select name="payment_method" id="payment_method" style="width:300px;" class="form-control form-horizontal">
+                                <option><?php echo _trans("Alle"); ?></option>
+                                <?php foreach($payment_methods as $method){
+                                    echo "<option value=".$method->payment_method_id.">".$method->payment_method_name."</option>";
+                                } ?>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group has-feedback">
                             <label for="from_date">
                                 <?php _trans('from_date'); ?>
