@@ -48,7 +48,7 @@ class Reports extends Admin_Controller
     {
         if ($this->input->post('btn_submit')) {
             $data = array(
-                'results' => $this->mdl_reports->payment_history($this->input->post('from_date'), $this->input->post('to_date')),
+                'results' => $this->mdl_reports->payment_history($this->input->post('from_date'), $this->input->post('to_date'),$this->input->post('payment_method')),
                 'from_date' => $this->input->post('from_date'),
                 'to_date' => $this->input->post('to_date'),
             );
@@ -59,7 +59,7 @@ class Reports extends Admin_Controller
 
             pdf_create($html, trans('payment_history'), true);
         }
-
+        $this->layout->set(['payment_methods'=>$this->mdl_reports->getAllPaymentMethods()]);
         $this->layout->buffer('content', 'reports/payment_history_index')->render();
     }
 

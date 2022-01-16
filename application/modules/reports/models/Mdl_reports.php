@@ -109,9 +109,10 @@ class Mdl_Reports extends CI_Model
     /**
      * @param null $from_date
      * @param null $to_date
+     * @param null $method_id
      * @return mixed
      */
-    public function payment_history($from_date = null, $to_date = null)
+    public function payment_history($from_date = null, $to_date = null, $method_id=null)
     {
         $this->load->model('payments/mdl_payments');
 
@@ -122,6 +123,7 @@ class Mdl_Reports extends CI_Model
             $this->mdl_payments->where('payment_date >=', $from_date);
             $this->mdl_payments->where('payment_date <=', $to_date);
         }
+        if($method_id!=null) $this->mdl_payments->where('ip_payments.payment_method_id', $method_id);
 
         return $this->mdl_payments->get()->result();
     }
@@ -725,4 +727,7 @@ class Mdl_Reports extends CI_Model
         return $this->db->get('ip_clients')->result();
     }
 
+    public function getAllPaymentMethods(){
+        return $this->db->query("select * from ip_payment_methods")->result();
+    }
 }
