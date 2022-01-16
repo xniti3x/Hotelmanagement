@@ -19,6 +19,6 @@ class Mdl_Rooms extends Response_Model
     public $primary_key = 'ip_rooms.id';
 
     public function getAllRooms(){
-        return $this->db->get("ip_rooms")->result();
+        return $this->db->query("select * from ip_rooms where ip_rooms.active=1")->result();
     }
 }
