@@ -127,7 +127,8 @@ class Mdl_Setup extends CI_Model
             'default_country'   => 'DE',
             'currency_symbol'   => '€',
             'read_only_toggle' => 0,
-            'enable_permissive_search_clients'=>1
+            'enable_permissive_search_clients'=>1,
+            'disable_quickactions'=>1
         );
 
         foreach ($default_settings as $setting_key => $setting_value) {
