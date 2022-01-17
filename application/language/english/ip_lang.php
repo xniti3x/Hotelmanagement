@@ -721,5 +721,9 @@ $lang = array(
 
     // Types
     'true'                                         => 'True',
-    'false'                                        => 'False'
+    'false'                                        => 'False',
+    //Custom
+    'rooms'                                        => 'Rooms',
+    'room'                                        => 'Room'
+    
 );
