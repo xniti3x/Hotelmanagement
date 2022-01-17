@@ -31,7 +31,7 @@ class Invoices extends Admin_Controller
     public function index()
     {
         // Display all invoices by default
-        redirect('invoices/status/all');
+        redirect('invoices/status/draft');
     }
 
     /**
