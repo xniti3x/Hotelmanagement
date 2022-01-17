@@ -122,15 +122,6 @@
             <?php } ?>
 
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="https://wiki.invoiceplane.com/" target="_blank"
-                       class="tip icon" title="<?php _trans('documentation'); ?>"
-                       data-placement="bottom">
-                        <i class="fa fa-question-circle"></i>
-                        <span class="visible-xs">&nbsp;<?php _trans('documentation'); ?></span>
-                    </a>
-                </li>
-
                 <li class="dropdown">
                     <a href="#" class="tip icon dropdown-toggle" data-toggle="dropdown"
                        title="<?php _trans('settings'); ?>"
@@ -143,43 +134,22 @@
                         <li><?php echo anchor('email_templates/index', trans('email_templates')); ?></li>
                         <li><?php echo anchor('invoice_groups/index', trans('invoice_groups')); ?></li>
                         <li><?php echo anchor('invoices/archive', trans('invoice_archive')); ?></li>
-                        <!-- // temporarily disabled
-                        <li><?php echo anchor('item_lookups/index', trans('item_lookups')); ?></li>
-                        -->
                         <li><?php echo anchor('payment_methods/index', trans('payment_methods')); ?></li>
                         <li><?php echo anchor('tax_rates/index', trans('tax_rates')); ?></li>
                         <li><?php echo anchor('users/index', trans('user_accounts')); ?></li>
+                        <li><?php echo anchor('rooms/index', trans('rooms')); ?></li>
                         <li class="divider hidden-xs hidden-sm"></li>
                         <li><?php echo anchor('settings', trans('system_settings')); ?></li>
                         <li><?php echo anchor('import', trans('import_data')); ?></li>
+                        <li>
+                            <a href="<?php echo site_url('sessions/logout'); ?>"
+                               class="tip icon logout" data-placement="bottom"
+                               title="<?php _trans('logout'); ?>">
+                                <i class="fa fa-power-off"></i>
+                                <?php _trans('logout'); ?>
+                            </a>
+                        </li>
                     </ul>
-                </li>
-                <li>
-                    <a href="<?php echo site_url('users/form/' .
-                        $this->session->userdata('user_id')); ?>"
-                       class="tip icon" data-placement="bottom"
-                       title="<?php
-                       _htmlsc($this->session->userdata('user_name'));
-                       if ($this->session->userdata('user_company')) {
-                           print(" (" . htmlsc($this->session->userdata('user_company')) . ")");
-                       }
-                       ?>">
-                        <i class="fa fa-user"></i>
-                        <span class="visible-xs">&nbsp;<?php
-                            _htmlsc($this->session->userdata('user_name'));
-                            if ($this->session->userdata('user_company')) {
-                                print(" (" . htmlsc($this->session->userdata('user_company')) . ")");
-                            }
-                            ?></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo site_url('sessions/logout'); ?>"
-                       class="tip icon logout" data-placement="bottom"
-                       title="<?php _trans('logout'); ?>">
-                        <i class="fa fa-power-off"></i>
-                        <span class="visible-xs">&nbsp;<?php _trans('logout'); ?></span>
-                    </a>
                 </li>
             </ul>
         </div>
