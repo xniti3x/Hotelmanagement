@@ -1,14 +1,11 @@
 <div id="headerbar">
-
-    <h1 class="headerbar-title"><?php _trans('invoices'); ?></h1>
-
-    <div class="headerbar-item pull-right">
+    <div class="headerbar-item pull-left">
         <button type="button" class="btn btn-default btn-sm submenu-toggle hidden-lg"
                 data-toggle="collapse" data-target="#ip-submenu-collapse">
             <i class="fa fa-bars"></i> <?php _trans('submenu'); ?>
         </button>
         <a class="create-invoice btn btn-sm btn-primary" href="#">
-            <i class="fa fa-plus"></i> <?php _trans('new'); ?>
+            <i class="fa fa-plus"></i> <?php _trans('invoice'); ?>
         </a>
     </div>
 
