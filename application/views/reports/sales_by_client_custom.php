@@ -8,9 +8,10 @@
 
 <h3 class="report_title">
     <?php echo trans('sales_by_client'); ?><br/>
-    <small><?php echo $from_date . ' - ' . $to_date ?></small>
+    <small><?php echo _trans("Timerange").": ".$from_date . ' - ' . $to_date ?></small>
 </h3>
 <!-- <pre><?php print_r($results); ?></pre> -->
+  
 <table>
     <tr>
         <th class="amount"  style="text-align:center;"><?php echo trans('RNR.'); ?></th>

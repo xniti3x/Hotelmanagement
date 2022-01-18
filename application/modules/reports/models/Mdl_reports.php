@@ -106,6 +106,17 @@ class Mdl_Reports extends CI_Model
         return $this->db->get('ip_clients')->result();
     }
 
+    public function sales_by_client_custom($from_date = null, $to_date = null){
+    $query = $this->db->query("
+      SELECT ip_i.invoice_date_created, ip_i.invoice_number, ip_c.client_name, ip_i_a.invoice_item_subtotal, ip_i_a.invoice_item_tax_total, ip_i_a.invoice_total 
+      FROM ip_invoices ip_i, ip_clients ip_c, ip_invoice_amounts ip_i_a
+      WHERE ip_i.client_id=ip_c.client_id 
+      AND ip_i.invoice_id=ip_i_a.invoice_id  
+      AND ip_i.invoice_date_created >= '" . date('Y-m-d', strtotime($from_date)) . "'
+      AND ip_i.invoice_date_created <= '" . date('Y-m-d', strtotime($to_date)) . "' 
+      ORDER by ip_i.invoice_number");
+    return $query->result();
+  }
     /**
      * @param null $from_date
      * @param null $to_date
@@ -115,7 +126,6 @@ class Mdl_Reports extends CI_Model
     public function payment_history($from_date = null, $to_date = null, $method_id=null)
     {
         $this->load->model('payments/mdl_payments');
-
         if ($from_date and $to_date) {
             $from_date = date_to_mysql($from_date);
             $to_date = date_to_mysql($to_date);
@@ -123,11 +133,9 @@ class Mdl_Reports extends CI_Model
             $this->mdl_payments->where('payment_date >=', $from_date);
             $this->mdl_payments->where('payment_date <=', $to_date);
         }
-        if($method_id!=null) $this->mdl_payments->where('ip_payments.payment_method_id', $method_id);
-
+        if($method_id!='0') $this->mdl_payments->where('ip_payments.payment_method_id', $method_id);
         return $this->mdl_payments->get()->result();
     }
-
     /**
      * @return mixed
      */

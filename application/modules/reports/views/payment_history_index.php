@@ -30,7 +30,7 @@
                             </label>
                             <div class="input-group">
                                 <select name="payment_method" id="payment_method" style="width:300px;" class="form-control form-horizontal">
-                                <option><?php echo _trans("Alle"); ?></option>
+                                <option value="0"><?php echo _trans("Alle"); ?></option>
                                 <?php foreach($payment_methods as $method){
                                     echo "<option value=".$method->payment_method_id.">".$method->payment_method_name."</option>";
                                 } ?>

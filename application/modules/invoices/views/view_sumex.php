@@ -596,7 +596,7 @@ if ($this->config->item('disable_read_only') == true) {
                                         <div class="progress progress-striped active" role="progressbar"
                                              aria-valuemin="0"
                                              aria-valuemax="100" aria-valuenow="0">
-                                            <div class="progress-bar progress-bar-success" style="..."
+                                            <div class="progress-bar progress-bar-success"
                                                  data-dz-uploadprogress></div>
                                         </div>
                                     </div>
