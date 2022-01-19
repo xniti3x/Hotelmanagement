@@ -166,6 +166,50 @@
     </div>
 
     <div class="row">
+    <div class="col-xs-12 col-md-6">
+    
+    <div id="panel-recent-invoices" class="panel panel-default">
+
+        <div class="panel-heading">
+            <b><i class="fa fa-bed fa-margin"></i> <?php _trans('Übernachtungen'); echo " von - ".date_from_mysql($firstDate[0]->item_date_start); ?></b>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-condensed no-margin">
+                <thead>
+                <tr>
+                    <th><?php _trans('room_nr.'); ?></th>
+                    <th><?php _trans('nights_qunatity'); ?></th>
+                    <th><?php _trans('nights_total'); ?></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <?php $vtotal=0; foreach ($roomStatistic as $item) { $vtotal+=$item->Total; ?>
+                    <tr>
+                        <td>
+                            <?php echo $item->item_room; ?>
+                        </td>
+                        <td>
+                            <?php echo ($item->TotalNights); ?>
+                        </td>
+                        <td>
+                           <?php echo ($item->Total); ?>
+                        </td>
+                    </tr>
+                <?php  } ?>
+                <tr>
+                    <td colspan="6" class="text-right small">
+                        <?php echo format_currency($vtotal); ?>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
     </div>
 
 </div>

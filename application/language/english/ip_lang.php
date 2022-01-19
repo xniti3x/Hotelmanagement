@@ -729,6 +729,9 @@ $lang = array(
     'reservations' => 'Reservations',
     'invoice_table_Header'=>'Sehr geehrte Damen und Herren,<br> wir danken für ihr Verständnis und erlauben uns Ihnen folgende Rechnung zu stellen',
     'sales_by_client_custom' => 'Sales by Client Custom',
-    'timerange' => 'Timerange'
+    'timerange' => 'Timerange',
+    'nights_qunatity' => 'Total Quantity',
+    'nights_total'  => 'Total Nights',
+    'room_nr.'  => 'Room Nr.',
     
 );
