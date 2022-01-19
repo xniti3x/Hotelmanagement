@@ -722,5 +722,14 @@ $lang = array(
 
     // Types
     'true'                                         => 'Wahr',
-    'false'                                        => 'Falsch'
+    'false'                                        => 'Falsch',
+
+    // custom
+    'copy_last_row' => 'Letzte Zeile kopieren',
+    'reservations' => 'Reservierungen',
+    'invoice_table_Header'=>'Sehr geehrte Damen und Herren,<br> wir danken für ihr Verständnis und erlauben uns Ihnen folgende Rechnung zu stellen',
+    'rooms'=> 'Räume',
+    'room' => 'Raum',
+    'sales_by_client_custom' => 'Eigener Kundenumsatz',
+    'timerange'=> 'Zeitraum'
 );

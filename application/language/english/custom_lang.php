@@ -14,9 +14,4 @@
 
 $lang = array(
 
-    'copy_last_row' => 'Kopy last row',
-    'reservations' => 'Reservations',
-    'invoice_table_Header'=>'Sehr geehrte Damen und Herren,<br> wir danken für ihr Verständnis und erlauben uns Ihnen folgende Rechnung zu stellen',
-    'sales_by_client_custom' => 'Sales by Client Custom',
-    'timerange' => 'Timerange'
 );
