@@ -731,5 +731,8 @@ $lang = array(
     'rooms'=> 'Räume',
     'room' => 'Raum',
     'sales_by_client_custom' => 'Eigener Kundenumsatz',
-    'timerange'=> 'Zeitraum'
+    'timerange'=> 'Zeitraum',
+    'nights_qunatity' => 'Nächteanzahl',
+    'nights_total'  => 'Summe Nächte',
+    'room_nr.'  => 'ZimmerNr',
 );
