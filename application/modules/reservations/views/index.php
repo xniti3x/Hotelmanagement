@@ -33,6 +33,7 @@
                     var modal = new DayPilot.Modal();
                         modal.autoStretch = true;
                         modal.width=$(window).width();
+                        modal.height=$(window).height()-50;                   
                         modal.theme="modal_min";
                     //dp.bubble = new DayPilot.Bubble({});
                     //dp.startDate = new DayPilot.Date().firstDayOfMonth();
