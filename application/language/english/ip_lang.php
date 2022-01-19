@@ -733,5 +733,7 @@ $lang = array(
     'nights_qunatity' => 'Total Quantity',
     'nights_total'  => 'Total Nights',
     'room_nr.'  => 'Room Nr.',
+    'last_3_month' => 'Last 3 Month',
+    'client_salery' => 'Client Salery',
     
 );
