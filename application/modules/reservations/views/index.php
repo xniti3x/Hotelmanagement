@@ -33,6 +33,7 @@
                     var modal = new DayPilot.Modal();
                         modal.autoStretch = true;
                         modal.width=$(window).width();
+                        modal.height=$(window).height()-50;                   
                         modal.theme="modal_min";
                     //dp.bubble = new DayPilot.Bubble({});
                     //dp.startDate = new DayPilot.Date().firstDayOfMonth();
@@ -78,7 +79,7 @@
                             start=start.addHours(14);
                             end=temp.addHours(12);
                         }
-                        modal.showUrl("<?php echo site_url('invoices/create_invoice_view'); ?>");
+                        modal.showUrl("<?php echo site_url('reservations/view'); ?>");
                     };
 
                     dp.onEventClick = function(args) {
