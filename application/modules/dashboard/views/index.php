@@ -171,30 +171,26 @@
     <div id="panel-recent-invoices" class="panel panel-default">
 
         <div class="panel-heading">
-            <b><i class="fa fa-bed fa-margin"></i> <?php _trans('Übernachtungen'); echo " von - ".date_from_mysql($firstDate[0]->item_date_start); ?></b>
+            <b><i class="fa fa-bed fa-margin"></i> <?php _trans('client_salery'); echo " - "; _trans("last_3_month"); ?></b>
         </div>
 
         <div class="table-responsive">
             <table class="table table-hover table-striped table-condensed no-margin">
                 <thead>
                 <tr>
-                    <th><?php _trans('room_nr.'); ?></th>
-                    <th><?php _trans('nights_qunatity'); ?></th>
-                    <th><?php _trans('nights_total'); ?></th>
+                    <th><?php _trans('client_name'); ?></th>
+                    <th><?php _trans('total'); ?></th>
                 </tr>
                 </thead>
                 <tbody>
 
-                <?php $vtotal=0; foreach ($roomStatistic as $item) { $vtotal+=$item->Total; ?>
+                <?php $vtotal=0; foreach ($clientStatistic as $item) { $vtotal+=$item->invoice_total; ?>
                     <tr>
                         <td>
-                            <?php echo $item->item_room; ?>
+                            <?php echo $item->client_name; ?>
                         </td>
                         <td>
-                            <?php echo ($item->TotalNights); ?>
-                        </td>
-                        <td>
-                           <?php echo ($item->Total); ?>
+                           <?php echo ($item->invoice_total." €"); ?>
                         </td>
                     </tr>
                 <?php  } ?>

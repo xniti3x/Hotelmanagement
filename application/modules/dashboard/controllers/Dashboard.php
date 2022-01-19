@@ -42,8 +42,7 @@ class Dashboard extends Admin_Controller
                 'projects' => $this->mdl_projects->get_latest()->get()->result(),
                 'tasks' => $this->mdl_tasks->get_latest()->get()->result(),
                 'task_statuses' => $this->mdl_tasks->statuses(),
-                'roomStatistic' => $this->mdl_items->getRoomStatistic(),
-                'firstDate' => $this->mdl_items->getFirstDate(),
+                'clientStatistic' => $this->getClientStatistic(),
             )
         );
 
@@ -51,4 +50,15 @@ class Dashboard extends Admin_Controller
         $this->layout->render();
     }
 
+    private function getClientStatistic(){
+        $query = $this->db->query("
+        SELECT ip_c.client_name, sum(ip_i_a.invoice_total) as invoice_total 
+        FROM ip_invoices ip_i, ip_clients ip_c, ip_invoice_amounts ip_i_a
+        WHERE ip_i.client_id=ip_c.client_id 
+        AND ip_i.invoice_id=ip_i_a.invoice_id  
+        AND DATE(ip_i.invoice_date_created) >= DATE(NOW() - INTERVAL 3 MONTH)
+        group by ip_i.client_id
+        ORDER by ip_i.invoice_number");
+    return $query->result();
+    }
 }
