@@ -160,11 +160,4 @@ class Mdl_Items extends Response_Model
         return $this->db->query("SELECT * FROM ip_invoice_items,ip_invoices,ip_clients WHERE ip_invoice_items.item_id=".$id." AND ip_invoice_items.invoice_id=ip_invoices.invoice_id AND ip_invoices.client_id = ip_clients.client_id")->result();
     }
 
-    public function getRoomStatistic(){
-        return $this->db->query("SELECT *,sum(item_quantity) as TotalNights,round((sum(item_quantity)*sum(item_price)),2) as Total  FROM `ip_invoice_items` group by item_room order by Total desc")->result();
-    }
-
-    public function getFirstDate(){
-        return $this->db->query("select item_date_start from ip_invoice_items order by item_date_start limit 1")->result();
-    }
 }
