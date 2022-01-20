@@ -59,6 +59,6 @@ class Dashboard extends Admin_Controller
         AND DATE(ip_i.invoice_date_created) >= DATE(NOW() - INTERVAL 3 MONTH)
         group by ip_i.client_id
         ORDER by invoice_total limit 15");
-    return $query->result();
+        return $query->result();
     }
 }
