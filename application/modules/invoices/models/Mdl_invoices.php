@@ -455,7 +455,7 @@ class Mdl_Invoices extends Response_Model
     // Excludes draft and paid invoices, i.e. keeps unpaid invoices.
     public function is_open()
     {
-        $this->filter_where_in('invoice_status_id', array(2, 3));
+        $this->filter_where_in('invoice_status_id', array(1,2,3));
         return $this;
     }
 
