@@ -145,8 +145,7 @@
                   <br><div style="font-size:8pt;">
                   <?php echo nl2br(htmlsc($item->item_description)); 
                   ?></div></td>
-                  <td><?php echo date_from_mysql($item->item_date_start)."|".date_from_mysql($item->item_date_end); ?></td>
-                  
+                  <td><?php echo (!empty($item->item_date_start)?$item->item_date_start:null)."|".(!empty($item->item_date_end)?$item->item_date_end:null); ?></td>
                 <td class="text-right">
                     <?php echo format_amount($item->item_quantity); ?>
                     <?php if ($item->item_product_unit) : ?>
