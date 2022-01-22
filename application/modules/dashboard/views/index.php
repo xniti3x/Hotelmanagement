@@ -1,3 +1,20 @@
+<script> 
+$(document).ready(function(){
+        $("#visitorMonth" ).click(function() {
+         $.post("<?php echo site_url('dashboard/getMonthVisitors'); ?>",{
+            start: $("#start").val(),
+            end: $("#end").val(),
+        },
+        function (data) {
+            data=JSON.parse(data);
+            var nights=data[0].Nights;
+            if(nights==null) nights=0;
+            $("#visitors").text(data[0].Visitors);
+            $("#nights").text(nights);   
+        });
+    });
+}); 
+</script>
 <div id="content">
     <?php echo $this->layout->load_view('layout/alerts'); ?>
 
@@ -31,9 +48,26 @@
             </div>
         </div>
     </div>
-
     <div class="row">
-
+    <div class="col-xs-12 col-md-6">
+                <div class="card" align="center">
+                    <span style="font-size: 80px;"><i class="fa fa-user card-img-top"></i></span>
+                <div class="card-body">
+                    <h1><div id="visitors"> <?php echo ($monthVisitors[0]->Visitors); ?> </div> Vsitors</h1>   
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div class="card" align="center">
+                <span style="font-size: 80px;"><i class="fa fa-bed card-img-top"></i></span>
+            <div class="card-body">
+                <h1><div id="nights"> <?php echo ($monthVisitors[0]->Nights); ?> </div> Nights</h1>    
+            </div>
+        </div>
+        <br>
+        <div> <input id="start" placeholder="YYYY-MM-DD" type="date"> <input id="end" placeholder="YYYY-MM-DD" type="date"> <Button id="visitorMonth" class="btn btn-primary"><i class="fa fa-search"></i></Button></div>
+    </div>
+    <div class="row">
         <div class="col-xs-12 col-md-6">
 
             <div id="panel-invoice-overview" class="panel panel-default overview">
@@ -167,8 +201,7 @@
 
     <div class="row">
     <div class="col-xs-12 col-md-6">
-    
-    <div id="panel-recent-invoices" class="panel panel-default">
+        <div id="panel-recent-invoices" class="panel panel-default">
 
         <div class="panel-heading">
             <b><i class="fa fa-bed fa-margin"></i> <?php _trans('client_salery'); echo " - "; _trans("last_3_month"); ?></b>

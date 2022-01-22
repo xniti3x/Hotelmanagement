@@ -15,6 +15,12 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Dashboard extends Admin_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('mdl_dashboard');
+    }
+    
     public function index()
     {
         $this->load->model('invoices/mdl_invoice_amounts');
@@ -42,24 +48,17 @@ class Dashboard extends Admin_Controller
                 'projects' => $this->mdl_projects->get_latest()->get()->result(),
                 'tasks' => $this->mdl_tasks->get_latest()->get()->result(),
                 'task_statuses' => $this->mdl_tasks->statuses(),
-                'clientStatistic' => $this->getClientStatistic(),
+                'clientStatistic' => $this->mdl_dashboard->getClientStatistic(),
+                'monthVisitors' => $this->mdl_dashboard->getMonthVisitors('2021-01-01','2022-12-01')
             )
         );
 
         $this->layout->buffer('content', 'dashboard/index');
         $this->layout->render();
     }
-
-    private function getClientStatistic(){
-        $query = $this->db->query("        SELECT ip_c.client_name, sum(ip_i_a.invoice_total) as invoice_total 
-        FROM ip_invoices ip_i, ip_clients ip_c, ip_invoice_amounts ip_i_a
-        WHERE ip_i.client_id=ip_c.client_id 
-        AND ip_i.invoice_id=ip_i_a.invoice_id  
-        AND ip_i.invoice_id=ip_i_a.invoice_id  
-        AND ip_i.invoice_status_id=4 
-        AND DATE(ip_i.invoice_date_created) >= DATE(NOW() - INTERVAL 3 MONTH)
-        group by ip_i.client_id
-        ORDER by invoice_total desc limit 15");
-        return $query->result();
+    public function getMonthVisitors(){
+        
+        echo json_encode($this->mdl_dashboard->getMonthVisitors($this->input->post("start"),$this->input->post("end")));
     }
+
 }
