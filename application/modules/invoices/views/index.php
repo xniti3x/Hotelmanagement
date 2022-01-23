@@ -99,9 +99,7 @@
     </div>
 </div>
 <?php if($status=='gant'): ?>
-    
-<iframe src="<?php echo site_url('reservations/index'); ?>"></iframe>
-    
+<?php $this->load->view('reservations/index'); ?>
 <?php else: ?>
 <div id="content" class="table-content">
     <div id="filter_results">
