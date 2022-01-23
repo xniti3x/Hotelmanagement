@@ -209,7 +209,7 @@ if ($this->config->item('disable_read_only') == true) {
 <div id="headerbar">
     <h1 class="headerbar-title">
         <?php
-        echo trans('invoice') . ' ';
+        echo $invoice->invoice_group_id==5?trans('reservation') . ' ':trans('invoice') . ' ';
         echo($invoice->invoice_number ? '#' . $invoice->invoice_number : $invoice->invoice_id);
         ?>
     </h1>
@@ -221,6 +221,7 @@ if ($this->config->item('disable_read_only') == true) {
                 <i class="fa fa-caret-down no-margin"></i> <?php _trans('options'); ?>
             </a>
             <ul class="dropdown-menu">
+            <?php if($invoice->invoice_group_id!=5): ?>
                 <?php if ($invoice->is_read_only != 1) { ?>
                     <li>
                         <a href="#add-invoice-tax" data-toggle="modal">
@@ -268,11 +269,20 @@ if ($this->config->item('disable_read_only') == true) {
                 </li>
                 <li>
                     <a href="#" id="btn_copy_invoice"
-                       data-invoice-id="<?php echo $invoice_id; ?>">
-                        <i class="fa fa-copy fa-margin"></i>
-                        <?php _trans('copy_invoice'); ?>
+                    data-invoice-id="<?php echo $invoice_id; ?>">
+                    <i class="fa fa-copy fa-margin"></i>
+                    <?php _trans('copy_invoice'); ?>
                     </a>
                 </li>
+            <?php endif; ?>
+            <?php if($invoice->invoice_group_id==5): ?>
+                <li>
+                    <a href="<?php echo site_url('invoices/convertToInvoice/' . $invoice->invoice_id); ?>">
+                        <i class="fa fa-send fa-margin"></i>
+                        <?php _trans('Rechnung erstellen'); ?>
+                    </a>
+                </li>
+            <?php endif; ?>
                 <?php if ($invoice->invoice_status_id == 1 || ($this->config->item('enable_invoice_deletion') === true && $invoice->is_read_only != 1)) { ?>
                     <li>
                         <a href="#delete-invoice" data-toggle="modal">
@@ -281,6 +291,7 @@ if ($this->config->item('disable_read_only') == true) {
                         </a>
                     </li>
                 <?php } ?>
+            
             </ul>
         </div>
 
@@ -351,7 +362,7 @@ if ($this->config->item('disable_read_only') == true) {
 
                 <div class="col-xs-12 visible-xs"><br></div>
 
-                <div class="col-xs-12 col-sm-5 col-sm-offset-1 col-md-6 col-md-offset-1">
+                <div class="<?php echo $invoice->invoice_group_id==5?"hidden":""; ?> col-xs-12 col-sm-5 col-sm-offset-1 col-md-6 col-md-offset-1">
                     <div class="details-box panel panel-default panel-body">
                         <div class="row">
 
@@ -371,7 +382,7 @@ if ($this->config->item('disable_read_only') == true) {
                             <div class="col-xs-12 col-md-6">
 
                                 <div class="invoice-properties">
-                                    <label><?php _trans('invoice'); ?> #</label>
+                                    <label><?php $invoice->invoice_group_id==5?_trans('reservation'):_trans('invoice'); ?> #</label>
                                     <input type="text" id="invoice_number" class="form-control input-sm"
                                         <?php if ($invoice->invoice_number) : ?>
                                             value="<?php echo $invoice->invoice_number; ?>"
@@ -502,8 +513,8 @@ if ($this->config->item('disable_read_only') == true) {
 
             <?php $this->layout->load_view('invoices/partial_item_table'); ?>
 
+            <?php if($invoice->invoice_group_id!=5): ?>
             <hr/>
-
             <div class="row">
                 <div class="col-xs-12 col-md-6">
 
@@ -529,6 +540,7 @@ if ($this->config->item('disable_read_only') == true) {
 
                 </div>
             </div>
+            <?php endif; ?>
 
             <?php if ($custom_fields): ?>
                 <div class="row">
@@ -581,4 +593,4 @@ if ($this->config->item('disable_read_only') == true) {
     </div>
 </div>
 
-<?php $this->layout->load_view('upload/dropzone-invoice-scripts'); ?>
+<?php if($invoice->invoice_group_id!=5){$this->layout->load_view('upload/dropzone-invoice-scripts');} ?>

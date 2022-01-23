@@ -169,7 +169,7 @@ $lang = array(
     'documentation'                                => 'Dokumentation',
     'download'                                     => 'Download',
     'download_pdf'                                 => 'PDF herunterladen',
-    'draft'                                        => 'Entwurf',
+    'draft'                                        => 'Offen',
     'drop_files_here'                              => 'Datei(en) hier herziehen!',
     'due_date'                                     => 'Fällig am',
     'edit'                                         => 'Bearbeiten',
@@ -727,6 +727,7 @@ $lang = array(
     // custom
     'copy_last_row' => 'Letzte Zeile kopieren',
     'reservations' => 'Reservierungen',
+    'reservation' => 'Reservierung',
     'invoice_table_Header'=>'Sehr geehrte Damen und Herren,<br> wir danken für ihr Verständnis und erlauben uns Ihnen folgende Rechnung zu stellen',
     'rooms'=> 'Räume',
     'room' => 'Raum',
@@ -737,4 +738,8 @@ $lang = array(
     'room_nr.'  => 'ZimmerNr',
     'last_3_month' => 'Letzten 3 Monate',
     'client_salery' => 'Kundenumsatz',
+    'convert_to_invoice_error'=>'Es konnte keine Rechnung erstellt werden',
+    'convert_to_invoice_sucsess'=>'Die Rechnung wurde erfolgreich erstellt',
+    'view_reservations' => 'Reservierungen Anzeigen'
+    
 );

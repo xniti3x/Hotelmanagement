@@ -31,6 +31,6 @@ class Reservations extends Admin_Controller
     public function index(){
        
         $this->layout->buffer('content', 'reservations/index');
-        $this->layout->render();
+        $this->layout->render('layout_no_navbar');
     }
 }

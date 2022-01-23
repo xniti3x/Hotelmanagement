@@ -224,7 +224,7 @@
             <?php } ?>
         </div>
     </div>
-
+    <?php if($invoice->invoice_group_id!=5): ?>
     <div class="col-xs-12 visible-xs visible-sm"><br></div>
 
     <div class="col-xs-12 col-md-6 col-md-offset-2 col-lg-4 col-lg-offset-4">
@@ -304,5 +304,5 @@
             </tr>
         </table>
     </div>
-
+    <?php endif; ?>
 </div>
