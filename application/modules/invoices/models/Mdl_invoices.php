@@ -472,9 +472,20 @@ class Mdl_Invoices extends Response_Model
         return $this;
     }
 
+    public function is_allNoReservation()
+    {
+        $this->filter_where_not_in('ip_invoices.invoice_group_id', array(5));
+        return $this;
+    }
+    public function is_reservation()
+    {
+        $this->filter_where_in('ip_invoices.invoice_group_id', array(5));
+        return $this;
+    }
     public function is_draft()
     {
         $this->filter_where_in('invoice_status_id', array(1, 2));
+        $this->filter_where_in('ip_invoices.invoice_group_id', array(3));        
         return $this;
     }
 

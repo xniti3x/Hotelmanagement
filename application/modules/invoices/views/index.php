@@ -4,8 +4,8 @@
                 data-toggle="collapse" data-target="#ip-submenu-collapse">
             <i class="fa fa-bars"></i> <?php _trans('submenu'); ?>
         </button>
-        <a class="create-invoice btn btn-sm btn-primary" href="#">
-            <i class="fa fa-plus"></i> <?php _trans('invoice'); ?>
+        <a class="<?php echo $status == 'reservation' ? 'create-reservation':'create-invoice'; ?> btn btn-sm btn-primary" href="#">
+            <i class="fa fa-plus"></i> <?php ($status=='reservation' || $status=='gant')?_trans('reservation'):_trans('invoice'); ?>
         </a>
     </div>
 
@@ -15,9 +15,17 @@
 
     <div class="headerbar-item pull-right visible-lg">
         <div class="btn-group btn-group-sm index-options">
+            <a href="<?php echo site_url('invoices/status/gant'); ?>"
+               class="btn  <?php echo $status == 'gant' ? 'btn-primary' : 'btn-default' ?>">
+                <?php _trans('Diagram'); ?>
+            </a>
+            <a href="<?php echo site_url('invoices/status/reservation'); ?>"
+               class="btn  <?php echo $status == 'reservation' ? 'btn-primary' : 'btn-default' ?>">
+                <?php _trans('reservations'); ?>
+            </a>
             <a href="<?php echo site_url('invoices/status/all'); ?>"
                class="btn <?php echo $status == 'all' ? 'btn-primary' : 'btn-default' ?>">
-                <?php _trans('all'); ?>
+                <?php _trans('all'); echo(" ");_trans('invoices'); ?>
             </a>
             <a href="<?php echo site_url('invoices/status/draft'); ?>"
                class="btn  <?php echo $status == 'draft' ? 'btn-primary' : 'btn-default' ?>">
@@ -53,6 +61,14 @@
 
         <div class="submenu-row">
             <div class="btn-group btn-group-sm index-options">
+                <a href="<?php echo site_url('invoices/status/gant'); ?>"
+                class="btn  <?php echo $status == 'gant' ? 'btn-primary' : 'btn-default' ?>">
+                    <?php _trans('Diagram'); ?>
+                </a>
+                <a href="<?php echo site_url('invoices/status/reservation'); ?>"
+                   class="btn  <?php echo $status == 'reservation' ? 'btn-primary' : 'btn-default' ?>">
+                    <?php _trans('reservations'); ?>
+                </a>
                 <a href="<?php echo site_url('invoices/status/all'); ?>"
                    class="btn <?php echo $status == 'all' ? 'btn-primary' : 'btn-default' ?>">
                     <?php _trans('all'); ?>
@@ -82,9 +98,14 @@
 
     </div>
 </div>
-
+<?php if($status=='gant'): ?>
+    
+<iframe src="<?php echo site_url('reservations/index'); ?>"></iframe>
+    
+<?php else: ?>
 <div id="content" class="table-content">
     <div id="filter_results">
         <?php $this->layout->load_view('invoices/partial_invoice_table', array('invoices' => $invoices)); ?>
     </div>
 </div>
+<?php endif; ?>

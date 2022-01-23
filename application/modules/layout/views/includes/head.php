@@ -76,9 +76,9 @@
             $('#modal-placeholder').load("<?php echo site_url('invoices/ajax/modal_create_invoice'); ?>");
         });
 
-        $(document).on('click', '.show-reservations', function () {
+        $(document).on('click', '.create-reservation', function () {
             console.log("res");
-            $('#modal-placeholder').load("<?php echo site_url('reservations/ajax/modal_show_reservations'); ?>");
+            $('#modal-placeholder').load("<?php echo site_url('invoices/ajax/modal_create_reservation'); ?>");
         });
 
         $(document).on('click', '.create-quote', function () {
