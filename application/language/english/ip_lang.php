@@ -738,6 +738,7 @@ $lang = array(
     'client_salery' => 'Client Salery',
     'convert_to_invoice_error'=>'Error trying to create the invoice',
     'convert_to_invoice_sucsess'=>'Invoice successfull created',
-    'view_reservations' => 'Show Reservations'  
+    'view_reservations' => 'Show Reservations',
+    'create_reservation' => 'Create Reservation'
     
 );
