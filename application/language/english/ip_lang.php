@@ -727,6 +727,7 @@ $lang = array(
     'room'                                        => 'Room',
     'copy_last_row' => 'Kopy last row',
     'reservations' => 'Reservations',
+    'reservation' => 'Reservation',
     'invoice_table_Header'=>'Sehr geehrte Damen und Herren,<br> wir danken für ihr Verständnis und erlauben uns Ihnen folgende Rechnung zu stellen',
     'sales_by_client_custom' => 'Sales by Client Custom',
     'timerange' => 'Timerange',
@@ -735,5 +736,8 @@ $lang = array(
     'room_nr.'  => 'Room Nr.',
     'last_3_month' => 'Last 3 Month',
     'client_salery' => 'Client Salery',
+    'convert_to_invoice_error'=>'Error trying to create the invoice',
+    'convert_to_invoice_sucsess'=>'Invoice successfull created',
+    'view_reservations' => 'Show Reservations'  
     
 );

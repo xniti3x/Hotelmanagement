@@ -281,6 +281,22 @@ class Ajax extends Admin_Controller
 
         $this->layout->load_view('invoices/modal_create_invoice', $data);
     }
+    public function modal_create_reservation()
+    {
+        $this->load->module('layout');
+        $this->load->model('invoice_groups/mdl_invoice_groups');
+        $this->load->model('tax_rates/mdl_tax_rates');
+        $this->load->model('clients/mdl_clients');
+
+        $data = [
+            'invoice_groups' => $this->mdl_invoice_groups->get()->result(),
+            'tax_rates' => $this->mdl_tax_rates->get()->result(),
+            'client' => $this->mdl_clients->get_by_id($this->input->post('client_id')),
+            'clients' => $this->mdl_clients->get_latest(),
+        ];
+
+        $this->layout->load_view('invoices/modal_create_reservation', $data);
+    }
 
     public function modal_create_recurring()
     {

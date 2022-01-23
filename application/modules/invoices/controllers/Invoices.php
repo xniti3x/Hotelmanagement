@@ -31,7 +31,7 @@ class Invoices extends Admin_Controller
     public function index()
     {
         // Display all invoices by default
-        redirect('invoices/status/draft');
+        redirect('invoices/status/gant');
     }
 
     /**
@@ -57,17 +57,22 @@ class Invoices extends Admin_Controller
             case 'overdue':
                 $this->mdl_invoices->is_overdue();
                 break;
+            case 'reservation':
+                $this->mdl_invoices->is_reservation();
+                break;
+            case 'all':
+                $this->mdl_invoices->is_allNoReservation();
+                break;
         }
-
+        
         $this->mdl_invoices->paginate(site_url('invoices/status/' . $status), $page);
         $invoices = $this->mdl_invoices->result();
-
         $this->layout->set(
             [
                 'invoices' => $invoices,
                 'status' => $status,
                 'filter_display' => true,
-                'filter_placeholder' => trans('filter_invoices'),
+                'filter_placeholder' => ($status=='reservation')?trans('filter_invoices'):trans('filter_invoices'),
                 'filter_method' => 'filter_invoices',
                 'invoice_statuses' => $this->mdl_invoices->statuses(),
             ]
@@ -375,5 +380,28 @@ class Invoices extends Admin_Controller
         }
         header('Content-Type: application/json');
         echo json_encode($result);
+    }
+
+    public function convertToInvoice($invoice_id){
+        $invoice_group_id = $this->mdl_invoices->get_invoice_group_id($invoice_id);
+        $inv = $this->db->query('select ip_invoices.invoice_number from ip_invoices where ip_invoices.invoice_id='.$invoice_id)->row();
+        //check if invoice_group_id is 5 and invoice_number starts with RES, than convert Reservation to Invoice
+        if($invoice_group_id==5 && $this->substr_startswith($inv->invoice_number,'RES')){
+            $invoice_number = $this->mdl_invoices->get_invoice_number(3);
+            $this->db->where('invoice_id', $invoice_id);
+            $this->db->set('invoice_group_id', 3);
+            $this->db->set('invoice_number', $invoice_number);
+            $this->db->update('ip_invoices');
+            if($this->db->trans_status() === FALSE){
+                $this->session->set_flashdata('alert_error', trans('convert_to_invoice_error'));
+            }else{
+                $this->session->set_flashdata('alert_success', trans('convert_to_invoice_sucsess'));
+            }
+        }
+        redirect('invoices/view/'.$invoice_id, 'location');
+    }
+
+    private function substr_startswith($haystack, $needle) {
+        return substr($haystack, 0, strlen($needle)) === $needle;
     }
 }

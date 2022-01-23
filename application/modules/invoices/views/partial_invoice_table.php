@@ -1,15 +1,16 @@
+<?php isset($status)?$status:$status="reservation"; ?>
 <div class="table-responsive">
     <table class="table table-hover table-striped">
 
         <thead>
         <tr>
             <th><?php _trans('status'); ?></th>
-            <th><?php _trans('invoice'); ?></th>
+            <th><?php (!empty($status) && $status=='reservation')?_trans('reservation'):_trans('invoice'); ?></th>
             <th><?php _trans('created'); ?></th>
-            <th><?php _trans('due_date'); ?></th>
+           <?php if(!empty($status) && $status!='reservation'): ?> <th><?php _trans('due_date'); ?></th> <?php endif; ?>
             <th><?php _trans('client_name'); ?></th>
             <th style="text-align: right;"><?php _trans('amount'); ?></th>
-            <th style="text-align: right;"><?php _trans('balance'); ?></th>
+            <?php if(!empty($status) && $status!='reservation'): ?><th style="text-align: right;"><?php _trans('balance'); ?></th><?php endif; ?>
             <th><?php _trans('options'); ?></th>
         </tr>
         </thead>
@@ -54,12 +55,12 @@
                     <?php echo date_from_mysql($invoice->invoice_date_created); ?>
                 </td>
 
-                <td>
+               <?php if($status!='reservation'): ?> <td>
                     <span class="<?php if ($invoice->is_overdue) { ?>font-overdue<?php } ?>">
                         <?php echo date_from_mysql($invoice->invoice_date_due); ?>
                     </span>
                 </td>
-
+                <?php endif; ?>
                 <td>
                     <a href="<?php echo site_url('clients/view/' . $invoice->client_id); ?>"
                        title="<?php _trans('view_client'); ?>">
@@ -72,11 +73,11 @@
                 }; ?>">
                     <?php echo format_currency($invoice->invoice_total); ?>
                 </td>
-
+                <?php if($status!='reservation'): ?>
                 <td class="amount">
                     <?php echo format_currency($invoice->invoice_balance); ?>
                 </td>
-
+                <?php endif; ?>
                 <td>
                     <div class="options btn-group<?php echo $dropup ? ' dropup' : ''; ?>">
                         <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#">
@@ -90,6 +91,7 @@
                                     </a>
                                 </li>
                             <?php } ?>
+                            <?php if ($status!='reservation') { ?>
                             <li>
                                 <a href="<?php echo site_url('invoices/generate_pdf/' . $invoice->invoice_id); ?>"
                                    target="_blank">
@@ -110,6 +112,14 @@
                                     <?php _trans('enter_payment'); ?>
                                 </a>
                             </li>
+                            <?php } ?>
+                            <?php if ($status=='reservation') { ?>
+                                <li>
+                                    <a href="<?php echo site_url('invoices/convertToInvoice/' . $invoice->invoice_id); ?>">
+                                        <i class="fa fa-edit fa-margin"></i> <?php _trans('create_invoice'); ?>
+                                    </a>
+                                </li>
+                            <?php } ?>
                             <?php if (
                                 $invoice->invoice_status_id == 1 ||
                                 ($this->config->item('enable_invoice_deletion') === true && $invoice->is_read_only != 1)

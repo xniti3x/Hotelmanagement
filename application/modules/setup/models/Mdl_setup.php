@@ -86,6 +86,12 @@ class Mdl_Setup extends CI_Model
                 'invoice_group_next_id' => 1
             )
         );
+        $this->db->insert('ip_invoice_groups', array(
+                'invoice_group_name' => 'Reservation Default',
+                'invoice_group_prefix' => 'RES',
+                'invoice_group_next_id' => 1
+            )
+        );
 
         $this->db->insert('ip_payment_methods', array(
             'payment_method_name' => 'Cash',
@@ -112,6 +118,7 @@ class Mdl_Setup extends CI_Model
             'quotes_expire_after' => 15,
             'default_invoice_group' => 3,
             'default_quote_group' => 4,
+            'default_reservation_group' => 5,
             'thousands_separator' => ',',
             'decimal_point' => '.',
             'cron_key' => random_string('alnum', 16),
