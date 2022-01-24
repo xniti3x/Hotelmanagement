@@ -1,7 +1,7 @@
 
 <p align="center">
   <p>How to install:
-<br> PHP version between 7 and 8
+<br> PHP version < 8
 <br> composer install
 <br> npm version 12 or 14
 <br> npm install
