@@ -78,14 +78,17 @@ document.addEventListener('DOMContentLoaded', function() {
         eModal.ajax(options);
         },
         initialView: 'dayGridMonth',
-        events: '<?php echo base_url("employee/loadTimesheetEvents"); ?>',
+        events: '<?php echo site_url("employee/loadTimesheetEvents"); ?>',
         headerToolbar: { left:'today',center:'title',right:'prev,next' }, // timeGridWeek,buttons for switching between views
-        footerToolbar: { left: 'dayGridMonth,listWeek',center:'myCustomButton' },
+        footerToolbar: { left: 'dayGridMonth,listMonth',center:'myCustomButton' },
         eventTimeFormat:{
             hour: 'numeric',
             minute: '2-digit',
             meridiem: false,
             hour12: false
+        },
+        buttonText: {
+            listMonth: '<?php _trans("list_month"); ?>',
         },
         locale: 'de',
         eventColor: 'green',
