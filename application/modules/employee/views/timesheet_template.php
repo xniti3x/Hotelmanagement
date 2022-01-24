@@ -38,12 +38,12 @@ table.minimalistBlack tfoot td {
 <table class="minimalistBlack">
 <thead>
 <tr>
-<th>Nr</th>
-<th>Day</th>
+<th>Tag</th>
+<th>Datum</th>
 <th>Start</th>
 <th>End</th>
-<th>Duration</th>
-<th>Notes</th>
+<th>Dauer</th>
+<th>Bemerkung</th>
 </tr>
 </thead>
 <tfoot>
