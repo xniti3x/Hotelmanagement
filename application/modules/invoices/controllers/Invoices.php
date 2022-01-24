@@ -70,6 +70,7 @@ class Invoices extends Admin_Controller
         $this->layout->set(
             [
                 'invoices' => $invoices,
+                'reservations' => $this->mdl_invoices->where("ip_invoices.invoice_group_id =",5)->get()->result(),
                 'status' => $status,
                 'filter_display' => true,
                 'filter_placeholder' => ($status=='reservation')?trans('filter_invoices'):trans('filter_invoices'),

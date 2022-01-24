@@ -105,7 +105,11 @@
 <?php else: ?>
 <div id="content" class="table-content">
     <div id="filter_results">
-        <?php $this->layout->load_view('invoices/partial_invoice_table', array('invoices' => $invoices)); ?>
+    <?php if($status=='reservation'): ?>
+        <?php $this->layout->load_view('invoices/partial_reservation_table', array('invoices' => $invoices)); ?>
+        <?php else: ?>
+        <?php $this->layout->load_view('invoices/partial_invoice_table', array('reservations' => $reservations)); ?>
+    <?php endif; ?>
     </div>
 </div>
 <?php endif; ?>

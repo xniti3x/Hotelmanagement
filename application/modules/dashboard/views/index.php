@@ -1,5 +1,6 @@
 <script> 
 $(document).ready(function(){
+    var nights=null;
         $("#visitorMonth" ).click(function() {
          $.post("<?php echo site_url('dashboard/getMonthVisitors'); ?>",{
             start: $("#start").val(),
@@ -7,7 +8,7 @@ $(document).ready(function(){
         },
         function (data) {
             data=JSON.parse(data);
-            var nights=data[0].Nights;
+             nights=data[0].Nights;
             if(nights==null) nights=0;
             $("#visitors").text(data[0].Visitors);
             $("#nights").text(nights);   
@@ -15,6 +16,7 @@ $(document).ready(function(){
     });
 }); 
 </script>
+
 <div id="content">
     <?php echo $this->layout->load_view('layout/alerts'); ?>
 
@@ -49,7 +51,7 @@ $(document).ready(function(){
         </div>
     </div>
     <div class="row">
-    <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-md-6">
                 <div class="card" align="center">
                     <span style="font-size: 80px;"><i class="fa fa-user card-img-top"></i></span>
                 <div class="card-body">
@@ -64,9 +66,8 @@ $(document).ready(function(){
                 <h1><div id="nights"> <?php echo ($monthVisitors[0]->Nights); ?> </div> Nights</h1>    
             </div>
         </div>
-        <br>
-        <div> <input id="start" placeholder="YYYY-MM-DD" type="date"> <input id="end" placeholder="YYYY-MM-DD" type="date"> <Button id="visitorMonth" class="btn btn-primary"><i class="fa fa-search"></i></Button></div>
     </div>
+    <div class="row" align="center"><input id="start" placeholder="YYYY-MM-DD" type="date"> <input id="end" placeholder="YYYY-MM-DD" type="date"> <Button id="visitorMonth" class="btn btn-primary"><i class="fa fa-search"></i></Button></div>
     <div class="row">
         <div class="col-xs-12 col-md-6">
 
@@ -200,36 +201,89 @@ $(document).ready(function(){
     </div>
 
     <div class="row">
-    <div class="col-xs-12 col-md-6">
-        <div id="panel-recent-invoices" class="panel panel-default">
+        <div class="col-xs-12 col-md-6">
+            <div id="panel-recent-invoices" class="panel panel-default">
+            <div class="panel-heading">
+                <b><i class="fa fa-bed fa-margin"></i> <?php _trans('client_salery'); echo " - "; _trans("last_3_month"); ?></b>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped table-condensed no-margin">
+                    <thead>
+                    <tr>
+                        <th><?php _trans('client_name'); ?></th>
+                        <th><?php _trans('total'); ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php $vtotal=0; foreach ($clientStatistic as $item) { $vtotal+=$item->invoice_total; ?>
+                        <tr>
+                            <td>
+                                <?php echo $item->client_name; ?>
+                            </td>
+                            <td>
+                            <?php echo ($item->invoice_total." €"); ?>
+                            </td>
+                        </tr>
+                    <?php  } ?>
+                    <tr>
+                        <td colspan="6" class="text-right small">
+                            <?php echo format_currency($vtotal); ?>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                </div>
+    
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+    
+    <div id="panel-recent-invoices" class="panel panel-default">
 
         <div class="panel-heading">
-            <b><i class="fa fa-bed fa-margin"></i> <?php _trans('client_salery'); echo " - "; _trans("last_3_month"); ?></b>
+            <b><i class="fa fa-history fa-margin"></i> <?php _trans('recent_reservations'); ?></b>
         </div>
 
         <div class="table-responsive">
             <table class="table table-hover table-striped table-condensed no-margin">
                 <thead>
                 <tr>
-                    <th><?php _trans('client_name'); ?></th>
-                    <th><?php _trans('total'); ?></th>
+                    <th><?php _trans('status'); ?></th>
+                    <th style="min-width: 15%;"><?php _trans('reservation'); ?></th>
+                    <th style="min-width: 35%;"><?php _trans('client'); ?></th>
                 </tr>
                 </thead>
                 <tbody>
 
-                <?php $vtotal=0; foreach ($clientStatistic as $item) { $vtotal+=$item->invoice_total; ?>
+                <?php foreach ($reservations as $invoice) {
+                    if ($this->config->item('disable_read_only') == true) {
+                        $invoice->is_read_only = 0;
+                    } ?>
                     <tr>
                         <td>
-                            <?php echo $item->client_name; ?>
+                            <span class="label <?php echo $invoice_statuses[$invoice->invoice_status_id]['class']; ?>">
+                                <?php echo $invoice_statuses[$invoice->invoice_status_id]['label'];
+                                if ($invoice->invoice_sign == '-1') { ?>
+                                    &nbsp;<i class="fa fa-credit-invoice" title="<?php _trans('credit_invoice') ?>"></i>
+                                <?php } ?>
+                                <?php if ($invoice->invoice_is_recurring) { ?>
+                                    &nbsp;<i class="fa fa-refresh" title="<?php echo trans('recurring') ?>"></i>
+                                <?php } ?>
+                            </span>
                         </td>
                         <td>
-                           <?php echo ($item->invoice_total." €"); ?>
+                            <?php echo anchor('invoices/view/' . $invoice->invoice_id, ($invoice->invoice_number ? $invoice->invoice_number : $invoice->invoice_id)); ?>
+                        </td>
+                        <td>
+                            <?php echo anchor('clients/view/' . $invoice->client_id, htmlsc(format_client($invoice))); ?>
                         </td>
                     </tr>
-                <?php  } ?>
+                <?php } ?>
                 <tr>
                     <td colspan="6" class="text-right small">
-                        <?php echo format_currency($vtotal); ?>
+                        <?php echo anchor('invoices/status/reservation', trans('view_all')); ?>
                     </td>
                 </tr>
                 </tbody>
@@ -238,6 +292,8 @@ $(document).ready(function(){
         </div>
     </div>
 
+</div>
+    </div    
 </div>
     </div>
 
