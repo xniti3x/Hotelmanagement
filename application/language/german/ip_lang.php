@@ -741,6 +741,8 @@ $lang = array(
     'convert_to_invoice_error'=>'Es konnte keine Rechnung erstellt werden',
     'convert_to_invoice_sucsess'=>'Die Rechnung wurde erfolgreich erstellt',
     'view_reservations' => 'Reservierungen Anzeigen',
-    'create_reservation'=> 'Reservierung erstellen'
+    'create_reservation'=> 'Reservierung erstellen',
+    'list_month' => 'Monatsliste',
+    
     
 );

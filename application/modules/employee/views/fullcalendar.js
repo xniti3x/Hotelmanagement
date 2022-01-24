@@ -87,6 +87,9 @@ document.addEventListener('DOMContentLoaded', function() {
             meridiem: false,
             hour12: false
         },
+        buttonText: {
+            listMonth: '<?php _trans("list_month"); ?>',
+        },
         locale: 'de',
         eventColor: 'green',
         customButtons: {
