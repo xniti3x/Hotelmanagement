@@ -43,7 +43,7 @@ class Invoices extends Guest_Controller
                 $this->mdl_invoices->is_paid()->where_in('ip_invoices.client_id', $this->user_clients);
                 break;
             default:
-                $this->mdl_invoices->is_open()->where_in('ip_invoices.client_id', $this->user_clients);
+                $this->mdl_invoices->is_open()->where_in('ip_invoices.client_id', $this->user_clients)->where("ip_invoices.invoice_group_id !=",5);
                 break;
 
         }

@@ -24,7 +24,7 @@ class Guest extends Guest_Controller
             array(
                 'overdue_invoices' => $this->mdl_invoices->is_overdue()->where_in('ip_invoices.client_id', $this->user_clients)->get()->result(),
                 'open_quotes' => $this->mdl_quotes->is_open()->where_in('ip_quotes.client_id', $this->user_clients)->get()->result(),
-                'open_invoices' => $this->mdl_invoices->is_open()->where_in('ip_invoices.client_id', $this->user_clients)->get()->result()
+                'open_invoices' => $this->mdl_invoices->is_open()->where_in('ip_invoices.client_id', $this->user_clients)->where("ip_invoices.invoice_group_id !=",5)->get()->result()
             )
         );
 
