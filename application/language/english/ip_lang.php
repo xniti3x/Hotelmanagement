@@ -741,6 +741,7 @@ $lang = array(
     'view_reservations' => 'Show Reservations',
     'create_reservation' => 'Create Reservation',
     'list_month' => 'List Month',
+    'recent_reservations' => 'Recent Reservations'
     
     
 );

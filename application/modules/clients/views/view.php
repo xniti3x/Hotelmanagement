@@ -73,6 +73,7 @@ foreach ($custom_fields as $custom_field) {
     <li class="active"><a data-toggle="tab" href="#clientDetails"><?php _trans('details'); ?></a></li>
     <li><a data-toggle="tab" href="#clientQuotes"><?php _trans('quotes'); ?></a></li>
     <li><a data-toggle="tab" href="#clientInvoices"><?php _trans('invoices'); ?></a></li>
+    <li><a data-toggle="tab" href="#clientReservations"><?php _trans('reservation'); ?></a></li>
     <li><a data-toggle="tab" href="#clientPayments"><?php _trans('payments'); ?></a></li>
 </ul>
 
@@ -354,11 +355,12 @@ foreach ($custom_fields as $custom_field) {
         <div id="clientQuotes" class="tab-pane table-content">
             <?php echo $quote_table; ?>
         </div>
-
         <div id="clientInvoices" class="tab-pane table-content">
             <?php echo $invoice_table; ?>
         </div>
-
+        <div id="clientReservations" class="tab-pane table-content">
+            <?php echo $reservation_table; ?>
+        </div>
         <div id="clientPayments" class="tab-pane table-content">
             <?php echo $payment_table; ?>
         </div>

@@ -34,13 +34,18 @@ class Dashboard extends Admin_Controller
         $quote_overview_period = get_setting('quote_overview_period');
         $invoice_overview_period = get_setting('invoice_overview_period');
 
+        $to=new DateTime();
+        $from = new DateTime();
+        $from->sub(new DateInterval('P3M'));
+        
         $this->layout->set(
             array(
                 'invoice_status_totals' => $this->mdl_invoice_amounts->get_status_totals($invoice_overview_period),
                 'quote_status_totals' => $this->mdl_quote_amounts->get_status_totals($quote_overview_period),
                 'invoice_status_period' => str_replace('-', '_', $invoice_overview_period),
                 'quote_status_period' => str_replace('-', '_', $quote_overview_period),
-                'invoices' => $this->mdl_invoices->limit(10)->get()->result(),
+                'invoices' => $this->mdl_invoices->where('ip_invoices.invoice_group_id !=',5)->limit(10)->get()->result(),
+                'reservations' => $this->mdl_invoices->where('ip_invoices.invoice_group_id =',5)->limit(10)->get()->result(),
                 'quotes' => $this->mdl_quotes->limit(10)->get()->result(),
                 'invoice_statuses' => $this->mdl_invoices->statuses(),
                 'quote_statuses' => $this->mdl_quotes->statuses(),
@@ -49,7 +54,7 @@ class Dashboard extends Admin_Controller
                 'tasks' => $this->mdl_tasks->get_latest()->get()->result(),
                 'task_statuses' => $this->mdl_tasks->statuses(),
                 'clientStatistic' => $this->mdl_dashboard->getClientStatistic(),
-                'monthVisitors' => $this->mdl_dashboard->getMonthVisitors('2021-01-01','2022-12-01')
+                'monthVisitors' => $this->mdl_dashboard->getMonthVisitors($from->format('Y-m-d'),$to->format('Y-m-d'))
             )
         );
 

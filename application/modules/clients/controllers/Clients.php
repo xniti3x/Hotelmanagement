@@ -208,7 +208,8 @@ class Clients extends Admin_Controller
             array(
                 'client' => $client,
                 'client_notes' => $this->mdl_client_notes->where('client_id', $client_id)->get()->result(),
-                'invoices' => $this->mdl_invoices->by_client($client_id)->limit(20)->get()->result(),
+                'invoices' => $this->mdl_invoices->by_client($client_id)->where("ip_invoices.invoice_group_id !=",5)->limit(20)->get()->result(),
+                'reservations' => $this->mdl_invoices->by_client($client_id)->where("ip_invoices.invoice_group_id =",5)->limit(20)->get()->result(),
                 'quotes' => $this->mdl_quotes->by_client($client_id)->limit(20)->get()->result(),
                 'payments' => $this->mdl_payments->by_client($client_id)->limit(20)->get()->result(),
                 'custom_fields' => $custom_fields,
@@ -222,6 +223,10 @@ class Clients extends Admin_Controller
                 array(
                     'invoice_table',
                     'invoices/partial_invoice_table'
+                ),
+                array(
+                    'reservation_table',
+                    'invoices/partial_reservation_table'
                 ),
                 array(
                     'quote_table',
