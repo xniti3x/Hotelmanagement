@@ -1,9 +1,9 @@
 
 <p align="center">
   <p>How to install:
-<br> PHP version < 8
+<br> PHP version lower than 8
 <br> composer install
-<br> npm version 12 or 14
+<br> nnode version 12 or 14 , npm version  6 - 8
 <br> npm install
 <br> yarn install 
 <br> grunt build
