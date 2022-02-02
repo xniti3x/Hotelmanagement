@@ -189,7 +189,24 @@
                             echo 'disabled="disabled"';
                         } ?>><?php echo htmlsc($item->item_description); ?></textarea>
                 </div>
-            </td>
+                </td>
+                <td class="hidden">
+                    <div class="input-group">
+                        <span class="input-group-addon"><?php _trans('tax_rate'); ?></span>
+                        <select name="item_tax_rate_id" class="form-control input-sm"
+                            <?php if ($invoice->is_read_only == 1) {
+                                echo 'disabled="disabled"';
+                            } ?>>
+                            <option value="0"><?php _trans('none'); ?></option>
+                            <?php foreach ($tax_rates as $tax_rate) { ?>
+                                <option value="<?php echo $tax_rate->tax_rate_id; ?>"
+                                    <?php check_select($item->item_tax_rate_id, $tax_rate->tax_rate_id); ?>>
+                                    <?php echo format_amount($tax_rate->tax_rate_percent) . '% - ' . $tax_rate->tax_rate_name; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </td>
                 <td class="td-icon text-right td-vert-middle">
                     <?php if ($invoice->is_read_only != 1): ?>
                         <button type="button" class="btn_delete_item btn btn-link btn-sm" title="<?php _trans('delete'); ?>"
@@ -197,8 +214,8 @@
                             <i class="fa fa-trash-o text-danger"></i>
                         </button>
                         <?php endif; ?>
-                    </td>
-                </tr>
+                </td>
+            </tr>
             </tbody>
         <?php } ?>
 
@@ -224,7 +241,7 @@
             <?php } ?>
         </div>
     </div>
-    <?php if($invoice->invoice_group_id!=5): ?>
+    
     <div class="col-xs-12 visible-xs visible-sm"><br></div>
 
     <div class="col-xs-12 col-md-6 col-md-offset-2 col-lg-4 col-lg-offset-4">
@@ -304,5 +321,5 @@
             </tr>
         </table>
     </div>
-    <?php endif; ?>
+    
 </div>

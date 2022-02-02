@@ -156,6 +156,7 @@ $cv = $this->controller->view_data["custom_values"];
             helper: fixHelper,
         });
 
+        <?php if ($invoice->invoice_group_id != 5): ?>  
         if ($('#invoice_discount_percent').val().length > 0) {
             $('#invoice_discount_amount').prop('disabled', true);
         }
@@ -178,6 +179,7 @@ $cv = $this->controller->view_data["custom_values"];
                 $('#invoice_discount_amount').prop('disabled', false);
             }
         });
+        <?php endif; ?>
         <?php endif; ?>
 
         <?php if ($invoice->invoice_is_recurring) : ?>
