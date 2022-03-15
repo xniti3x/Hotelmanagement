@@ -68,7 +68,16 @@ class Clients extends Admin_Controller
         }
         
         $new_client = false;
-        
+        $cd=$this->input->post('client_data');
+      
+        if (isset($cd)){
+          $array=explode("\r\n", $cd);
+           $_POST['client_name']=$array[0];
+           $_POST['client_address_1']=$array[1];
+           $_POST['client_zip']=$array[2];
+           $_POST['client_city']=$array[3];          
+        }
+
         // Set validation rule based on is_update
         if ($this->input->post('is_update') == 0 && $this->input->post('client_name') != '') {
             $check = $this->db->get_where('ip_clients', array(

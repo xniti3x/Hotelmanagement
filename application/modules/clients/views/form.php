@@ -55,13 +55,17 @@ $cv = $this->controller->view_data['custom_values'];
 
                     <div class="panel-body">
 
-                        <div class="form-group">
-                            <label for="client_name">
-                                <?php _trans('client_name'); ?>
+                    <div class="form-group">
+                            <label for="client_Data">Name/Titel<br>Straße.Nr<br>Plz<br>Ort
+                               <!-- <?php _trans('client_data'); ?> -->
                             </label>
-                            <input id="client_name" name="client_name" type="text" class="form-control" required
-                                   autofocus
-                                   value="<?php echo $this->mdl_clients->form_value('client_name', true); ?>">
+                            <textarea id="client_data" required name="client_data" type="text" class="form-control" rows="5" cols="20"
+                                   autofocus><?php 
+                                          echo $this->mdl_clients->form_value('client_name', true)
+                                            .'&#10;'.$this->mdl_clients->form_value('client_address_1', true)
+                                            .'&#10;'.$this->mdl_clients->form_value('client_zip', true) 
+                                            .'&#10;'.$this->mdl_clients->form_value('client_city', true);
+                                          ?></textarea>
                         </div>
 
                         <div class="form-group">
