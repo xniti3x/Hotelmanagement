@@ -70,7 +70,7 @@
                 </div>
             </td>
             
-            <td class="hidden">
+            <td class="td-amount">
                 <div class="input-group">
                     <span class="input-group-addon"><?php _trans('tax_rate'); ?></span>
                     <select name="item_tax_rate_id" class="form-control input-sm">
@@ -190,7 +190,7 @@
                         } ?>><?php echo htmlsc($item->item_description); ?></textarea>
                 </div>
                 </td>
-                <td class="hidden">
+                <td class="td-amount">
                     <div class="input-group">
                         <span class="input-group-addon"><?php _trans('tax_rate'); ?></span>
                         <select name="item_tax_rate_id" class="form-control input-sm"
