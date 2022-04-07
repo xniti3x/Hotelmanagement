@@ -1,12 +1,12 @@
-# Module "rooms"
-CREATE TABLE IF NOT EXISTS `ip_rooms` (
-  `id`        INT(11) NOT NULL AUTO_INCREMENT,
-  `name`      VARCHAR(50)      DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
+# Module rooms
+CREATE TABLE IF NOT EXISTS `ip_rooms` ( 
+  `id`        INT(11) NOT NULL AUTO_INCREMENT , 
+  `name`      VARCHAR(25) NOT NULL , 
+  `active`    TINYINT(1) NOT NULL , 
   PRIMARY KEY (`id`)
-)
-  ENGINE = MyISAM
-  DEFAULT CHARSET = utf8;
+) 
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;
 
 INSERT INTO ip_rooms (name) VALUES ("Room 1");
 INSERT INTO ip_rooms (name) VALUES ("Room 2");

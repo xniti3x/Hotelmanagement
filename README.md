@@ -9,6 +9,7 @@
 <br> grunt build
 <br> rename the ipconfigEXAMPLE.php to ipconfig.php 
 <br> open ipconfig.php and edit line 8 set IP_URL= to your domain for example http://localhost:8080
+<br> make sure the styles folder exists still under assets
 </p>
 
   <img src="readme/001.png">
