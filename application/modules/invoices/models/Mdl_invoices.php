@@ -204,6 +204,19 @@ class Mdl_Invoices extends Response_Model
         return $invoice_id;
     }
 
+        /**
+     * @param null $db_array
+     * @param bool $include_invoice_tax_rates
+     * @return int|null
+     */
+    public function createfromRESTAPI($db_array = null)
+    {
+        $db_array["invoice_number"] = $this->get_invoice_number($db_array["invoice_group_id"]);
+        $db_array['invoice_url_key'] = $this->get_url_key();
+         $invoice_id = parent::save(null, $db_array);
+         return $invoice_id;
+    }
+
     /**
      * Copies invoice items, tax rates, etc from source to target
      * @param int $source_id

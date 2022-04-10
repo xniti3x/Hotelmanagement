@@ -21,6 +21,10 @@ class Mdl_Rooms extends Response_Model
     public function getAllActiveRooms(){
         return $this->db->query("select * from ip_rooms where ip_rooms.active=1")->result();
     }
+    
+    public function gettAllAvailableRooms($period_start,$period_end){
+        return $this->db->query("Select * From ip_rooms where ip_rooms.id not in (SELECT item_room FROM ip_invoice_items WHERE item_date_start < '".$period_end."' AND item_date_end > '".$period_start."')")->result();
+    }
         
     /*
      * Get ip_room by id

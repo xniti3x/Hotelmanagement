@@ -202,6 +202,19 @@ class Mdl_Clients extends Response_Model
         return $client_id;
     }
 
+    public function client_lookOrSave($db_array)
+    {
+        $client = $this->mdl_clients->where('client_name', $db_array["client_name"])->get();
+
+        if ($client->num_rows()) {
+            $client_id = $client->row()->client_id;
+        } else {
+           $client_id = parent::save(null, $db_array);
+        }
+
+        return $client_id;
+    }
+
     public function with_total()
     {
         $this->filter_select('IFnull((SELECT SUM(invoice_total) FROM ip_invoice_amounts WHERE invoice_id IN (SELECT invoice_id FROM ip_invoices WHERE ip_invoices.client_id = ip_clients.client_id)), 0) AS client_invoice_total', false);
