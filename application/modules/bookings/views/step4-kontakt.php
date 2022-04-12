@@ -147,7 +147,7 @@
 	                                    <input type='submit' class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='Jetzt Buchen' />
 	                                </div>
 	                                <div class="pull-left">
-	                                <!--    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' /> -->
+	                                <a href="<?php echo site_url("bookings/index"); ?>" class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Zurück'>Zurück</a>
 	                                </div>
 	                                <div class="clearfix"></div>
 	                        	</div>

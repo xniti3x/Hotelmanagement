@@ -37,8 +37,8 @@ class Bookings extends CI_Controller
         $ende=$this->input->post("ende");
         
         
-        if(empty($start)||empty($ende) || $start==$ende){
-            $data["error_message"]="Bitte wählen Sie ein Zeitraum.";
+        if(empty($start)||empty($ende) || date($start)>=date($ende) || date($start)<date("Y-m-d")){
+            $data["error_message"]="Bitte wählen Sie ein gültiges Zeitraum aus.";
             $this->load->view("index",$data);
         }else{
             $_SESSION["meta"]["start"]=$start;
@@ -58,7 +58,7 @@ class Bookings extends CI_Controller
     public function post_step2(){
         $data["selected_rooms"]=array();
         if(empty($this->input->post("buchung"))){
-            $data["error_msg"]="bitte wählen sie zur buchung ein kästchen aus.";
+            $data["error_msg"]="Bitte wählen sie zur buchung ein kästchen aus.";
 
             $this->load->view("step2-room",$data);
             return;
@@ -98,11 +98,11 @@ class Bookings extends CI_Controller
         $error_msg="";
         
         if(empty($company["firma"]) && (empty($company["vorname"]) || empty($company["nachname"]))  ){
-            $error_msg="Bitte füllen sie den Firmennamen oder geben sie ihr vor-und nachnamen ein.";
+            $error_msg="Bitte füllen Sie den Firmennamen oder geben sie Ihr Vor-und Nachnamen ein.";
         }else if(empty($company["plz"]) || empty($company["strase"]) || empty($company["ort"]) ){
             $error_msg="Bitte Postleitzahl, Ort und Straße eingeben.";
         }else if(empty($company["email"]) && empty($company["mob"])){
-            $error_msg="Bitte email oder nummer eingeben.";
+            $error_msg="Bitte Email oder Tel.nummer eingeben.";
         }else{
             if(!empty($company["vorname"]) && !empty($company["nachname"]) && empty($company["firma"]) ){
                 $company["firma"] = $company["vorname"]." ".$company["nachname"];
