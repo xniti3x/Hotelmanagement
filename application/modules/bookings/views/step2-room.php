@@ -62,7 +62,7 @@
 											<td><p class="fw-normal mb-1"><?php echo $obj->beschreibung; ?></p></td>
 											<td>
 											  <div class="form-check">
-												<input class="form-check-input" type="radio" name="preis-<?php echo $obj->id; ?>" checked value="<?php echo $obj->preis1; ?>"/><?php echo $obj->preis1; ?>
+												<input class="form-check-input" type="radio" name="preis-<?php echo $obj->id; ?>" checked value="<?php echo $obj->preis1; ?>"/>€<?php echo $obj->preis1; ?>
 											  </div>
 											</td>
 											<td>
@@ -79,7 +79,7 @@
 													<?php  if(!empty($obj->preis3)){
 														?> 
 														<input class="form-check-input" type="radio" name="preis-<?php echo $obj->id; ?>" value="<?php echo $obj->preis3; ?>"/><?php echo $obj->preis3;
-													} ?>
+													} ?> 
 												</div>
 											</td>
 											<td><div><input class="form-check-input" type="checkbox" name="buchung[]" value="<?php echo $obj->id; ?>" /></div></td>
