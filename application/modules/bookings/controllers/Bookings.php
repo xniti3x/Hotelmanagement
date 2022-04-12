@@ -70,6 +70,10 @@ class Bookings extends CI_Controller
         }
         $nights=$this->diff($_SESSION["meta"]["start"], $_SESSION["meta"]["ende"]);
         $_SESSION["meta"]['rooms'] = $data["selected_rooms"]; 
+<<<<<<< HEAD
+        $_SESSION["meta"]["days"]=$nights["days"];
+=======
+>>>>>>> 9b0423b2631f806667ef168eb4bdb7275130b9b0
         $data["nights"]=$nights["days"];
         $this->load->view("step3-overview",(object)$data);
     }
@@ -157,7 +161,7 @@ class Bookings extends CI_Controller
                 $this->db->update('ip_invoice_groups');
                
                 
-                $diff=$this->diff($start,$end);
+                
                 
                     $count=0; 
                     foreach($_SESSION["meta"]["rooms"] as $room){ 
@@ -168,7 +172,7 @@ class Bookings extends CI_Controller
                             "item_date_added"=>$dnow,
                             "item_name"=>"Übernachtung ohne Frühstück",
                             "item_description"=>"desc",
-                            "item_quantity"=>$diff["days"],
+                            "item_quantity"=>$_SESSION["meta"]["days"],
                             "item_price"=>$room["selc_preis"],
                             "item_date_start"=>$start,
                             "item_date_end"=>$end,
