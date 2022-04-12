@@ -163,7 +163,7 @@ class Bookings extends CI_Controller
                     foreach($_SESSION["meta"]["rooms"] as $room){ 
                         $item=array("item_id"=>null,
                             "invoice_id"=>$invoice_id,
-                            "item_tax_rate_id"=>1,
+                            "item_tax_rate_id"=>2,
                             "item_product_id"=>1,
                             "item_date_added"=>$dnow,
                             "item_name"=>"Übernachtung ohne Frühstück",
