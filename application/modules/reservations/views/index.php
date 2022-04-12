@@ -1,11 +1,11 @@
 <div>
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/assets/styles/css/demo.css" />
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/assets/styles/css/layout.css?v=2019.3.3903" />
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/assets/styles/css/elements.css?v=2019.3.3903" />
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/assets/styles/themes/scheduler_8.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/custom_assets/styles/css/demo.css" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/custom_assets/styles/css/layout.css?v=2019.3.3903" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/custom_assets/styles/css/elements.css?v=2019.3.3903" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/custom_assets/styles/themes/scheduler_8.css" />
 	<!-- helper libraries -->
 	<!-- daypilot libraries -->
-    <script src="<?php echo base_url(); ?>/assets/styles/js/daypilot-all.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url(); ?>/custom_assets/styles/js/daypilot-all.min.js" type="text/javascript"></script>
 
 </script> 
                     <div id="dp" style="z-index:1;"></div>
