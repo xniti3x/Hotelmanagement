@@ -171,19 +171,22 @@
 
 				<tr class="heading">
 					<td>Bestätigung - Zeitraum: <?php echo date('d-m-Y',strtotime($_SESSION["meta"]["start"]))." - ".date('d-m-Y',strtotime($_SESSION["meta"]["ende"])); ?></td>
-
+					<td>Nächte</td>
 					<td>Preis</td>
+					<td>Summe</td>
 				</tr>
-				<?php $preis=0; foreach($_SESSION["meta"]["rooms"] as $room){ ?>
-					
+				<?php $total=0; foreach($_SESSION["meta"]["rooms"] as $room){ ?>	
 				<tr class="item">
-					<td><?php echo($room["kategorie"])." - ".($room["kategorie"]); ?></td>
-					<td><?php $preis+=$room["selc_preis"]; echo ($room["selc_preis"]); ?> €</td>
+				<td><?php echo($room["kategorie"])." - ".($room["kategorie"]); ?></td>
+				<td><?php echo $days=$_SESSION["meta"]["days"];  ?></td>	
+				<td><?php echo ($room["selc_preis"]); ?></td>
+				<td><?php echo $preis=($days*$room["selc_preis"]); $total+=$preis;  ?> €</td>
+				
 				</tr>
 				<?php } ?>
 				<tr class="total">
-					<td></td>
-					<td><?php echo $preis; ?> €</td>
+					<td></td><td></td><td></td>
+					<td><?php echo $total; ?> €</td>
 				</tr>
 			</table>
 			<br><br>Für einen reibungslosen Prozess bitten wir den Betrag auf das unten angezeigte Konto zu überweisen.<br><br>
@@ -204,6 +207,5 @@ comanystreet.4<br>
 	<a href="" class="button button2" onClick="window.print()">PDF ODER PRINT</a>
 </div>
 </div>
-<?php usleep(1000000); session_destroy(); ?>
 	</body>
 </html>

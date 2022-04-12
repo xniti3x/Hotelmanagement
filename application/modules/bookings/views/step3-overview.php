@@ -18,7 +18,6 @@
 	<!-- CSS Files -->
 	<link href="<?php echo base_url(); ?>/custom_assets/wizard_styles/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="<?php echo base_url(); ?>/custom_assets/wizard_styles/css/material-bootstrap-wizard.css" rel="stylesheet" />
-
 	<link href="<?php echo base_url(); ?>/custom_assets/wizard_styles/css/demo.css" rel="stylesheet" />
 </head>
 <!--   Big container   -->
@@ -49,7 +48,9 @@
 										  <tr>
 											<th>Kategorie</th>
 											<th>Beschreibung</th>
+											<th>Nächte</th>
 											<th>Preis</th>
+											<th>Summe</th>
 										  </tr>
 										</thead>
 										<tbody>
@@ -67,14 +68,18 @@
 											  <div class="d-flex align-items-center"></div>
 											</td>
 											<td><p class="fw-normal mb-1"><?php echo $room["beschreibung"]; ?></p></td>
-											<td><?php $preis=($room["selc_preis"]); echo $preis; $total+=$preis; ?> €</td>
+											<td><p class="fw-normal mb-1"><?php echo $nights; ?></p></td>
+											<td><p class="fw-normal mb-1"><?php echo $preis=($room["selc_preis"]); ?></p></td>
+											
+											<td><?php  echo $preis=$preis*$nights; $total+=$preis; ?> €</td>
+											
 										  </tr>
 										<?php } ?>
 										  <tr>
 											<td><p class="fw-normal mb-1">-</p></td>
-											<td>
-												<div class="form-check">-</div>
-											</td>
+											<td><div class="form-check">-</div></td>
+											<td><div class="form-check">-</div></td>
+											<td><div class="form-check">-</div></td>
 											<td><?php echo $total; ?> €</td>
 										  </tr>
 										</tbody>
