@@ -204,6 +204,5 @@ comanystreet.4<br>
 	<a href="" class="button button2" onClick="window.print()">PDF ODER PRINT</a>
 </div>
 </div>
-<?php usleep(1000000); session_destroy(); ?>
 	</body>
 </html>
