@@ -108,7 +108,7 @@
 													<i class="material-icons"></i>
 												</span>
 												<div class="form-group label-floating">
-													  <label class="control-label">Straße + Nr</label>
+													  <label class="control-label">Straße.Nr</label>
 													  <input name="street" value="<?php echo htmlspecialchars($_POST['street'] ?? '', ENT_QUOTES); ?>" type="text" class="form-control">
 												</div>
 											</div>

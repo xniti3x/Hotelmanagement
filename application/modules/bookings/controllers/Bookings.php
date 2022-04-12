@@ -68,7 +68,9 @@ class Bookings extends CI_Controller
             $room["selc_preis"]=$this->input->post("preis-".$roomid);
             $data["selected_rooms"][] = $room;
         }
+        $nights=$this->diff($_SESSION["meta"]["start"], $_SESSION["meta"]["ende"]);
         $_SESSION["meta"]['rooms'] = $data["selected_rooms"]; 
+        $data["nights"]=$nights["days"];
         $this->load->view("step3-overview",(object)$data);
     }
 
@@ -120,7 +122,8 @@ class Bookings extends CI_Controller
                 $dtnow=date("Y-m-d H:i:s");
 
 
-                if($this->check_selcRoom_available($start,$end,$_SESSION["meta"]["rooms"])){ //when room is bookend menwhile from second perosn
+                //when room is bookend menwhile from other person
+                if($this->check_selcRoom_available($start,$end,$_SESSION["meta"]["rooms"])){ 
 
                 $client_id = $this->db->query("SELECT client_id FROM `ip_clients` where client_name='".$company["firma"]."'")->row_array();
                 if(empty($client_id)){
