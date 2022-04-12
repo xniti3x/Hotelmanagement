@@ -29,7 +29,6 @@
 		            <div class="wizard-container">
 		                <div class="card wizard-card" data-color="red" id="wizard">
 		                    <form action="<?php echo site_url("bookings/post_step2"); ?>" method="post">
-		                <!--        You can switch " data-color="blue" "  with one of the next bright colors: "green", "orange", "red", "purple"             -->
 
 		                    	<div class="wizard-header">
 		                        	<h3 class="wizard-title">Companyname</h3>
@@ -37,7 +36,6 @@
 									<h5>Zeitraum: <?php echo date('d-m-Y',strtotime($_SESSION["meta"]["start"]))." - ".date('d-m-Y',strtotime($_SESSION["meta"]["ende"])); ?></h5>
 								</div>
 
-								<?php //print_r($response); ?>
 		                        <div class="tab-content">
 									
 									<table class="table align-middle mb-0 bg-white">
@@ -97,7 +95,7 @@
 	                                   <?php  if(empty($error_msg)){ ?> <input type='submit' class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='weiter' /> <?php }else{ ?><a href="<?php echo site_url("bookings/index"); ?>" class='btn btn-next btn-fill btn-danger btn-wd' value='OK'>OK</a> <?php } ?>
 	                                </div>
 	                                <div class="pull-left">
-	                                  <!--  <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' /> -->
+	                                  <a href="<?php echo site_url("bookings/index"); ?>" class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Zurück'>Zurück</a>
 	                                </div>
 	                                <div class="clearfix"></div>
 	                        	</div>
