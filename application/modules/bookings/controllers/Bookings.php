@@ -70,10 +70,7 @@ class Bookings extends CI_Controller
         }
         $nights=$this->diff($_SESSION["meta"]["start"], $_SESSION["meta"]["ende"]);
         $_SESSION["meta"]['rooms'] = $data["selected_rooms"]; 
-<<<<<<< HEAD
         $_SESSION["meta"]["days"]=$nights["days"];
-=======
->>>>>>> 9b0423b2631f806667ef168eb4bdb7275130b9b0
         $data["nights"]=$nights["days"];
         $this->load->view("step3-overview",(object)$data);
     }
