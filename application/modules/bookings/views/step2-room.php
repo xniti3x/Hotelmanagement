@@ -59,14 +59,7 @@
 												<div class="ms-3">
 												  <p class="fw-bold mb-1"><?php echo $obj->kategorie; ?></p>
 												</div>
-											  <div class="d-flex align-items-center">
-												<img
-													src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-													alt=""
-													style="width: 45px; height: 45px"
-													class="rounded-circle"
-													/>
-											  </div>
+											  <div class="d-flex align-items-center"></div>
 											</td>
 											<td><p class="fw-normal mb-1"><?php echo $obj->beschreibung; ?></p></td>
 											<td>
