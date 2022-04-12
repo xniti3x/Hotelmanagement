@@ -64,17 +64,10 @@
 												<div class="ms-3">
 												  <p class="fw-bold mb-1"><?php echo $room["kategorie"]; ?></p>
 												</div>
-											  <div class="d-flex align-items-center">
-												<img
-													src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-													alt=""
-													style="width: 45px; height: 45px"
-													class="rounded-circle"
-													/>
-											  </div>
+											  <div class="d-flex align-items-center"></div>
 											</td>
 											<td><p class="fw-normal mb-1"><?php echo $room["beschreibung"]; ?></p></td>
-											<td><?php $preis=intval($room["selc_preis"]); echo $preis; $total+=$preis; ?> €</td>
+											<td><?php $preis=($room["selc_preis"]); echo $preis; $total+=$preis; ?> €</td>
 										  </tr>
 										<?php } ?>
 										  <tr>
@@ -93,7 +86,7 @@
 	                                    <input type='submit' class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='weiter' />
 	                                </div>
 	                                <div class="pull-left">
-	                                    <a href="<?php echo site_url("bookings/index"); ?>" class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='' >Previous</a>  
+	                                    <a href="<?php echo site_url("bookings/index"); ?>" class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Zurück' >Zurück</a>  
 	                                </div>
 	                                <div class="clearfix"></div>
 	                        	</div>
