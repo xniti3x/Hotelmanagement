@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>Reservierungsbestätigung - Companyname</title>
+		<title>Reservierungsbestätigung - <?php echo $setting_value; ?></title>
 
 		<style>
 			.invoice-box {
@@ -132,8 +132,10 @@
 			background-color: #008CBA;
 			color: white;
 			}
+			@page { size: landscape;margin: 0; }
+			
+
 			</style>
-			<style type="text/css" media="print">@page { size: landscape; }</style>
 	</head>
 
 	<body>
@@ -150,19 +152,18 @@
 				</tr>
 
 				<tr class="information">
-					<td colspan="2">
+					<td  colspan="4">
 						<table>
-							<tr>
+							<tr >
 								<td>
 									<?php echo $_SESSION["user"]["firma"]; ?><br />
 									<?php echo $_SESSION["user"]["strase"]; ?><br />
 									<?php echo $_SESSION["user"]["plz"]." ".$_SESSION["user"]["ort"]; ?>
 								</td>
-
-								<td>
-									Companyname<br />
-									companystreet.4<br />
-									12345 Berlin
+								<td  style="text-align: right;">
+									<?php echo $user["user_company"]; ?><br />
+									<?php echo $user["user_address_1"]; ?><br />
+									<?php echo $user["user_zip"]." ".$user["user_city"]; ?><br />
 								</td>
 							</tr>
 						</table>
@@ -190,17 +191,12 @@
 				</tr>
 			</table>
 			<br><br>Für einen reibungslosen Prozess bitten wir den Betrag auf das unten angezeigte Konto zu überweisen.<br><br>
-			<table style="text-align: left;">
-
-<tr><td> Companyname UG<br>
-comanystreet.4<br>
-81235 Berlin
-</td>
-<td>&ensp; - companyname.de<br>
-&ensp;info@ - companyname.de<br>
-&ensp;Tel:012345675
-</td><td>&ensp;Bank Volskank<br>&ensp;BIZ:ABCDESF<br>&ensp;IBAN:DE13-23</td><td>&ensp;Berlin<br>&ensp;HRB:1234523<br>&ensp;StNr: 0123456789</td></tr>
-</table>
+			<table style="text-align: right; padding-right:50px;">
+			<tr>
+			<td> <?php echo $user["user_company"]; ?><br /><?php echo $user["user_address_1"]; ?><br /><?php echo $user["user_zip"]." ".$user["user_city"]; ?><br /></td>
+			<td><?php echo $user["user_web"]; ?><br>
+			<?php echo $user["user_email"]; ?><br><?php echo $user["user_phone"]; ?></td><td><?php echo $user["user_subscribernumber"]; ?><br><?php echo $user["user_iban"]; ?></td><td>&ensp;Berlin<br><?php echo $user["user_vat_id"]; ?><br><?php echo $user["user_tax_code"]; ?></td></tr>
+			</table>
 <br><br>
 <br><br><div align="center">	
 	<a href="<?php echo site_url("bookings/index"); ?>" class="button button2">NEU BUCHUNG</a> 
