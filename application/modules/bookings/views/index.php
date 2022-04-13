@@ -32,26 +32,24 @@
 		            <div class="wizard-container">
 		                <div class="card wizard-card" data-color="red" id="wizard">
 							<form action="<?php echo site_url("bookings/post_step1") ?>" method="post">
-
 		                    	<div class="wizard-header">
 		                        	<h3 class="wizard-title">
-
 									<?php echo($user["user_company"]); ?>
 		                        	</h3>
-									<h4 class="info-text">Zeitraum</h4>
+									<h4 class="info-text">Bitte Übernachtunszeitraum auswählen.</h4>
 								</div>
 		                        <div class="tab-content">
 									<div class="row">
 									<div class="error"><?php echo (empty($error_message))?"":$error_message; ?></div>
 										<div class="col-sm-6">
 											<div class="form-group label-floating">
-												<label class="control-label">start</label>
+												<label class="control-label">Start</label>
 												<input name="start" data-date-inline-picker="true" value="<?php echo htmlspecialchars($_POST['start'] ?? date("Y-m-d"), ENT_QUOTES); ?>" type="date" class="form-control">
 											</div>
 										</div>
 										<div class="col-sm-6">
 											<div class="form-group label-floating">
-												<label class="control-label">ende</label>
+												<label class="control-label">Ende</label>
 												<input name="ende" data-date-inline-picker="true" value="<?php echo htmlspecialchars($_POST['ende'] ?? date('Y-m-d', strtotime("+1 day")), ENT_QUOTES); ?>" type="date" class="form-control">
 											</div>
 										</div>
