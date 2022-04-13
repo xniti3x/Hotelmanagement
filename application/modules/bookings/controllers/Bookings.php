@@ -12,7 +12,6 @@ class Bookings extends CI_Controller
         $this->load->helper('url');
         $this->load->library('session');
         $this->load->model('booking');
-        
         date_default_timezone_set('Europe/Brussels');
     }
     
@@ -23,9 +22,9 @@ class Bookings extends CI_Controller
 
         
         // https://github.com/topics/reservation gant
-        
+        $data["user"]=$this->booking->get_companyData();
 
-        $this->load->view("index");
+        $this->load->view("index",$data);
         
     }
     
@@ -35,7 +34,7 @@ class Bookings extends CI_Controller
     public function post_step1(){
         $start=$this->input->post("start");
         $ende=$this->input->post("ende");
-        
+        $data["user"]=$this->booking->get_companyData();
         
         if(empty($start)||empty($ende) || date($start)>=date($ende) || date($start)<date("Y-m-d")){
             $data["error_message"]="Bitte wählen Sie ein gültiges Zeitraum aus.";
@@ -56,6 +55,7 @@ class Bookings extends CI_Controller
     }
 
     public function post_step2(){
+        $data["user"]=$this->booking->get_companyData();
         $data["selected_rooms"]=array();
         if(empty($this->input->post("buchung"))){
             $data["error_msg"]="Bitte wählen sie zur buchung ein kästchen aus.";
@@ -76,6 +76,7 @@ class Bookings extends CI_Controller
     }
 
     public function post_step3(){
+        $data["user"]=$this->booking->get_companyData();
         if(empty($_SESSION["meta"])){
             redirect("bookings/index");
         }
@@ -84,6 +85,7 @@ class Bookings extends CI_Controller
     }
 
     public function post_step4(){
+        $data["user"]=$this->booking->get_companyData();
         if(empty($_SESSION["meta"])){
             redirect("bookings/index");
         }
@@ -189,10 +191,11 @@ class Bookings extends CI_Controller
     }
 
     public function finish(){
+        $data["user"]=$this->booking->get_companyData();
         if(empty($_SESSION["meta"])){
             redirect("bookings/index");
         }
-        $this->load->view("step5-finish");
+        $this->load->view("step5-finish",$data);
     }
     public function info(){
         $this->load->view("step5-info");
