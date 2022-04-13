@@ -195,7 +195,7 @@
 			<tr>
 			<td> <?php echo $user["user_company"]; ?><br /><?php echo $user["user_address_1"]; ?><br /><?php echo $user["user_zip"]." ".$user["user_city"]; ?><br /></td>
 			<td><?php echo $user["user_web"]; ?><br>
-			<?php echo $user["user_email"]; ?><br><?php echo $user["user_phone"]; ?></td><td><?php echo $user["user_subscribernumber"]; ?><br><?php echo $user["user_iban"]; ?></td><td>&ensp;Berlin<br><?php echo $user["user_vat_id"]; ?><br><?php echo $user["user_tax_code"]; ?></td></tr>
+			<?php echo $user["user_email"]; ?><br><?php echo $user["user_phone"]; ?></td><td><?php echo $user["user_subscribernumber"]; ?><br><?php echo $user["user_iban"]; ?></td><td><?php echo $user["user_vat_id"]; ?><br><?php echo $user["user_tax_code"]; ?></td></tr>
 			</table>
 <br><br>
 <br><br><div align="center">	
