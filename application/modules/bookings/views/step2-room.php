@@ -8,7 +8,6 @@
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
 
-	<link rel="apple-touch-icon" sizes="76x76" href="<?php echo base_url(); ?>/custom_assets/wizard_styles/img/apple-icon.png" />
 	<link rel="icon" type="image/png" href="<?php echo base_url(); ?>/custom_assets/wizard_styles/img/favicon.png" />
 
 	<!--     Fonts and icons     -->
@@ -24,7 +23,7 @@
 <!--   Big container   -->
 	    <div class="container">
 	        <div class="row">
-		        <div class="col-sm-8 col-sm-offset-2">
+		        <div class="col-sm-12 col-sm-offset-0">
 		            <!--      Wizard container        -->
 		            <div class="wizard-container">
 		                <div class="card wizard-card" data-color="red" id="wizard">
@@ -36,8 +35,7 @@
 									<h5>Zeitraum: <?php echo date('d-m-Y',strtotime($_SESSION["meta"]["start"]))." - ".date('d-m-Y',strtotime($_SESSION["meta"]["ende"])); ?></h5>
 								</div>
 
-		                        <div class="tab-content">
-									
+		                        <div class="table-responsive">
 									<table class="table align-middle mb-0 bg-white">
 										<thead class="bg-light">
 										  <tr>
@@ -54,7 +52,7 @@
 											<?php if(!empty($response)){  foreach($response as $obj){ ?>
 										  <tr>
 											<td>
-												<div class="ms-3">
+												<div class="ms-4">
 												  <p class="fw-bold mb-1"><?php echo $obj->kategorie; ?></p>
 												</div>
 											  <div class="d-flex align-items-center"></div>

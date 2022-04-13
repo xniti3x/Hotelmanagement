@@ -41,7 +41,7 @@
 								
 								//print_r($response);
 								?>
-		                        <div class="tab-content">
+		                        <div class="table-responsive">
 									
 									<table class="table align-middle mb-0 bg-white">
 										<thead class="bg-light">
