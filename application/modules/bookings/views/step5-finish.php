@@ -178,7 +178,7 @@
 				</tr>
 				<?php $total=0; foreach($_SESSION["meta"]["rooms"] as $room){ ?>	
 				<tr class="item">
-				<td><?php echo($room["kategorie"])." - ".($room["kategorie"]); ?></td>
+				<td><?php echo($room["kategorie"])." - ".($room["beschreibung"]); ?></td>
 				<td><?php echo $days=$_SESSION["meta"]["days"];  ?></td>	
 				<td><?php echo ($room["selc_preis"]); ?></td>
 				<td><?php echo $preis=($days*$room["selc_preis"]); $total+=$preis;  ?> €</td>

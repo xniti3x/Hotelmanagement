@@ -124,10 +124,9 @@ class Bookings extends CI_Controller
                 $dnow=date("Y-m-d");
                 $dtnow=date("Y-m-d H:i:s");
 
-
+                $this->db->trans_start();
                 //when room is bookend menwhile from other person
                 if($this->check_selcRoom_available($start,$end,$_SESSION["meta"]["rooms"])){ 
-
                 $client_id = $this->db->query("SELECT client_id FROM `ip_clients` where client_name='".$company["firma"]."'")->row_array();
                 if(empty($client_id)){
                     $this->db->insert('ip_clients', array("client_name"=>$company["firma"],"client_address_1"=>$company["strase"],"client_city"=>$company["ort"],"client_zip"=>$company["plz"],"client_phone"=>$company["mob"],"client_email"=>$company["email"],"client_date_created"=>$dtnow,"client_date_modified"=>$dtnow));
@@ -154,33 +153,31 @@ class Bookings extends CI_Controller
                 );
 
                 $this->db->insert('ip_invoices', $invoice);
-                $invoice_id = $this->db->insert_id(); 
+                $reservation_id = $this->db->insert_id(); 
                 $this->db->set('invoice_group_next_id', $res_group["invoice_group_next_id"]+1);
                 $this->db->where('invoice_group_id', $res_group["invoice_group_id"]);
                 $this->db->update('ip_invoice_groups');
-               
-                
-                
-                
-                    $count=0; 
-                    foreach($_SESSION["meta"]["rooms"] as $room){ 
-                        $item=array("item_id"=>null,
-                            "invoice_id"=>$invoice_id,
-                            "item_tax_rate_id"=>2,
-                            "item_product_id"=>1,
-                            "item_date_added"=>$dnow,
-                            "item_name"=>"Übernachtung ohne Frühstück",
-                            "item_description"=>"desc",
-                            "item_quantity"=>$_SESSION["meta"]["days"],
-                            "item_price"=>$room["selc_preis"],
-                            "item_date_start"=>$start,
-                            "item_date_end"=>$end,
-                            "item_room" => $room["id"],
-                            "item_order" => $count
-                        );
-                        $this->db->insert('ip_invoice_items', $item);
-                        $count++;
-                    }
+                $_SESSION["meta"]["invoice_id"]=$reservation_id;
+                $count=0; 
+                foreach($_SESSION["meta"]["rooms"] as $room){ 
+                    $item=array("item_id"=>null,
+                        "invoice_id"=>$reservation_id,
+                        "item_tax_rate_id"=>2,
+                        "item_product_id"=>1,
+                        "item_date_added"=>$dnow,
+                        "item_name"=>"Übernachtung ohne Frühstück",
+                        "item_description"=>"desc",
+                        "item_quantity"=>$_SESSION["meta"]["days"],
+                        "item_price"=>$room["selc_preis"],
+                        "item_date_start"=>$start,
+                        "item_date_end"=>$end,
+                        "item_room" => $room["id"],
+                        "item_order" => $count
+                    );
+                    $this->db->insert('ip_invoice_items', $item);
+                    $count++;
+                }
+                    $this->db->trans_complete();
                     redirect("bookings/finish");
                 }else{
                     redirect("bookings/info");
