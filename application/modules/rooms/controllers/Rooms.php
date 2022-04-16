@@ -27,6 +27,7 @@ class Rooms extends Admin_Controller{
         {   
             $params = array(
 				'active' => $this->input->post('active'),
+                'show_on_system' => $this->input->post('show_on_system'),
 				'name' => $this->input->post('name'),
             );
             

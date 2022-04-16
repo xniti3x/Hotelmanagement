@@ -5,6 +5,10 @@
 		<input type="checkbox" name="active" value="1" />
 	</div>
 	<div>
+		show on system : 
+		<input type="checkbox" name="show_on_system" value="1" />
+	</div>
+	<div>
 		Name : 
 		<input type="text" name="name" value="<?php echo $this->input->post('name'); ?>" />
 	</div>

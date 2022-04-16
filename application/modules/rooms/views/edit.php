@@ -1,8 +1,12 @@
 <?php echo form_open('rooms/edit/'.$ip_room['id']); ?>
 
-	<div>
+<div>
 		Active : 
 		<input type="checkbox" name="active" value="1" <?php echo ($ip_room['active']==1 ? 'checked="checked"' : ''); ?> />
+	</div>
+	<div>
+		show_on_system : 
+		<input type="checkbox" name="show_on_system" value="1" <?php echo ($ip_room['show_on_system']==1 ? 'checked="checked"' : ''); ?> />
 	</div>
 	<div>
 		Name : 
