@@ -135,6 +135,7 @@ class Mdl_Setup extends CI_Model
             'currency_symbol'   => '€',
             'read_only_toggle' => 0,
             'enable_permissive_search_clients'=>1,
+            'email_iframe_url'=>'',
             'disable_quickactions'=>1
         );
 

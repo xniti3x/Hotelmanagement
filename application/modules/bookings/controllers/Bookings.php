@@ -166,7 +166,7 @@ class Bookings extends CI_Controller
                         "item_product_id"=>1,
                         "item_date_added"=>$dnow,
                         "item_name"=>"Übernachtung ohne Frühstück",
-                        "item_description"=>"desc",
+                        "item_description"=>"",
                         "item_quantity"=>$_SESSION["meta"]["days"],
                         "item_price"=>$room["selc_preis"],
                         "item_date_start"=>$start,

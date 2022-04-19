@@ -27,9 +27,9 @@ class Emails extends Admin_Controller
      * @param int $page
      */
     public function index(){
-       
+        $this->layout->set("iframe_url",$this->db->query("Select * from ip_settings where setting_key='email_iframe_url';")->row());
         $this->layout->buffer('content', 'emails/index');
-        $this->layout->render('layout_no_navbar');
+        $this->layout->render('layout');
     }
 
 }
