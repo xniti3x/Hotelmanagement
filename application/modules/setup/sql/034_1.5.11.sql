@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `ip_rooms` (
   `preis1`      INT(11) NOT NULL ,
   `preis2`      INT(11) ,
   `preis3`      INT(11) ,
-  `show_on_system`    TINYINT(1) NOT NULL DEFAULT '1'; , 
+  `show_on_system`    TINYINT(1) NOT NULL DEFAULT '1' , 
   `active`    TINYINT(1) NOT NULL DEFAULT '1' , 
   PRIMARY KEY (`id`)
 ) 
