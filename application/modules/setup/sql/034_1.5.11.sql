@@ -7,20 +7,20 @@ CREATE TABLE IF NOT EXISTS `ip_rooms` (
   `preis1`      INT(11) NOT NULL ,
   `preis2`      INT(11) ,
   `preis3`      INT(11) ,
-  `show_on_system`    TINYINT(1) NOT NULL DEFAULT '1'; , 
+  `show_on_system`    TINYINT(1) NOT NULL DEFAULT '1' , 
   `active`    TINYINT(1) NOT NULL DEFAULT '1' , 
   PRIMARY KEY (`id`)
 ) 
 ENGINE = InnoDB
 DEFAULT CHARSET = utf8;
 
-INSERT INTO ip_rooms (name,kategorie,beschreibung,preis1,preis2,preis3,show_on_system) VALUES ("Room 1","Einzelzimmer","gutes zimmer...",50,0,0);
-INSERT INTO ip_rooms (name,kategorie,beschreibung,preis1,preis2,preis3,show_on_system) VALUES ("Room 2","Einzelzimmer","gutes zimmer...",50,0,0);
-INSERT INTO ip_rooms (name,kategorie,beschreibung,preis1,preis2,preis3,show_on_system) VALUES ("Room 3","Einzelzimmer","gutes zimmer...",50,0,0);
-INSERT INTO ip_rooms (name,kategorie,beschreibung,preis1,preis2,preis3,show_on_system) VALUES ("Room 4","Einzelzimmer","gutes zimmer...",50,0,0);
-INSERT INTO ip_rooms (name,kategorie,beschreibung,preis1,preis2,preis3,show_on_system) VALUES ("Room 5","Doppelzimmer","gutes zimmer...",60,80,0);
-INSERT INTO ip_rooms (name,kategorie,beschreibung,preis1,preis2,preis3,show_on_system) VALUES ("Room 6","Doppelzimmer","gutes zimmer...",60,80,0);
-INSERT INTO ip_rooms (name,kategorie,beschreibung,preis1,preis2,preis3,show_on_system) VALUES ("Room 7","Dreibettzimmer","gutes zimmer...",65,85,100);
+INSERT INTO ip_rooms (name,kategorie,beschreibung,preis1,preis2,preis3) VALUES ("Room 1","Einzelzimmer","gutes zimmer...",50,0,0);
+INSERT INTO ip_rooms (name,kategorie,beschreibung,preis1,preis2,preis3) VALUES ("Room 2","Einzelzimmer","gutes zimmer...",50,0,0);
+INSERT INTO ip_rooms (name,kategorie,beschreibung,preis1,preis2,preis3) VALUES ("Room 3","Einzelzimmer","gutes zimmer...",50,0,0);
+INSERT INTO ip_rooms (name,kategorie,beschreibung,preis1,preis2,preis3) VALUES ("Room 4","Einzelzimmer","gutes zimmer...",50,0,0);
+INSERT INTO ip_rooms (name,kategorie,beschreibung,preis1,preis2,preis3) VALUES ("Room 5","Doppelzimmer","gutes zimmer...",60,80,0);
+INSERT INTO ip_rooms (name,kategorie,beschreibung,preis1,preis2,preis3) VALUES ("Room 6","Doppelzimmer","gutes zimmer...",60,80,0);
+INSERT INTO ip_rooms (name,kategorie,beschreibung,preis1,preis2,preis3) VALUES ("Room 7","Dreibettzimmer","gutes zimmer...",65,85,100);
 
 # insert default tax_rates
 INSERT INTO `ip_tax_rates` (`tax_rate_id`, `tax_rate_name`, `tax_rate_percent`) VALUES (NULL, '7', '7'), (NULL, '19', '19');
