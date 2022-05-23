@@ -251,7 +251,7 @@ class Invoices extends Admin_Controller
             'clients' => $this->mdl_clients->get_latest(),
         ]);
         $this->layout->buffer('content', 'invoices/modal_create_reservation');
-        $this->layout->render('layout_no_navbar');
+        $this->layout->render('layout');
 
     }
     /**

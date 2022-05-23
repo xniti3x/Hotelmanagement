@@ -27,6 +27,9 @@
             }
         });
 
+        $('#close').click(function () {
+            window.location = "<?php echo site_url('invoices/index'); ?>";
+        });
         // Creates the invoice
         $('#invoice_create_confirm').click(function () {
             // Posts the data to validate and create the invoice;
@@ -131,7 +134,7 @@
                 <button class="btn btn-success ajax-loader" id="invoice_create_confirm" type="button">
                     <i class="fa fa-check"></i> <?php _trans('submit'); ?>
                 </button>
-                <button class="btn btn-danger" type="button" data-dismiss="modal">
+                <button id="close" class="btn btn-danger" type="button" data-dismiss="modal">
                     <i class="fa fa-times"></i> <?php _trans('cancel'); ?>
                 </button>
             </div>
