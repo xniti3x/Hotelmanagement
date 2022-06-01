@@ -41,12 +41,12 @@
 								<?php //print_r($response); ?>
 		                        <div class="tab-content">
 								
-								Es tut uns leid, Leider haben wir für diesen Zeitraum keine freien Zimmer.
+								<h5>Leider haben wir für diesen Zeitraum keine freien Zimmer.</h5>
 								
 								</div>
 	                        	<div class="wizard-footer">
 	                            	<div class="pull-right">
-	                                    <input type='submit' class='btn btn-next btn-fill btn-danger btn-wd' name='weiter' value='weiter' />
+	                                   <a href="<?php echo site_url("bookings/index"); ?>" class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Zurück'>Zurück</a>
 	                                </div>
 	                                <div class="pull-left">
 	                                <!--    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' /> -->

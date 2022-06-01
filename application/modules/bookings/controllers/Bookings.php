@@ -47,7 +47,7 @@ class Bookings extends CI_Controller
             $rooms=$this->booking->select_free_room($start,$ende);
             $data['response'] =$rooms; 
             if(empty($rooms)){
-                $this->load->view("step2-no-free-room");
+                $this->load->view("step2-no-free-room",$data);
             }else{  
                 $this->load->view("step2-room",$data);
             }
