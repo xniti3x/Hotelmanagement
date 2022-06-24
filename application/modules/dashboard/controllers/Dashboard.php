@@ -54,6 +54,7 @@ class Dashboard extends Admin_Controller
                 'tasks' => $this->mdl_tasks->get_latest()->get()->result(),
                 'task_statuses' => $this->mdl_tasks->statuses(),
                 'clientStatistic' => $this->mdl_dashboard->getClientStatistic(),
+                'roomStatistic' => $this->mdl_dashboard->getRoomStatistic(),
                 'monthVisitors' => $this->mdl_dashboard->getMonthVisitors($from->format('Y-m-d'),$to->format('Y-m-d'))
             )
         );

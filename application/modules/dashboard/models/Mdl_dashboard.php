@@ -21,4 +21,11 @@ class Mdl_Dashboard extends Response_Model
         ORDER by invoice_total desc limit 15");
         return $query->result();
     }
+
+    public function getRoomStatistic(){
+        $query = $this->db->query("
+        SELECT item_room,sum(item_quantity*item_price) AS summe FROM `ip_invoice_items` 
+        WHERE item_date_start >= '2022-01-01' and item_date_end <= now() GROUP by item_room order by summe desc;");
+        return $query->result();
+    }
 }

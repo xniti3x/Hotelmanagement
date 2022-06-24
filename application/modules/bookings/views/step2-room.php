@@ -40,7 +40,6 @@
 										<thead class="bg-light">
 										  <tr>
 											<th>Kategorie</th>
-											<th>Beschreibung</th>
 											<th><i class="fa fa-user user"></i></th>
 											<th><i class="fa fa-user user"></i><i class="fa fa-user user"></i></th>
 											<th><i class="fa fa-user user"></i><i class="fa fa-user user"></i><i class="fa fa-user user"></i></th>
@@ -57,7 +56,7 @@
 												</div>
 											  <div class="d-flex align-items-center"></div>
 											</td>
-											<td><p class="fw-normal mb-1"><?php echo $obj->beschreibung; ?></p></td>
+											<!-- <td><p class="fw-normal mb-1"><?php echo $obj->beschreibung; ?></p></td> -->
 											<td>
 											  <div class="form-check">
 												<input class="form-check-input" type="radio" name="preis-<?php echo $obj->id; ?>" checked value="<?php echo $obj->preis1; ?>"/>€<?php echo $obj->preis1; ?>

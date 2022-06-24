@@ -242,6 +242,8 @@ $(document).ready(function(){
     
     <div id="panel-recent-invoices" class="panel panel-default">
 
+
+
         <div class="panel-heading">
             <b><i class="fa fa-history fa-margin"></i> <?php _trans('recent_reservations'); ?></b>
         </div>
@@ -293,7 +295,43 @@ $(document).ready(function(){
     </div>
 
 </div>
-    </div    
+</div>
+<div class="row">
+        <div class="col-xs-12 col-md-6">
+            <div id="panel-recent-invoices" class="panel panel-default">
+            <div class="panel-heading">
+                <b><i class="fa fa-bed fa-margin"></i> <?php _trans('room_salery'); ?></b>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped table-condensed no-margin">
+                    <thead>
+                    <tr>
+                        <th><?php _trans('room'); ?></th>
+                        <th><?php _trans('total'); ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php $vtotal=0; foreach ($roomStatistic as $item) { ?>
+                        <tr>
+                            <td>
+                                <?php echo $item->item_room; ?>
+                            </td>
+                            <td>
+                            <?php echo format_currency($item->summe." €"); ?>
+                            </td>
+                        </tr>
+                    <?php  } ?>
+
+                    </tbody>
+                </table>
+
+                </div>
+    
+            </div>
+        </div>
+    </div>
+            
 </div>
     </div>
 
