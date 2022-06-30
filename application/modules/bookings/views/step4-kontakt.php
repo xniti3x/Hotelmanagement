@@ -25,7 +25,7 @@
 	   <!--   Big container   -->
 	    <div class="container">
 	        <div class="row">
-		        <div class="col-sm-8 col-sm-offset-2">
+		        <div class="col-sm-12 col-sm-offset-0">
 		            <!--      Wizard container        -->
 		            <div class="wizard-container">
 		                <div class="card wizard-card" data-color="red" id="wizard">
