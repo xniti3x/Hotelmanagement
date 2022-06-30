@@ -87,7 +87,7 @@
 										
 									  <br><?php echo empty($error_msg) ?"":$error_msg; ?>
 								</div>
-								<h5 align="center">Bitte beachten Sie, alle aufgelisteten Preise sind ohne Frühstück.</h5>
+								<p style="font-size: 14pt;" align="center">Bitte beachten Sie, alle aufgelisteten Preise sind ohne Frühstück.</p>
 	                        	<div class="wizard-footer">
 	                            	<div class="pull-right">
 	                                   <?php  if(empty($error_msg)){ ?> <input type='submit' class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='weiter' /> <?php }else{ ?><a href="<?php echo site_url("bookings/index"); ?>" class='btn btn-next btn-fill btn-danger btn-wd' value='OK'>OK</a> <?php } ?>

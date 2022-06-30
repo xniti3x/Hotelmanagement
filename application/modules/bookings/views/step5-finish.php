@@ -3,6 +3,8 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Reservierungsbestätigung - <?php echo $setting_value; ?></title>
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
 		<style>
 			.invoice-box {
@@ -136,7 +138,10 @@
 			
 
 			</style>
-	</head>
+	
+
+
+</head>
 
 	<body>
 		<div class="invoice-box">
@@ -190,7 +195,7 @@
 					<td><?php echo $total; ?> €</td>
 				</tr>
 			</table>
-			<br><br>Für einen reibungslosen Prozess bitten wir den Betrag auf das unten angezeigte Konto zu überweisen.<br><br>
+			<p align="center"><img src="<?php echo base_url(); ?>/custom_assets/wizard_styles/img/check.png" width="32px" /> <br>Vielen Dank, Ihre Buchung war erfolgreich !</p>
 			<table style="text-align: right; padding-right:50px;">
 			<tr>
 			<td> <?php echo $user["user_company"]; ?><br /><?php echo $user["user_address_1"]; ?><br /><?php echo $user["user_zip"]." ".$user["user_city"]; ?><br /></td>
