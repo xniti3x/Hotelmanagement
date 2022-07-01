@@ -318,7 +318,7 @@ $(document).ready(function(){
                                 <?php echo $item->item_room; ?>
                             </td>
                             <td>
-                            <?php echo format_currency($item->summe." €"); ?>
+                            <?php echo format_currency($item->summe); ?>
                             </td>
                         </tr>
                     <?php  } ?>
