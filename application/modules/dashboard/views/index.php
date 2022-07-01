@@ -308,6 +308,10 @@ $(document).ready(function(){
                     <tr>
                         <th><?php _trans('room'); ?></th>
                         <th><?php _trans('total'); ?></th>
+                        <th><?php _trans('pro Monat'); ?></th>
+                        <th><?php _trans('pro Nacht'); ?></th>
+                        
+                        
                     </tr>
                     </thead>
                     <tbody>
@@ -318,7 +322,13 @@ $(document).ready(function(){
                                 <?php echo $item->item_room; ?>
                             </td>
                             <td>
-                            <?php echo format_currency($item->summe." €"); ?>
+                            <?php echo format_currency($item->summe); ?>
+                            </td>
+                            <td>
+                            <?php echo format_currency($item->summe/date("n")); ?>
+                            </td>
+                            <td>
+                            <?php echo format_currency($item->summe/date("n")/30); ?>
                             </td>
                         </tr>
                     <?php  } ?>
