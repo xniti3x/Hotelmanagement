@@ -328,7 +328,7 @@ $(document).ready(function(){
                             <?php echo format_currency($item->summe/date("n")); ?>
                             </td>
                             <td>
-                            <?php echo format_currency($item->summe/date("n")/30); ?>
+                            <?php echo format_currency($item->summe/(date("n")-1)/30); ?>
                             </td>
                         </tr>
                     <?php  } ?>
