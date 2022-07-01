@@ -323,12 +323,15 @@ $(document).ready(function(){
                             </td>
                             <td>
                             <?php echo format_currency($item->summe); ?>
+<<<<<<< HEAD
                             </td>
                             <td>
                             <?php echo format_currency($item->summe/date("n")); ?>
                             </td>
                             <td>
                             <?php echo format_currency($item->summe/date("n")/30); ?>
+=======
+>>>>>>> 3657ad5beafb1f69c77f29b381c74fb17c5218d0
                             </td>
                         </tr>
                     <?php  } ?>
