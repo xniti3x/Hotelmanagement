@@ -20,9 +20,11 @@
 	<link href="<?php echo base_url(); ?>/custom_assets/wizard_styles/css/material-bootstrap-wizard.css" rel="stylesheet" />
 
 	<link href="<?php echo base_url(); ?>/custom_assets/wizard_styles/css/demo.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://common.olemiss.edu/_js/pickadate.js-3.5.3/lib/themes/classic.css" id="theme_base">
+		<link rel="stylesheet" href="https://common.olemiss.edu/_js/pickadate.js-3.5.3/lib/themes/classic.date.css" id="theme_date">
 </head>
 <body>
-	<div class="image-container set-full-height" style="background-image: url('custom_assets/img/wizard-book.jpg')">
+	<div class="image-container set-full-height">
 
 	    <!--   Big container   -->
 	    <div class="container">
@@ -44,13 +46,13 @@
 										<div class="col-sm-6">
 											<div class="form-group label-floating">
 												<label class="control-label">Start</label>
-												<input name="start" data-date-inline-picker="true" value="<?php echo htmlspecialchars($_POST['start'] ?? date("Y-m-d"), ENT_QUOTES); ?>" type="date" class="form-control">
+												<input id="date_1" name="start" data-date-inline-picker="true" value="<?php echo htmlspecialchars($_POST['start'] ?? date("Y-m-d"), ENT_QUOTES); ?>" type="date" class="form-control">
 											</div>
 										</div>
 										<div class="col-sm-6">
 											<div class="form-group label-floating">
 												<label class="control-label">Ende</label>
-												<input name="ende" data-date-inline-picker="true" value="<?php echo htmlspecialchars($_POST['ende'] ?? date('Y-m-d', strtotime("+1 day")), ENT_QUOTES); ?>" type="date" class="form-control">
+												<input id="date_2" name="ende" data-date-inline-picker="true" value="<?php echo htmlspecialchars($_POST['ende'] ?? date('Y-m-d', strtotime("+1 day")), ENT_QUOTES); ?>" type="date" class="form-control">
 											</div>
 										</div>
 										<div><?php empty($rooms)?"":print_r($rooms); ?></div>
@@ -73,5 +75,59 @@
 	        <div class="container text-center"></div>
 	    </div>
 	</div>
+	<script src="https://common.olemiss.edu/_js/jquery.js"></script>
+		<script src="https://common.olemiss.edu/_js/pickadate.js"></script>
+		<script type="text/javascript">
+// PICKADATE FORMATTING
+
+	$( '#date_1' ).pickadate( {
+		format: 'dddd, dd mmm, yyyy',
+		formatSubmit: 'yyyy-mm-dd',
+		firstDay: 1,
+		monthsFull: [ 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ],
+		monthsShort: [ 'Jan', 'Feb', 'März', 'Apr', 'Mai', 'Juni', 'Juli', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez' ],
+		weekdaysShort: [ 'So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa' ],
+		weekdaysFull: [ 'Sontag', 'Montag', 'Dinstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag' ],
+		today: 'Heute',
+		clear: false,
+		close:false,
+		selectMonths: true,
+		selectYears: true,
+		hiddenName: true,
+		min: true,
+		max: 90,
+		closeOnSelect: true,
+		onStart: function() {
+			this.set('select', new Date())
+		},
+	}
+	);
+
+	 $( '#date_2' ).pickadate( {
+		format: 'dddd, dd mmm, yyyy',
+		formatSubmit: 'yyyy-mm-dd',
+		firstDay: 1,
+		monthsFull: [ 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ],
+		monthsShort: [ 'Jan', 'Feb', 'März', 'Apr', 'Mai', 'Juni', 'Juli', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez' ],
+		weekdaysShort: [ 'So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa' ],
+		weekdaysFull: [ 'Sontag', 'Montag', 'Dinstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag' ],
+		today: 'Heute',
+		clear: false,
+		close:false,
+		selectMonths: true,
+		selectYears: true,
+		hiddenName: true,
+		onStart: function() {
+			const date = new Date();
+			date.setDate(date.getDate() + 1);
+			this.set('select', date);
+		},
+		min: +1,
+		max: 90,
+		closeOnSelect: true,
+	}
+	);
+
+</script>
 </body>
 </html>
