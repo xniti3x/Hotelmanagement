@@ -27,7 +27,7 @@
 		            <!--      Wizard container        -->
 		            <div class="wizard-container">
 		                <div class="card wizard-card" data-color="red" id="wizard">
-		                    <form action="<?php echo site_url("bookings/post_step2"); ?>" method="post">
+		                    <form id="myform" action="<?php echo site_url("bookings/post_step2"); ?>" method="post">
 
 		                    	<div class="wizard-header">
 		                        	<h3 class="wizard-title"><?php echo $user["user_company"]; ?></h3>
@@ -79,7 +79,7 @@
 													} ?> 
 												</div>
 											</td>
-											<td><div><input class="form-check-input" type="checkbox" name="buchung[]" value="<?php echo $obj->id; ?>" /></div></td>
+											<td><div class="box" align="center" style="width:20px;"><input  class="form-check-input" type="checkbox" name="buchung[]" value="<?php echo $obj->id; ?>" /></div></td>
 										  </tr>
 										<?php } }?> 
 										</tbody>
@@ -89,8 +89,8 @@
 								</div>
 								<p style="font-size: 14pt;" align="center">Bitte beachten Sie, alle aufgelisteten Preise sind ohne Frühstück.</p>
 	                        	<div class="wizard-footer">
-	                            	<div class="pull-right">
-	                                   <?php  if(empty($error_msg)){ ?> <input type='submit' class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='weiter' /> <?php }else{ ?><a href="<?php echo site_url("bookings/index"); ?>" class='btn btn-next btn-fill btn-danger btn-wd' value='OK'>OK</a> <?php } ?>
+								<div class="pull-right">
+	                                   <?php  if(empty($error_msg)){ ?> <input type='button' onclick="myFunction()" class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='weiter' /> <?php }else{ ?><a href="<?php echo site_url("bookings/index"); ?>" class='btn btn-next btn-fill btn-danger btn-wd' value='OK'>OK</a> <?php } ?>
 	                                </div>
 	                                <div class="pull-left">
 	                                  <a href="<?php echo site_url("bookings/index"); ?>" class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Zurück'>Zurück</a>
@@ -104,9 +104,28 @@
 	    	</div> <!-- row -->
 		</div> <!--  big container -->
 		<div class="footer">
-			
+
 	        <div class="container text-center"></div>
 	    </div>
 	</div>
+	<script>
+function myFunction() {
+	var cboxes = document.getElementsByName('buchung[]');
+    var len = cboxes.length;
+	var next=false;
+    for (var i=0; i<len; i++) {
+        if(cboxes[i].checked==true){next=true; break;}
+    }
+	if(next){
+  	document.getElementById("myform").submit();
+	}else{ 
+		var collection = document.getElementsByClassName("box");
+		for (let i = 0; i < collection.length; i++) {
+		collection[i].style.backgroundColor = "#FF9FC2";
+		}
+		alert("Bitte wählen Sie ein Zimmer aus.");
+	}
+}
+</script>
 </body>
 </html>
