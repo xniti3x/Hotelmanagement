@@ -290,6 +290,7 @@
                             <th><?php _trans('pro Monat'); ?></th>
                             <th><?php _trans('pro Nacht'); ?></th>
                             <th><?php _trans('besetzte Nächte von X'); ?></th>
+                            <th><?php _trans('besetzte in %'); ?></th>  
                         </tr>
                         </thead>
                         <tbody>
@@ -308,8 +309,9 @@
                                 <?php echo format_currency($item->summe/$diff=$dateDiff["y"]*365+$dateDiff["m"]*30+$dateDiff["d"]); ?>
                                 </td>
                                 <td>
-                                <?php echo ($item->nights ."/".($diff)." ".number_format($item->nights*100/($diff),2)."%"); ?>
+                                <?php echo ($item->nights ."/".($diff)); ?>
                                 </td>
+                                <td><?php echo number_format($item->nights*100/($diff),2)."%"; ?></td>
                             </tr>
                         <?php  } ?>
 
