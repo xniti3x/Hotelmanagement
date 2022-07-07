@@ -288,7 +288,6 @@
                             <th><?php _trans('room'); ?></th>
                             <th><?php _trans('total'); ?></th>
                             <th><?php _trans('pro Monat'); ?></th>
-                            <th><?php _trans('pro 16 Nächte'); ?></th>
                             <th><?php _trans('pro Nacht'); ?></th>
                             <th><?php _trans('besetzte Nächte von X'); ?></th>
                         </tr>
@@ -303,16 +302,13 @@
                                 <?php echo format_currency($item->summe); ?>
                                 </td>
                                 <td>
-                                <?php echo format_currency($item->summe/(date("n")-1)); ?>
+                                <?php echo format_currency($item->summe/($dateDiff["m"])); ?>
                                 </td>
                                 <td>
-                                <?php echo format_currency($item->summe/(date("n")-1)/16); ?>
+                                <?php echo format_currency($item->summe/$diff=$dateDiff["y"]*365+$dateDiff["m"]*30+$dateDiff["d"]); ?>
                                 </td>
                                 <td>
-                                <?php echo format_currency($item->summe/(date("n")-1)/30); ?>
-                                </td>
-                                <td>
-                                <?php echo ($item->nights ."/".($dateDiff["y"]*365+$dateDiff["m"]*30+$dateDiff["d"])); ?>
+                                <?php echo ($item->nights ."/".($diff)); ?>
                                 </td>
                             </tr>
                         <?php  } ?>
