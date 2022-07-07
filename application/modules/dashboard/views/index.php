@@ -308,7 +308,7 @@
                                 <?php echo format_currency($item->summe/$diff=$dateDiff["y"]*365+$dateDiff["m"]*30+$dateDiff["d"]); ?>
                                 </td>
                                 <td>
-                                <?php echo ($item->nights ."/".($diff)); ?>
+                                <?php echo ($item->nights ."/".($diff)." ".number_format($item->nights*100/($diff),2)."%"); ?>
                                 </td>
                             </tr>
                         <?php  } ?>
