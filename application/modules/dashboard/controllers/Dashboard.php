@@ -33,11 +33,11 @@ class Dashboard extends Admin_Controller
 
         $quote_overview_period = get_setting('quote_overview_period');
         $invoice_overview_period = get_setting('invoice_overview_period');
-
-        $to=new DateTime();
-        $from = new DateTime();
-        $from->sub(new DateInterval('P3M'));
         
+        $start = $this->input->post("start");
+        $end   = $this->input->post("end");
+        if(!isset($_POST['submit'])) {$start="2022-01-01"; $end=date("Y-m-d");}
+        $diff = (array) date_diff(date_create_from_format('Y-m-d', $start), date_create_from_format('Y-m-d', $end));
         $this->layout->set(
             array(
                 'invoice_status_totals' => $this->mdl_invoice_amounts->get_status_totals($invoice_overview_period),
@@ -53,9 +53,12 @@ class Dashboard extends Admin_Controller
                 'projects' => $this->mdl_projects->get_latest()->get()->result(),
                 'tasks' => $this->mdl_tasks->get_latest()->get()->result(),
                 'task_statuses' => $this->mdl_tasks->statuses(),
-                'clientStatistic' => $this->mdl_dashboard->getClientStatistic(),
-                'roomStatistic' => $this->mdl_dashboard->getRoomStatistic(),
-                'monthVisitors' => $this->mdl_dashboard->getMonthVisitors($from->format('Y-m-d'),$to->format('Y-m-d'))
+                'clientStatistic' => $this->mdl_dashboard->getClientStatistic($start,$end),
+                'roomStatistic' => $this->mdl_dashboard->getRoomStatistic($start,$end),
+                'monthVisitors' => $this->mdl_dashboard->getMonthVisitors($start,$end),
+                "dateStart" => $start,
+                "dateEnd"  => $end,
+                "dateDiff" => $diff
             )
         );
 

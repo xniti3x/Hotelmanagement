@@ -1,30 +1,14 @@
 <script> 
-$(document).ready(function(){
-    var nights=null;
-        $("#visitorMonth" ).click(function() {
-         $.post("<?php echo site_url('dashboard/getMonthVisitors'); ?>",{
-            start: $("#start").val(),
-            end: $("#end").val(),
-        },
-        function (data) {
-            data=JSON.parse(data);
-             nights=data[0].Nights;
-            if(nights==null) nights=0;
-            $("#visitors").text(data[0].Visitors);
-            $("#nights").text(nights);   
-        });
-    });
-}); 
+ 
 </script>
 
 <div id="content">
+    
     <?php echo $this->layout->load_view('layout/alerts'); ?>
 
     <div class="row <?php if (get_setting('disable_quickactions') == 1) echo 'hidden'; ?>">
         <div class="col-xs-12">
-
             <div id="panel-quick-actions" class="panel panel-default quick-actions">
-
                 <div class="panel-heading">
                     <b><?php _trans('quick_actions'); ?></b>
                 </div>
@@ -65,19 +49,24 @@ $(document).ready(function(){
             <div class="card-body">
                 <h1><div id="nights"> <?php echo ($monthVisitors[0]->Nights); ?> </div> Nights</h1>    
             </div>
+            </div>
         </div>
     </div>
-    <div class="row" align="center"><input id="start" placeholder="YYYY-MM-DD" type="date"> <input id="end" placeholder="YYYY-MM-DD" type="date"> <Button id="visitorMonth" class="btn btn-primary"><i class="fa fa-search"></i></Button></div>
+    <div class="row" align="center">
+        <form method="post" action="<?php echo site_url("dashboard/index"); ?>">
+            <input id="start" name="start" placeholder="YYYY-MM-DD" type="date"> 
+            <input id="end" name="end" placeholder="YYYY-MM-DD" type="date"> 
+            <input type="submit" name="submit" id="visitorMonth" class="btn btn-primary" value="senden" />
+        </form>
+        <h3><?php echo $dateStart." bis ".$dateEnd; ?></h3>
+    </div>
     <div class="row">
         <div class="col-xs-12 col-md-6">
-
             <div id="panel-invoice-overview" class="panel panel-default overview">
-
                 <div class="panel-heading">
                     <b><i class="fa fa-bar-chart fa-margin"></i> <?php _trans('invoice_overview'); ?></b>
                     <span class="pull-right text-muted"><?php echo lang($invoice_status_period); ?></span>
                 </div>
-
                 <table class="table table-hover table-bordered table-condensed no-margin">
                     <?php foreach ($invoice_status_totals as $total) { ?>
                         <tr>
@@ -114,16 +103,13 @@ $(document).ready(function(){
                     </span>
                 </div>
             <?php } ?>
-
         </div>
         <div class="col-xs-12 col-md-6">
-    
             <div id="panel-recent-invoices" class="panel panel-default">
     
                 <div class="panel-heading">
                     <b><i class="fa fa-history fa-margin"></i> <?php _trans('recent_invoices'); ?></b>
                 </div>
-    
                 <div class="table-responsive">
                     <table class="table table-hover table-striped table-condensed no-margin">
                         <thead>
@@ -193,20 +179,17 @@ $(document).ready(function(){
                         </tr>
                         </tbody>
                     </table>
-    
                 </div>
             </div>
-    
         </div>
     </div>
-
     <div class="row">
         <div class="col-xs-12 col-md-6">
             <div id="panel-recent-invoices" class="panel panel-default">
-            <div class="panel-heading">
+                <div class="panel-heading">
                 <b><i class="fa fa-bed fa-margin"></i> <?php _trans('client_salery'); echo " - "; _trans("last_3_month"); ?></b>
-            </div>
-            <div class="table-responsive">
+                </div>
+                <div class="table-responsive">
                 <table class="table table-hover table-striped table-condensed no-margin">
                     <thead>
                     <tr>
@@ -233,116 +216,113 @@ $(document).ready(function(){
                     </tr>
                     </tbody>
                 </table>
-
                 </div>
-    
             </div>
         </div>
-        <div class="col-xs-12 col-md-6">
-    
-    <div id="panel-recent-invoices" class="panel panel-default">
-
-
-
-        <div class="panel-heading">
-            <b><i class="fa fa-history fa-margin"></i> <?php _trans('recent_reservations'); ?></b>
-        </div>
-
-        <div class="table-responsive">
-            <table class="table table-hover table-striped table-condensed no-margin">
-                <thead>
-                <tr>
-                    <th><?php _trans('status'); ?></th>
-                    <th style="min-width: 15%;"><?php _trans('reservation'); ?></th>
-                    <th style="min-width: 35%;"><?php _trans('client'); ?></th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <?php foreach ($reservations as $invoice) {
-                    if ($this->config->item('disable_read_only') == true) {
-                        $invoice->is_read_only = 0;
-                    } ?>
-                    <tr>
-                        <td>
-                            <span class="label <?php echo $invoice_statuses[$invoice->invoice_status_id]['class']; ?>">
-                                <?php echo $invoice_statuses[$invoice->invoice_status_id]['label'];
-                                if ($invoice->invoice_sign == '-1') { ?>
-                                    &nbsp;<i class="fa fa-credit-invoice" title="<?php _trans('credit_invoice') ?>"></i>
-                                <?php } ?>
-                                <?php if ($invoice->invoice_is_recurring) { ?>
-                                    &nbsp;<i class="fa fa-refresh" title="<?php echo trans('recurring') ?>"></i>
-                                <?php } ?>
-                            </span>
-                        </td>
-                        <td>
-                            <?php echo anchor('invoices/view/' . $invoice->invoice_id, ($invoice->invoice_number ? $invoice->invoice_number : $invoice->invoice_id)); ?>
-                        </td>
-                        <td>
-                            <?php echo anchor('clients/view/' . $invoice->client_id, htmlsc(format_client($invoice))); ?>
-                        </td>
-                    </tr>
-                <?php } ?>
-                <tr>
-                    <td colspan="6" class="text-right small">
-                        <?php echo anchor('invoices/status/reservation', trans('view_all')); ?>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-        </div>
-    </div>
-
-</div>
-</div>
-<div class="row">
         <div class="col-xs-12 col-md-6">
             <div id="panel-recent-invoices" class="panel panel-default">
-            <div class="panel-heading">
-                <b><i class="fa fa-bed fa-margin"></i> <?php _trans('room_salery'); ?></b>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-hover table-striped table-condensed no-margin">
-                    <thead>
-                    <tr>
-                        <th><?php _trans('room'); ?></th>
-                        <th><?php _trans('total'); ?></th>
-                        <th><?php _trans('pro Monat'); ?></th>
-                        <th><?php _trans('pro Nacht'); ?></th>
-                        
-                        
-                    </tr>
-                    </thead>
-                    <tbody>
 
-                    <?php $vtotal=0; foreach ($roomStatistic as $item) { ?>
+
+
+                <div class="panel-heading">
+                    <b><i class="fa fa-history fa-margin"></i> <?php _trans('recent_reservations'); ?></b>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped table-condensed no-margin">
+                        <thead>
                         <tr>
-                            <td>
-                                <?php echo $item->item_room; ?>
-                            </td>
-                            <td>
-                            <?php echo format_currency($item->summe); ?>
-                            </td>
-                            <td>
-                            <?php echo format_currency($item->summe/(date("n")-1)); ?>
-                            </td>
-                            <td>
-                            <?php echo format_currency($item->summe/(date("n")-1)/30); ?>
+                            <th><?php _trans('status'); ?></th>
+                            <th style="min-width: 15%;"><?php _trans('reservation'); ?></th>
+                            <th style="min-width: 35%;"><?php _trans('client'); ?></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <?php foreach ($reservations as $invoice) {
+                            if ($this->config->item('disable_read_only') == true) {
+                                $invoice->is_read_only = 0;
+                            } ?>
+                            <tr>
+                                <td>
+                                    <span class="label <?php echo $invoice_statuses[$invoice->invoice_status_id]['class']; ?>">
+                                        <?php echo $invoice_statuses[$invoice->invoice_status_id]['label'];
+                                        if ($invoice->invoice_sign == '-1') { ?>
+                                            &nbsp;<i class="fa fa-credit-invoice" title="<?php _trans('credit_invoice') ?>"></i>
+                                        <?php } ?>
+                                        <?php if ($invoice->invoice_is_recurring) { ?>
+                                            &nbsp;<i class="fa fa-refresh" title="<?php echo trans('recurring') ?>"></i>
+                                        <?php } ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <?php echo anchor('invoices/view/' . $invoice->invoice_id, ($invoice->invoice_number ? $invoice->invoice_number : $invoice->invoice_id)); ?>
+                                </td>
+                                <td>
+                                    <?php echo anchor('clients/view/' . $invoice->client_id, htmlsc(format_client($invoice))); ?>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                        <tr>
+                            <td colspan="6" class="text-right small">
+                                <?php echo anchor('invoices/status/reservation', trans('view_all')); ?>
                             </td>
                         </tr>
-                    <?php  } ?>
-
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
                 </div>
-    
             </div>
         </div>
     </div>
-            
-</div>
-    </div>
+    <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div id="panel-recent-invoices" class="panel panel-default">
+                <div class="panel-heading">
+                    <b><i class="fa fa-bed fa-margin"></i> <?php _trans('room_salery'); ?></b>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped table-condensed no-margin">
+                        <thead>
+                        <tr>
+                            <th><?php _trans('room'); ?></th>
+                            <th><?php _trans('total'); ?></th>
+                            <th><?php _trans('pro Monat'); ?></th>
+                            <th><?php _trans('pro 16 Nächte'); ?></th>
+                            <th><?php _trans('pro Nacht'); ?></th>
+                            <th><?php _trans('besetzte Nächte von X'); ?></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php $vtotal=0; foreach ($roomStatistic as $item) { ?>
+                            <tr>
+                                <td>
+                                    <?php echo $item->item_room; ?>
+                                </td>
+                                <td>
+                                <?php echo format_currency($item->summe); ?>
+                                </td>
+                                <td>
+                                <?php echo format_currency($item->summe/(date("n")-1)); ?>
+                                </td>
+                                <td>
+                                <?php echo format_currency($item->summe/(date("n")-1)/16); ?>
+                                </td>
+                                <td>
+                                <?php echo format_currency($item->summe/(date("n")-1)/30); ?>
+                                </td>
+                                <td>
+                                <?php echo ($item->nights ."/".($dateDiff["y"]*365+$dateDiff["m"]*30+$dateDiff["d"])); ?>
+                                </td>
+                            </tr>
+                        <?php  } ?>
 
+                        </tbody>
+                    </table>
+
+                    </div>
+        
+                </div>
+            </div>
+    </div>        
 </div>

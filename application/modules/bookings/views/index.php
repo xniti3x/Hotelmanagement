@@ -38,11 +38,10 @@
 		                        	<h3 class="wizard-title">
 									<?php echo($user["user_company"]); ?>
 		                        	</h3>
-									<h4 class="info-text">Bitte Übernachtunszeitraum auswählen.</h4>
+									<h4 class="info-text"></h4>
 								</div>
 		                        <div class="tab-content">
 									<div class="row">
-									<div class="error"><?php echo (empty($error_message))?"":$error_message; ?></div>
 										<div class="col-sm-6">
 											<div class="form-group label-floating">
 												<label class="control-label">Start</label>
@@ -57,6 +56,8 @@
 										</div>
 										<div><?php empty($rooms)?"":print_r($rooms); ?></div>
 									</div>
+									<div align="center" style="color:<?php echo (empty($error_message)? "#000":"red"); ?>; font-size:14pt;" ><br><?php echo (empty($error_message))?"Bitte Übernachtunszeitraum auswählen.":$error_message; ?></div>
+									
 								</div>
 								
 	                        	<div class="wizard-footer">

@@ -37,7 +37,7 @@ class Bookings extends CI_Controller
         $data["user"]=$this->booking->get_companyData();
         
         if(empty($start)||empty($ende) || date($start)>=date($ende) || date($start)<date("Y-m-d")){
-            $data["error_message"]="Bitte wählen Sie ein gültiges Zeitraum aus.";
+            $data["error_message"]="Bitte wählen Sie ein gültigen Zeitraum aus.";
             $this->load->view("index",$data);
         }else{
             $_SESSION["meta"]["start"]=$start;
@@ -47,7 +47,9 @@ class Bookings extends CI_Controller
             $rooms=$this->booking->select_free_room($start,$ende);
             $data['response'] =$rooms; 
             if(empty($rooms)){
-                $this->load->view("step2-no-free-room",$data);
+                //$this->load->view("step2-no-free-room",$data);
+                $data["error_message"]=$start." bis ".$ende.": Leider haben wir für diesen Zeitraum keine freien Zimmer.";
+                $this->load->view("index",$data);
             }else{  
                 $this->load->view("step2-room",$data);
             }
