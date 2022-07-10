@@ -1,188 +1,46 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<title>Reservierungsbestätigung - <?php echo $setting_value; ?></title>
-		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-
-		<style>
-			.invoice-box {
-				max-width: 800px;
-				margin: auto;
-				padding: 30px;
-				border: 1px solid #eee;
-				box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-				font-size: 16px;
-				line-height: 24px;
-				font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-				color: #555;
-			}
-
-			.invoice-box table {
-				width: 100%;
-				line-height: inherit;
-				text-align: left;
-			}
-
-			.invoice-box table td {
-				padding: 5px;
-				vertical-align: top;
-			}
-
-			.invoice-box table tr td:nth-child(2) {
-				text-align: right;
-			}
-
-			.invoice-box table tr.top table td {
-				padding-bottom: 20px;
-			}
-
-			.invoice-box table tr.top table td.title {
-				font-size: 45px;
-				line-height: 45px;
-				color: #333;
-			}
-
-			.invoice-box table tr.information table td {
-				padding-bottom: 40px;
-			}
-
-			.invoice-box table tr.heading td {
-				background: #eee;
-				border-bottom: 1px solid #ddd;
-				font-weight: bold;
-			}
-
-			.invoice-box table tr.details td {
-				padding-bottom: 20px;
-			}
-
-			.invoice-box table tr.item td {
-				border-bottom: 1px solid #eee;
-			}
-
-			.invoice-box table tr.item.last td {
-				border-bottom: none;
-			}
-
-			.invoice-box table tr.total td:nth-child(2) {
-				border-top: 2px solid #eee;
-				font-weight: bold;
-			}
-
-			@media only screen and (max-width: 600px) {
-				.invoice-box table tr.top table td {
-					width: 100%;
-					display: block;
-					text-align: center;
-				}
-
-				.invoice-box table tr.information table td {
-					width: 100%;
-					display: block;
-					text-align: center;
-				}
-			}
-
-			/** RTL **/
-			.invoice-box.rtl {
-				direction: rtl;
-				font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-			}
-
-			.invoice-box.rtl table {
-				text-align: right;
-			}
-
-			.invoice-box.rtl table tr td:nth-child(2) {
-				text-align: left;
-			}
-
-			.button {
-			border: none;
-			color: white;
-			padding: 16px 32px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-			margin: 4px 2px;
-			transition-duration: 0.4s;
-			cursor: pointer;
-			}
-
-			.button1 {
-			background-color: white; 
-			color: black; 
-			border: 2px solid #4CAF50;
-			width: 300px;
-			}
-
-			.button1:hover {
-			background-color: #4CAF50;
-			color: white;
-			}
-
-			.button2 {
-			background-color: white; 
-			color: black; 
-			border: 2px solid #008CBA;
-			}
-
-			.button2:hover {
-			background-color: #008CBA;
-			color: white;
-			}
-			@page { size: landscape;margin: 0; }
-			
-
-			</style>
-	
-
-
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title><?php echo $user["user_company"]; ?></title>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
+<body>
+	<br><br><br>
+	<div class="container" style="font-size:14pt;">
+<div class="card table-responsive">
+<p class="card-body" align="center">
+	<img src="<?php echo base_url(); ?>/custom_assets/wizard_styles/img/check.png" width="32px" /> <br>
+	Vielen Dank, Ihre Buchung war erfolgreich !!!<br>
+	In Kürze erhalten Sie eine Buchungsbestätigungsmail unter, <u><?php echo $_SESSION["user"]["email"]; ?></u><br><br>
+	<a href="<?php echo site_url("bookings/index"); ?>" class="btn btn-info">NEU BUCHUNG</a> </p>
 
-	<body>
-		<div class="invoice-box">
-			<table cellpadding="0" cellspacing="0">
-				<tr class="top">
-					<td colspan="2">
-						<table>
-							<tr>
-								<td class="title"></td><td></td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-
-				<tr class="information">
-					<td  colspan="4">
-						<table>
-							<tr >
-								<td>
+	<table class="table table-striped" width="100%" cellpadding="5px" cellspacing="15px">
+				<tr style="font-weight: bold;">
+								<td align="right">
 									<?php echo $_SESSION["user"]["firma"]; ?><br />
 									<?php echo $_SESSION["user"]["strase"]; ?><br />
 									<?php echo $_SESSION["user"]["plz"]." ".$_SESSION["user"]["ort"]; ?>
 								</td>
-								<td  style="text-align: right;">
+								<td colspan="3">
 									<?php echo $user["user_company"]; ?><br />
 									<?php echo $user["user_address_1"]; ?><br />
 									<?php echo $user["user_zip"]." ".$user["user_city"]; ?><br />
 								</td>
-							</tr>
-						</table>
-					</td>
 				</tr>
-
-				<tr class="heading">
-					<td>Bestätigung - Zeitraum: <?php echo date('d-m-Y',strtotime($_SESSION["meta"]["start"]))." - ".date('d-m-Y',strtotime($_SESSION["meta"]["ende"])); ?></td>
+				
+				<tr>
+					<td>Zeitraum: <?php echo date('d-m-Y',strtotime($_SESSION["meta"]["start"]))." - ".date('d-m-Y',strtotime($_SESSION["meta"]["ende"])); ?></td>
 					<td>Nächte</td>
 					<td>Preis</td>
 					<td>Summe</td>
 				</tr>
 				<?php $total=0; foreach($_SESSION["meta"]["rooms"] as $room){ ?>	
-				<tr class="item">
+				<tr>
 				<td><?php echo($room["kategorie"])." - ".($room["beschreibung"]); ?></td>
 				<td><?php echo $days=$_SESSION["meta"]["days"];  ?></td>	
 				<td><?php echo ($room["selc_preis"]); ?></td>
@@ -190,23 +48,22 @@
 				
 				</tr>
 				<?php } ?>
-				<tr class="total">
+				<tr>
 					<td></td><td></td><td></td>
 					<td><?php echo $total; ?> €</td>
 				</tr>
+				<tr>
+					<td></td><td></td><td></td>
+					<td> <br></td>
+				</tr>
+				<tr>
+				<td> <?php echo $user["user_company"]; ?><br /><?php echo $user["user_address_1"]; ?><br /><?php echo $user["user_zip"]." ".$user["user_city"]; ?><br /></td>
+				<td><?php echo $user["user_web"]; ?><br>
+				<?php echo $user["user_email"]; ?><br><?php echo $user["user_phone"]; ?></td><td><?php echo $user["user_subscribernumber"]; ?><br><?php echo $user["user_iban"]; ?></td><td><?php echo $user["user_vat_id"]; ?><br><?php echo $user["user_tax_code"]; ?></td>
+				</tr>
 			</table>
-			<p align="center"><img src="<?php echo base_url(); ?>/custom_assets/wizard_styles/img/check.png" width="32px" /> <br>Vielen Dank, Ihre Buchung war erfolgreich !</p>
-			<table style="text-align: right; padding-right:50px;">
-			<tr>
-			<td> <?php echo $user["user_company"]; ?><br /><?php echo $user["user_address_1"]; ?><br /><?php echo $user["user_zip"]." ".$user["user_city"]; ?><br /></td>
-			<td><?php echo $user["user_web"]; ?><br>
-			<?php echo $user["user_email"]; ?><br><?php echo $user["user_phone"]; ?></td><td><?php echo $user["user_subscribernumber"]; ?><br><?php echo $user["user_iban"]; ?></td><td><?php echo $user["user_vat_id"]; ?><br><?php echo $user["user_tax_code"]; ?></td></tr>
-			</table>
-<br><br>
-<br><br><div align="center">	
-	<a href="<?php echo site_url("bookings/index"); ?>" class="button button2">NEU BUCHUNG</a> 
-	<a href="" class="button button2" onClick="window.print()">PDF ODER PRINT</a>
-</div>
-</div>
-	</body>
+		</div>
+
+		</div>
+		</body>
 </html>

@@ -7,7 +7,6 @@ class Bookings extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper('url');
         $this->load->database();
         $this->load->helper('url');
         $this->load->library('session');
@@ -180,6 +179,24 @@ class Bookings extends CI_Controller
                     $count++;
                 }
                     $this->db->trans_complete();
+	
+					$table='
+                    Sehr geehrte Damen und Herren,<br>
+                    wir freuen uns ganz herzlich dass sie bei uns übernachten möchten und bestätigen die Reservierung wie folgt:<br><br>
+                    Zeitraum: '.date('d-m-Y',strtotime($_SESSION["meta"]["start"]))." bis ".date('d-m-Y',strtotime($_SESSION["meta"]["ende"])).'<br>';
+                    foreach($_SESSION["meta"]["rooms"] as $room){	
+                    $table.='<br>'.$room["kategorie"].' - '.$room["selc_preis"].'€/Nacht ohne Frühstück';
+                    $table.="<br><br><br>Mit freundlichen Grüßen<br>
+                    ".$data["user"]["user_company"]."<br>
+                    ".$data["user"]["user_address_1"]."<br>
+                    ".$data["user"]["user_zip"]." ".$data["user"]["user_city"]."<br>
+                    ".$data["user"]["user_phone"]."<br>
+                    ".$data["user"]["user_email"];
+                    }
+					
+					$sub='=?UTF-8?B?' . base64_encode('Reservierungsbestätigung') . '?=';
+                    $this->sendEmail($company["email"],$sub,base64_encode($table));
+                    
                     redirect("bookings/finish");
                 }else{
                     redirect("bookings/info");
@@ -224,5 +241,17 @@ class Bookings extends CI_Controller
              }
         }
         return ($count==$excp_count);
+    }
+    private function sendEmail($to,$subject,$body){
+        $this->load->model("settings/mdl_settings");
+        $myEmail = $this->mdl_settings->get("smtp_mail_from");
+         $header = 
+        'From: '.$myEmail . "\r\n" .
+        'Reply-To: '.$myEmail . "\r\n" .
+        'MIME-Version: 1.0' . "\r\n".
+        'Content-Type: text/html; charset=utf-8'. "\r\n".
+		'Content-Transfer-Encoding: base64' . "\r\n";
+
+        return mail($to.",".$myEmail, $subject, $body, $header);  
     }
 }
