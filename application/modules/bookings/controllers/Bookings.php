@@ -208,7 +208,7 @@ class Bookings extends CI_Controller
 
     public function finish(){
         $data["user"]=$this->booking->get_companyData();
-        if(empty($_SESSION["meta"])){
+        if(empty($_SESSION["user"])){
             redirect("bookings/index");
         }
         $this->load->view("step5-finish",$data);
