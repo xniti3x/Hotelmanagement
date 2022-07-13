@@ -23,6 +23,10 @@ class Dashboard extends Admin_Controller
     
     public function index()
     {
+       
+        echo "<pre>";
+        print_r($_SESSION);
+        echo "</pre>";
         $this->load->model('invoices/mdl_invoice_amounts');
         $this->load->model('quotes/mdl_quote_amounts');
         $this->load->model('invoices/mdl_invoices');
