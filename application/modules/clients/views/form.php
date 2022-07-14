@@ -264,7 +264,7 @@ $cv = $this->controller->view_data['custom_values'];
                                 </select>
                             </div>
                         </div>
-
+                        
                         <div class="form-group has-feedback">
                             <label for="client_birthdate"><?php _trans('birthdate'); ?></label>
                             <?php
@@ -272,7 +272,7 @@ $cv = $this->controller->view_data['custom_values'];
                             if ($bdate && $bdate != "1970-01-01") {
                                 $bdate = date_from_mysql($bdate);
                             } else {
-                                $bdate = '';
+                                $bdate = '1970-01-01';
                             }
                             ?>
                             <div class="input-group">
