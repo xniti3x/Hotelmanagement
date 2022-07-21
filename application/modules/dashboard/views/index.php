@@ -187,7 +187,7 @@
         <div class="col-xs-12 col-md-6">
             <div id="panel-recent-invoices" class="panel panel-default">
                 <div class="panel-heading">
-                <b><i class="fa fa-bed fa-margin"></i> <?php _trans('client_salery'); echo " - "; _trans("last_3_month"); ?></b>
+                <b><i class="fa fa-bed fa-margin"></i> <?php _trans('client_salery'); ?></b>
                 </div>
                 <div class="table-responsive">
                 <table class="table table-hover table-striped table-condensed no-margin">
