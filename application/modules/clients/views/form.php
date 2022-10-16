@@ -274,7 +274,7 @@ $cv = $this->controller->view_data['custom_values'];
                             } else {
                                 $bdate = '1970-01-01';
                             }
-                            $bdate = '1970-01-01'; // should be deleted
+                            $bdate = '01-01-1970'; // should be deleted
                             ?>
                             <div class="input-group">
                                 <input type="text" name="client_birthdate" id="client_birthdate"
