@@ -34,37 +34,13 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-12 col-md-6">
-                <div class="card" align="center">
-                    <span style="font-size: 80px;"><i class="fa fa-user card-img-top"></i></span>
-                <div class="card-body">
-                    <h1><div id="visitors"> <?php echo ($monthVisitors[0]->Visitors); ?> </div> Vsitors</h1>   
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-md-6">
-            <div class="card" align="center">
-                <span style="font-size: 80px;"><i class="fa fa-bed card-img-top"></i></span>
-            <div class="card-body">
-                <h1><div id="nights"> <?php echo ($monthVisitors[0]->Nights); ?> </div> Nights</h1>    
-            </div>
-            </div>
-        </div>
-    </div>
-    <div class="row" align="center">
-        <form method="post" action="<?php echo site_url("dashboard/index"); ?>">
-            <input id="start" name="start" placeholder="YYYY-MM-DD" type="date"> 
-            <input id="end" name="end" placeholder="YYYY-MM-DD" type="date"> 
-            <input type="submit" name="submit" id="visitorMonth" class="btn btn-primary" value="senden" />
-        </form>
-        <h3><?php echo $dateStart." bis ".$dateEnd; ?></h3>
-    </div>
+
     <div class="row">
         <div class="col-xs-12 col-md-6">
             <div id="panel-invoice-overview" class="panel panel-default overview">
                 <div class="panel-heading">
-                    <b><i class="fa fa-bar-chart fa-margin"></i> <?php _trans('invoice_overview'); ?></b>
+                <span class="oi oi-spreadsheet"></span>
+                    <b><i class="fa fa-table fa-margin"></i> <?php _trans('invoice_overview'); ?></b>
                     <span class="pull-right text-muted"><?php echo lang($invoice_status_period); ?></span>
                 </div>
                 <table class="table table-hover table-bordered table-condensed no-margin">
@@ -182,47 +158,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
     <div class="row">
         <div class="col-xs-12 col-md-6">
             <div id="panel-recent-invoices" class="panel panel-default">
-                <div class="panel-heading">
-                <b><i class="fa fa-bed fa-margin"></i> <?php _trans('client_salery'); ?></b>
-                </div>
-                <div class="table-responsive">
-                <table class="table table-hover table-striped table-condensed no-margin">
-                    <thead>
-                    <tr>
-                        <th><?php _trans('client_name'); ?></th>
-                        <th><?php _trans('total'); ?></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <?php $vtotal=0; foreach ($clientStatistic as $item) { $vtotal+=$item->invoice_total; ?>
-                        <tr>
-                            <td>
-                                <?php echo $item->client_name; ?>
-                            </td>
-                            <td>
-                            <?php echo ($item->invoice_total." €"); ?>
-                            </td>
-                        </tr>
-                    <?php  } ?>
-                    <tr>
-                        <td colspan="6" class="text-right small">
-                            <?php echo format_currency($vtotal); ?>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-md-6">
-            <div id="panel-recent-invoices" class="panel panel-default">
-
-
 
                 <div class="panel-heading">
                     <b><i class="fa fa-history fa-margin"></i> <?php _trans('recent_reservations'); ?></b>
@@ -274,12 +213,62 @@
                 </div>
             </div>
         </div>
+        
+        
     </div>
     <div class="row">
-            <div class="col-xs-12 col-md-12">
+        <div class="col-xs-12 col-md-6">
+            <div id="panel-invoice-overview" class="panel panel-default overview">
+                <div class="panel-heading">
+                    <b><i class="fa fa-bar-chart fa-margin"></i> <?php _trans('Statistic'); ?></b>
+                    <span class="pull-right text-muted"></span>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card" align="center" style="max-width: 12rem;">
+                        <div class="card-header"><span style="font-size: 60px;"><i class="fa fa-user card-img-top"></i></span></div>
+                        <div class="card-body">
+                            <h2 class="card-title">Vsitors</h2>
+                            <p class="card-text"><h2><?php echo ($monthVisitors[0]->Visitors); ?>.00</h2></p>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card" align="center" style="max-width: 12rem;">
+                        <div class="card-header"><span style="font-size: 60px;"><i class="fa fa-bed card-img-top"></i></span></div>
+                        <div class="card-body">
+                            <h2 class="card-title">Nights</h2>
+                            <p class="card-text"><h2><?php echo ($monthVisitors[0]->Nights); ?></h2></p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div id="panel-invoice-overview" class="panel panel-default overview">
+                <div class="panel-heading">
+                    <b><i class="fa fa-bar-chart fa-margin"></i></b>
+                    <span class="pull-right text-muted"></span>
+                </div>
+                <div>
+                    <div class="row" align="center">
+                        <form method="post" action="<?php echo site_url("dashboard/index"); ?>">
+                            <input id="start" name="start" placeholder="YYYY-MM-DD" type="date"> 
+                            <input id="end" name="end" placeholder="YYYY-MM-DD" type="date"> 
+                            <input type="submit" name="submit" id="visitorMonth" class="btn btn-primary" value="senden" />
+                        </form>
+                        <h3><?php echo $dateStart." bis ".$dateEnd; ?></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-xs-12 col-md-6">
                 <div id="panel-recent-invoices" class="panel panel-default">
                 <div class="panel-heading">
-                    <b><i class="fa fa-bed fa-margin"></i> <?php _trans('room_salery'); ?></b>
+                    <b><i class="fa fa-bar-chart fa-margin"></i> <?php _trans('room_salery'); ?></b>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover table-striped table-condensed no-margin">
@@ -322,5 +311,40 @@
         
                 </div>
             </div>
+            <div class="col-xs-12 col-md-6">
+                <div id="panel-recent-invoices" class="panel panel-default">
+                    <div class="panel-heading">
+                    <b><i class="fa fa-bar-chart fa-margin"></i> <?php _trans('client_salery'); ?></b>
+                    </div>
+                    <div class="table-responsive">
+                    <table class="table table-hover table-striped table-condensed no-margin">
+                        <thead>
+                        <tr>
+                            <th><?php _trans('client_name'); ?></th>
+                            <th><?php _trans('total'); ?></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <?php $vtotal=0; foreach ($clientStatistic as $item) { $vtotal+=$item->invoice_total; ?>
+                            <tr>
+                                <td>
+                                    <?php echo $item->client_name; ?>
+                                </td>
+                                <td>
+                                <?php echo ($item->invoice_total." €"); ?>
+                                </td>
+                            </tr>
+                        <?php  } ?>
+                        <tr>
+                            <td colspan="6" class="text-right small">
+                                <?php echo format_currency($vtotal); ?>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+        </div>
     </div>        
 </div>
