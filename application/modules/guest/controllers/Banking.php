@@ -47,7 +47,7 @@ class Banking extends Base_Controller
             $data['transactionId']=$id;
             $this->mdl_bank_api->saveTransactionFile($data);
             $this->session->set_flashdata('alert_success', trans('record_successfully_updated'));
-            header("Location:".site_url("guest/banking/index".$this->mdl_bank_api->getValue('ckey')));
+            header("Location:".site_url("guest/banking/index/".$this->mdl_bank_api->getValue('ckey')));
         }       
     }
 }
