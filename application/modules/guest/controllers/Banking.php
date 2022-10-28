@@ -38,7 +38,7 @@ class Banking extends Base_Controller
        if ( ! $this->upload->do_upload('userfile'))
         {
             $this->session->set_flashdata('alert_error',$this->upload->display_errors());
-            header("Location:".site_url("guest/banking/view/".$id));
+            header("Location:".site_url("guest/banking/view/".$this->mdl_bank_api->getValue('ckey')."/".$id));
         }
         else
         {// Array ( [upload_data] => Array ( [file_name] => 2020-mu2ff7in12.pdf [file_type] => application/pdf [file_path] => /root/workspace/Hotelmanagement/uploads/ [full_path] => /root/workspace/Hotelmanagement/uploads/2020-mu2ff7in12.pdf [raw_name] => 2020-mu2ff7in12 [orig_name] => 2020-mu2ff7in.pdf [client_name] => 2020-mu2ff7in.pdf [file_ext] => .pdf [file_size] => 53.1 [is_image] => [image_width] => [image_height] => [image_type] => [image_size_str] => ) )
@@ -47,7 +47,7 @@ class Banking extends Base_Controller
             $data['transactionId']=$id;
             $this->mdl_bank_api->saveTransactionFile($data);
             $this->session->set_flashdata('alert_success', trans('record_successfully_updated'));
-            header("Location:".site_url("guest/banking/index"));
+            header("Location:".site_url("guest/banking/index".$this->mdl_bank_api->getValue('ckey')));
         }       
     }
 }
