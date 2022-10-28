@@ -84,8 +84,8 @@ class Banking extends Admin_Controller
 
     public function index(){
         $this->layout->set("transactions",$this->mdl_bank_api->getAllTransactions());
-        $this->layout->buffer('content', 'guest/transcation_index');
-        $this->layout->render('layout_no_navbar');
+        $this->layout->buffer('content', 'banking/index');
+        $this->layout->render();
     }
 
     public function view($id){
@@ -93,7 +93,7 @@ class Banking extends Admin_Controller
         $this->layout->set("transfiles",$this->mdl_bank_api->getAllTransactionFiles($id));
         $this->layout->set("id",$id);
         $this->layout->buffer('content', 'banking/view');
-        $this->layout->render('layout_no_navbar');
+        $this->layout->render();
     }
 
     public function delete($id,$transactionId){

@@ -1,33 +1,22 @@
 <?php
-if (!defined('BASEPATH')) exit('No direct script access allowed');
- 
-/*
- * InvoicePlane
- *
- * @author		InvoicePlane Developers & Contributors
- * @copyright	Copyright (c) 2012 - 2018 InvoicePlane.com
- * @license		https://invoiceplane.com/license.txt
- * @link		https://invoiceplane.com
- */
+if (!defined('BASEPATH')) exit('No direct script access allowed'); 
 
 class Banking extends Base_Controller
 {
-
-    public function __construct()
-    {
+    public function __construct(){
         parent::__construct();
         $this->load->model('banking/mdl_bank_api');
         $this->load->helper(array('form', 'url'));
     }
-    public function index(){
-
+    public function index($ckey=null){if(strcmp($ckey,$this->mdl_bank_api->getValue('ckey'))!=0) exit('No access allowed');
         $transactions=$this->mdl_bank_api->getAllTransactions();
+        
         $this->layout->set("transactions",$transactions);
         $this->layout->buffer('content', 'guest/transcation_index');
         $this->layout->render('layout_no_navbar');
     }
 
-    public function view($id){
+    public function view($ckey,$id){if(strcmp($ckey,$this->mdl_bank_api->getValue('ckey'))!=0) exit('No access allowed');
         $transaction=$this->mdl_bank_api->getTransactionBy($id);
         $transfiles=$this->mdl_bank_api->getAllTransactionFiles($id);
 
@@ -38,8 +27,7 @@ class Banking extends Base_Controller
         $this->layout->render('layout_no_navbar');
     }
 
-    public function do_upload($id)
-    {
+    public function do_upload($ckey,$id){if(strcmp($ckey,$this->mdl_bank_api->getValue('ckey'))!=0) exit('No access allowed');
         $config['upload_path']          = './uploads/';
         $config['allowed_types']        = 'gif|jpg|png|pdf';
         $config['max_size']             = 10024;
@@ -60,7 +48,6 @@ class Banking extends Base_Controller
             $this->mdl_bank_api->saveTransactionFile($data);
             $this->session->set_flashdata('alert_success', trans('record_successfully_updated'));
             header("Location:".site_url("guest/banking/index"));
-        }
-        
+        }       
     }
 }
