@@ -19,7 +19,7 @@
     if($amount<0){ $color="red";}else{$color="green";}
     $title="<b>".$title." - ".$transaction['bookingDate']."</b><p>".$note."<br>".$transaction['additionalInformation']." <b style='color:".$color.";'>".$amount."€</b></p>";
    echo "<tr>
-   <td>".$title."<p><a class='btn btn-default btn-xs' href='".site_url('guest/banking/view/'.$transaction['transactionId'])."'>Bearbeiten</a></p></td>
+   <td>".$title."<p><a class='btn btn-default btn-xs' href='".site_url('guest/banking/view/'.$this->mdl_bank_api->getValue('ckey').'/'.$transaction['transactionId'])."'>Bearbeiten</a></p></td>
    </tr>";
   }
 ?>

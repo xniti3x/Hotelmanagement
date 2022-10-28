@@ -3,7 +3,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     
-<a class="btn btn-default btn-xs" href="<?php echo site_url("guest/banking/index") ?>"> zurück </a>
+<a class="btn btn-default btn-xs" href="<?php echo site_url("guest/banking/index/".$this->mdl_bank_api->getValue('ckey')) ?>"> zurück </a>
   <?php echo "<b>".$transaction->title."</b>"; ?></div>
   <div class="panel-body">
   <table class="table table-hover">
@@ -24,7 +24,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="row" >
-    <?php  echo form_open_multipart('guest/banking/do_upload/'.$id); ?>
+    <?php  echo form_open_multipart('guest/banking/do_upload/'.$this->mdl_bank_api->getValue('ckey').'/'.$id); ?>
     <div class="col-lg-6">
       <div class="input-group">
         <span class="input-group-btn">
