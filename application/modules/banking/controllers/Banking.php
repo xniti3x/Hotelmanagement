@@ -46,13 +46,15 @@ class Banking extends Admin_Controller
     
     public function contactInstitution(){
         $api = new Api();
-        $response=$api->requestInstitut($this->mdl_bank_api->getValue("access"),$this->mdl_bank_api->getValue("institution_id"));
+        $response=$api->requestInstitut($this->mdl_bank_api->getValue("access"),$this->mdl_bank_api->getValue("institution_id"),"http://www.google.de");
+        $this->mdl_bank_api->setValue("reference",$response['result']['reference']);
         echo "<pre>";print_r($response);
     }
     
     public function listAcc(){
         $api = new Api();
-        $response=$api->listAccounts($this->mdl_bank_api->getValue("access"),$this->mdl_bank_api->getValue("institution_id"));
+        $response=$api->listAccounts($this->mdl_bank_api->getValue("access"),$this->mdl_bank_api->getValue("reference"));
+        $this->mdl_bank_api->setValue("account_id",$response['result']['accounts'][0]);
         echo "<pre>";print_r($response);
     }
 

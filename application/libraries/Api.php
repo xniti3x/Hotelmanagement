@@ -14,26 +14,26 @@ class Api
                 'secret_key'    => $secret_key
             ]
         ]);      
-        return array('result'=>json_decode($response->getBody()),'code'=>$response->getStatusCode()); 
+        return array('result'=>json_decode($response->getBody(),true),'code'=>$response->getStatusCode());
     }
 
     //Step 2: Show all banks
     public function requestAllInstituts($accessToken,$country){
 
         $client = new \GuzzleHttp\Client();
-        $response=$client->request('POST', $this->BASE_URL.'institutions/?country='.$country, [
+        $response=$client->request('GET', $this->BASE_URL.'institutions/?country='.$country, [
             'headers' => [
                 'accept'        =>"application/json",
                 'Content-Type'        =>"application/json",
                 'Authorization'     => 'Bearer '.$accessToken,
             ]
         ]);  
-        return array('result'=>json_decode($response->getBody()),'code'=>$response->getStatusCode());
+        return array('result'=>json_decode($response->getBody(),true),'code'=>$response->getStatusCode());
     }
 
 
     //Step 3: Choose your Bank by its institution_id
-    public function requestInstitut($accessToken,$institution_id,$redirect_url=''){
+    public function requestInstitut($accessToken,$institution_id,$redirect_url){
 
         $body=array(
             'redirect'    => $redirect_url,
@@ -49,7 +49,7 @@ class Api
             ],
             'body'=>json_encode($body)
         ]);  
-        return array('result'=>json_decode($response->getBody()),'code'=>$response->getStatusCode());
+        return array('result'=>json_decode($response->getBody(),true),'code'=>$response->getStatusCode());
     }
     
      //Step 3: Choose Your Acc by giving institution_id
@@ -62,7 +62,7 @@ class Api
                 'Authorization'     => 'Bearer '.$accessToken,
             ]
         ]);  
-        return array('result'=>json_decode($response->getBody()),'code'=>$response->getStatusCode());
+        return array('result'=>json_decode($response->getBody(),true),'code'=>$response->getStatusCode());
     }
 
     //Step 4: Show your Acc Transactions by giving account_id
