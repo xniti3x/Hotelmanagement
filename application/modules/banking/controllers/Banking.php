@@ -59,17 +59,24 @@ class Banking extends Admin_Controller
     public function transactions(){
         $api = new Api();
         $transactions=$api->getAllTransactions($this->mdl_bank_api->getValue('access'),$this->mdl_bank_api->getValue('account_id'));
-        $transactions=$transactions["result"]["transactions"]["booked"];
+        $transactions=($transactions["result"]["transactions"]["booked"]);
         $last_transactions=$this->mdl_bank_api->getAllTransactions();
-        
-        foreach($transactions as $transaction){
-            foreach($last_transactions as $db_trans){
-                if(strcmp($transaction['transactionId'],$db_trans["transactionId"])==0){
-                    break 2;
+        $update=true;
+        foreach($transactions as $item){
+            $insert=true;
+            foreach($last_transactions as $db_item){
+                if(strcmp($item["transactionId"],$db_item["transactionId"])==0){
+                    $insert=false;
+                    break;
                 }
             }
-            $this->mdl_bank_api->saveTransaction(($transaction));
+            if($insert) {
+                $update=false;
+                echo "<pre>";print_r($item);
+                $this->mdl_bank_api->saveTransaction($item);
+            }
         }
+        if($update) echo "no updates";
     }
 
     public function refresh(){

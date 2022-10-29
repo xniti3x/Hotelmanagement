@@ -23,9 +23,8 @@ class Mdl_Bank_Api extends Response_Model
     }
 
     public function saveTransaction($array){
-        echo "<pre>";print_r($array);
-    $title="";
-    $iban="";
+        $title="";
+        $iban="";
         if(isset($array["creditorName"])){
             $title=$array["creditorName"];
             $iban=$array["creditorAccount"]["iban"];
@@ -67,7 +66,7 @@ class Mdl_Bank_Api extends Response_Model
     }
 
     public function getAllTransactions(){
-        return $this->db->query("select * from ip_transactions")->result_array();
+        return $this->db->query("select * from ip_transactions order by bookingDate desc")->result_array();
     }
     public function getTransactionBy($transactionId){
         return $this->db->query("select * from ip_transactions where transactionId='".$transactionId."'")->row();

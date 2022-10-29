@@ -36,6 +36,7 @@
                         <li><?php echo anchor('payments/form', trans('enter_payment')); ?></li>
                         <li><?php echo anchor('payments/index', trans('view_payments')); ?></li>
                         <li><?php echo anchor('payments/online_logs', trans('view_payment_logs')); ?></li>
+                        <li><?php echo anchor('banking/index', trans('bank_statement')); ?></li>
                     </ul>
                 </li>
 
