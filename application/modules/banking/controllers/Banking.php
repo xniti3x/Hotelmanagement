@@ -91,8 +91,24 @@ class Banking extends Admin_Controller
         }
     }
 
-    public function index(){
-        $this->layout->set("transactions",$this->mdl_bank_api->getAllTransactions());
+    public function index($status = 'all'){
+        
+        switch ($status) {
+            case 'all':
+                $status="all";
+                $transactions=$this->mdl_bank_api->getAllTransactions();
+                break;
+            case 'notdone':
+                $transactions=$this->mdl_bank_api->getAllTransactionsNoFiles();
+                break;
+            case 'done':
+                $transactions=$this->mdl_bank_api->getAllTransactionsWithFiles();
+                break;
+        }
+
+        $this->layout->set("status",$status);
+        $this->layout->set("transactions",$transactions);
+        
         $this->layout->buffer('content', 'banking/index');
         $this->layout->render();
     }

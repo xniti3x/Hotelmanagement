@@ -1,3 +1,23 @@
+<div id="headerbar">
+    <div class="headerbar-item pull-left">
+        <div class="btn-group btn-group-sm index-options">
+            <a href="<?php echo site_url('banking/index/all'); ?>"
+               class="btn  <?php echo $status == 'all' ? 'btn-primary' : 'btn-default' ?>">
+                <?php _trans('all'); ?>
+            </a>
+            <a href="<?php echo site_url('banking/index/notdone'); ?>"
+               class="btn  <?php echo $status == 'notdone' ? 'btn-primary' : 'btn-default' ?>">
+                <?php _trans('open'); ?>
+            </a>
+            <a href="<?php echo site_url('banking/index/done'); ?>"
+               class="btn  <?php echo $status == 'done' ? 'btn-primary' : 'btn-default' ?>">
+                <?php _trans('Erledigt'); ?>
+            </a>
+            
+        </div>
+    </div>
+</div>
+
 <?php if(isset($_SESSION['alert_success'])) {echo("<div style='color:green;'>".$_SESSION['alert_success']."</div>");} ?>
 <div class="table-responsive">
     <table class="table table-hover table-striped">

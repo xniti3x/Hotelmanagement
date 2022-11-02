@@ -68,6 +68,23 @@ class Mdl_Bank_Api extends Response_Model
     public function getAllTransactions(){
         return $this->db->query("select * from ip_transactions order by bookingDate desc")->result_array();
     }
+
+    public function getAllTransactionsNoFiles(){
+        return $this->db->query("
+        SELECT * 
+        FROM ip_transactions 
+        WHERE transactionId 
+        NOT IN (SELECT transactionId FROM ip_transaction_files)")->result_array();
+    }
+
+    public function getAllTransactionsWithFiles(){
+        return $this->db->query("
+        SELECT * 
+        FROM ip_transactions 
+        WHERE transactionId 
+        IN (SELECT transactionId FROM ip_transaction_files)")->result_array();
+    }
+
     public function getTransactionBy($transactionId){
         return $this->db->query("select * from ip_transactions where transactionId='".$transactionId."'")->row();
     }

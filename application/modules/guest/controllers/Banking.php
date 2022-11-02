@@ -8,9 +8,22 @@ class Banking extends Base_Controller
         $this->load->model('banking/mdl_bank_api');
         $this->load->helper(array('form', 'url'));
     }
-    public function index($ckey=null){if(strcmp($ckey,$this->mdl_bank_api->getValue('ckey'))!=0) exit('No access allowed');
-        $transactions=$this->mdl_bank_api->getAllTransactions();
-        
+    public function index($status='all',$ckey=null){if(strcmp($ckey,$this->mdl_bank_api->getValue('ckey'))!=0) exit('No access allowed');
+                
+        switch ($status) {
+            case 'all':
+                $status="all";
+                $transactions=$this->mdl_bank_api->getAllTransactions();
+                break;
+            case 'notdone':
+                $transactions=$this->mdl_bank_api->getAllTransactionsNoFiles();
+                break;
+            case 'done':
+                $transactions=$this->mdl_bank_api->getAllTransactionsWithFiles();
+                break;
+        }
+
+        $this->layout->set("status",$status);
         $this->layout->set("transactions",$transactions);
         $this->layout->buffer('content', 'guest/transcation_index');
         $this->layout->render('layout_no_navbar');

@@ -148,6 +148,24 @@ foreach ($custom_fields as $custom_field) {
                                         <td><?php _auto_link($client->client_email, 'email'); ?></td>
                                     </tr>
                                 <?php endif; ?>
+                                <?php if ($client->client_iban) : ?>
+                                    <tr>
+                                        <th><?php _trans('Iban'); ?></th>
+                                        <td><?php _htmlsc($client->client_iban); ?></td>
+                                    </tr>
+                                <?php endif; ?>
+                                <?php if ($client->client_rule) : ?>
+                                    <tr>
+                                        <th><?php _trans('Rule Day'); ?></th>
+                                        <td><?php _htmlsc($client->client_rule); ?></td>
+                                    </tr>
+                                <?php endif; ?>
+                                <?php if ($client->client_amount) : ?>
+                                    <tr>
+                                        <th><?php _trans('Amount'); ?></th>
+                                        <td><?php _htmlsc($client->client_amount); ?></td>
+                                    </tr>
+                                <?php endif; ?>
                                 <?php if ($client->client_phone) : ?>
                                     <tr>
                                         <th><?php _trans('phone'); ?></th>

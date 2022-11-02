@@ -70,6 +70,15 @@ class Mdl_Clients extends Response_Model
             'client_country' => array(
                 'field' => 'client_country'
             ),
+            'client_iban' => array(
+                'field' => 'client_iban'
+            ),
+            'client_rule' => array(
+                'field' => 'client_rule'
+            ),
+            'client_amount' => array(
+                'field' => 'client_amount'
+            ),
             'client_phone' => array(
                 'field' => 'client_phone'
             ),
