@@ -254,11 +254,10 @@
                 <div>
                     <div class="row" align="center">
                         <form method="post" action="<?php echo site_url("dashboard/index"); ?>">
-                            <input id="start" name="start" placeholder="YYYY-MM-DD" type="date"> 
-                            <input id="end" name="end" placeholder="YYYY-MM-DD" type="date"> 
+                            <input id="start" name="start" value="<?php echo $dateStart; ?>" placeholder="YYYY-MM-DD" type="date"> 
+                            <input id="end" name="end" value="<?php echo $dateEnd; ?>" placeholder="YYYY-MM-DD" type="date"> 
                             <input type="submit" name="submit" id="visitorMonth" class="btn btn-primary" value="senden" />
                         </form>
-                        <h3><?php echo $dateStart." bis ".$dateEnd; ?></h3>
                     </div>
                 </div>
             </div>
