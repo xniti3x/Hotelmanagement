@@ -3,7 +3,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     
-<a class="btn btn-default btn-xs" href="<?php echo site_url("banking/index") ?>"> zurück </a>
+<a class="btn btn-default btn-xs" href="<?php echo site_url("banking/index/all") ?>"> zurück </a>
   <?php echo "<b>".$transaction->title."</b>"; ?></div>
   <div class="panel-body">
   <table class="table table-hover">

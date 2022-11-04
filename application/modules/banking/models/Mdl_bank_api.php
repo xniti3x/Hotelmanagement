@@ -85,6 +85,13 @@ class Mdl_Bank_Api extends Response_Model
         IN (SELECT transactionId FROM ip_transaction_files)")->result_array();
     }
 
+    public function getAllClientsWithRule(){
+        return $this->db->query("
+        SELECT *
+        FROM `ip_clients`
+        WHERE client_rule AND client_amount is NOT NULL")->result_array();
+    }
+
     public function getTransactionBy($transactionId){
         return $this->db->query("select * from ip_transactions where transactionId='".$transactionId."'")->row();
     }
