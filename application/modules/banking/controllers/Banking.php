@@ -140,37 +140,4 @@ class Banking extends Admin_Controller
     *  }
     */
 
-    public function do_weekly(){
-        $transactions=$this->mdl_bank_api->getAllTransactionsNoFiles();
-        $body="";
-        $sum=0;
-        foreach($transactions as $transaction){
-            
-            
-            if($transaction['transactionAmount']<0){ 
-                $sum=$sum+$transaction['transactionAmount'];
-                $color="red";
-            $title=$transaction['title']."<b style='color:".$color.";'>".$transaction['transactionAmount']."€</b>";
-            $body=$body.$title." <a class='btn btn-default btn-xs' href='".site_url('guest/banking/view/'.$this->mdl_bank_api->getValue('ckey').'/'.$transaction['transactionId'])."'> upload</a><br>";
-            }
-        }
-        $body=$body."<br> summe: ".$sum." €";
-        echo $body;
-        $sub='=?UTF-8?B?' . base64_encode('Quittung hochladen Errinerung') . '?=';
-        $this->sendEmail($this->mdl_bank_api->getValue('notificationEmails'),$sub,base64_encode($body));
-        
-    }
-
-    private function sendEmail($to,$subject,$body){
-        $this->load->model("mdl_Settings");
-        $myEmail = $this->mdl_Settings->get("smtp_mail_from");
-         $header = 
-        'From: '.$myEmail . "\r\n" .
-        'Reply-To: '.$myEmail . "\r\n" .
-        'MIME-Version: 1.0' . "\r\n".
-        'Content-Type: text/html; charset=utf-8'. "\r\n".
-		'Content-Transfer-Encoding: base64' . "\r\n";
-  
-        return mail($to, $subject, $body, $header);
-    }
 }
