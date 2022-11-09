@@ -24,7 +24,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="row" >
-    <?php  echo form_open_multipart('guest/banking/do_upload/'.$id); ?>
+    <?php  echo form_open_multipart('guest/banking/do_upload/'.$this->mdl_bank_api->getValue('ckey')."/".$id); ?>
     <div class="col-lg-6">
       <div class="input-group">
         <span class="input-group-btn">
