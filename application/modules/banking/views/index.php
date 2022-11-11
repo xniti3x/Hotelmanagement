@@ -13,14 +13,22 @@
                class="btn  <?php echo $status == 'done' ? 'btn-primary' : 'btn-default' ?>">
                 <?php _trans('Erledigt'); ?>
             </a>
-            
+        </div>
+    </div>
+    <div class="headerbar-item pull-right">
+        <div class="btn-group btn-group-sm index-options">
+        <a href="<?php echo site_url('banking/index/filter'); ?>"
+               class="btn  <?php echo $status == 'filter' ? 'btn-primary' : 'btn-default' ?>">
+                <?php _trans('Filtred'); ?>
+          </a>
         </div>
     </div>
 </div>
-
 <?php if(isset($_SESSION['alert_success'])) {echo("<div style='color:green;'>".$_SESSION['alert_success']."</div>");} ?>
+
+<input class="form-control" id="myInput" type="text" placeholder="Search...">
 <div class="table-responsive">
-    <table class="table table-hover table-striped">
+    <table id="bank-table" class="table table-hover table-striped">
   <thead>
     <tr>
       <th></th>

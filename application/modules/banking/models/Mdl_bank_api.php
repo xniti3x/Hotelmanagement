@@ -61,20 +61,36 @@ class Mdl_Bank_Api extends Response_Model
         ));
         return $this->db->insert('ip_transaction_files');
     }
+    public function saveTransactionFilter($array){
+        $this->db->set(array(
+            "transactionId"=>$array["transactionId"],
+            "bookingDate"=>$array["bookingDate"],
+            "valueDate"=>$array["valueDate"],
+            "transactionAmount"=>$array["transactionAmount"],
+            "title"=>$array["title"],
+            "iban"=>$array["iban"],
+            "remittanceInformationStructured"=>$array["remittanceInformationStructured"],	
+            "additionalInformation"=>$array["additionalInformation"]
+        ));
+        
+        return $this->db->insert('ip_transactions_filter');
+    }
+    private $query_filter="iban NOT IN (SELECT iban FROM ip_transactions_filter)";
     public function getAllTransactionFiles($id){
         return $this->db->query("select * from ip_transaction_files where ip_transaction_files.transactionId='".$id."'")->result();
     }
 
     public function getAllTransactions(){
-        return $this->db->query("select * from ip_transactions order by bookingDate desc")->result_array();
+        return $this->db->query("select * from ip_transactions where ".$this->query_filter." order by bookingDate desc")->result_array();
     }
 
     public function getAllTransactionsNoFiles(){
         return $this->db->query("
         SELECT * 
         FROM ip_transactions 
-        WHERE transactionId 
-        NOT IN (SELECT transactionId FROM ip_transaction_files)")->result_array();
+        WHERE transactionAmount<0 
+        AND transactionId 
+        NOT IN (SELECT transactionId FROM ip_transaction_files) and ".$this->query_filter)->result_array();
     }
 
     public function getAllTransactionsWithFiles(){
@@ -82,9 +98,12 @@ class Mdl_Bank_Api extends Response_Model
         SELECT * 
         FROM ip_transactions 
         WHERE transactionId 
-        IN (SELECT transactionId FROM ip_transaction_files)")->result_array();
+        IN (SELECT transactionId FROM ip_transaction_files) and ".$this->query_filter)->result_array();
     }
 
+    public function getAllFiltredTransactions(){
+        return $this->db->query("SELECT * FROM ip_transactions_filter")->result_array();
+    }
     public function getAllClientsWithRule(){
         return $this->db->query("
         SELECT *
@@ -93,7 +112,7 @@ class Mdl_Bank_Api extends Response_Model
     }
 
     public function getTransactionBy($transactionId){
-        return $this->db->query("select * from ip_transactions where transactionId='".$transactionId."'")->row();
+        return $this->db->query("select * from ip_transactions where transactionId='".$transactionId."'")->row_array();
     }
     public function deleteTransactionFile($dbId){
         $this->db->where('id', $dbId);

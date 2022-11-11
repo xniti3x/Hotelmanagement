@@ -81,6 +81,13 @@ class Banking extends Admin_Controller
         if($update) echo "no updates";
     }
 
+    public function save($transactionId){
+        $item=$this->mdl_bank_api->getTransactionBy($transactionId);
+        $this->mdl_bank_api->saveTransactionFilter($item);
+        
+        $this->session->set_flashdata('alert_success', trans('record_successfully_updated'));
+        header("Location:".site_url("banking/view/".$transactionId));
+    }
     public function refresh(){
         $api = new Api();
         $response=$api->refreshToken($this->mdl_bank_api->getValue("refresh"));
@@ -104,7 +111,10 @@ class Banking extends Admin_Controller
             case 'done':
                 $transactions=$this->mdl_bank_api->getAllTransactionsWithFiles();
                 break;
-        }
+            case 'filter':
+                $transactions=$this->mdl_bank_api->getAllFiltredTransactions();
+                break;
+            }
 
         $this->layout->set("status",$status);
         $this->layout->set("transactions",$transactions);
@@ -126,18 +136,28 @@ class Banking extends Admin_Controller
         header("Location:".site_url("banking/view/".$transactionId));
     }
 
-   /**
-    *  public function do(){
-    *    $transactions=$this->mdl_bank_api->getAllTransactions();
-    *    $ruled_clients = $this->mdl_bank_api->getAllClientsWithRule();
-    *    foreach($ruled_clients as $client){
-    *        foreach($transactions as $transaction){
-    *            if($client['client_iban']==$transaction["iban"] && $client['client_amount']==$transaction["transactionAmount"]){
-    *                echo"<pre>";print_r($transaction);
-    *            }
-    *        }
-    *    }
-    *  }
-    */
+    public function do_upload($id){
+        $config['upload_path']          = './uploads/';
+        $config['allowed_types']        = 'gif|jpg|png|pdf';
+        $config['max_size']             = 10024;
+        $config['max_width']            = 0;
+        $config['max_height']           = 0;
+
+        $this->load->library('upload', $config);
+       if ( ! $this->upload->do_upload('userfile'))
+        {
+            $this->session->set_flashdata('alert_error',$this->upload->display_errors());
+            header("Location:".site_url("banking/view/".$id));
+        }
+        else
+        {// Array ( [upload_data] => Array ( [file_name] => 2020-mu2ff7in12.pdf [file_type] => application/pdf [file_path] => /root/workspace/Hotelmanagement/uploads/ [full_path] => /root/workspace/Hotelmanagement/uploads/2020-mu2ff7in12.pdf [raw_name] => 2020-mu2ff7in12 [orig_name] => 2020-mu2ff7in.pdf [client_name] => 2020-mu2ff7in.pdf [file_ext] => .pdf [file_size] => 53.1 [is_image] => [image_width] => [image_height] => [image_type] => [image_size_str] => ) )
+             
+            $data = $this->upload->data();
+            $data['transactionId']=$id;
+            $this->mdl_bank_api->saveTransactionFile($data);
+            $this->session->set_flashdata('alert_success', trans('record_successfully_updated'));
+            header("Location:".site_url("banking/index/all"));
+        }       
+    }
 
 }
