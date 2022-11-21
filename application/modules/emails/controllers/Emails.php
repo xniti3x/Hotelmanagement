@@ -33,34 +33,7 @@ class Emails extends Admin_Controller
     }
 
     public function auto_map(){
-        $email_array=array(
-            array(
-                "email"=>"nicht.antworten@kundenservice.vodafone.com",
-                "iban"=>"DE02590100660125799660",
-                "regex" => "/[0-9]{11}/",
-                "imap_folder" => "INBOX.unitymedia"
-            ),
-            array(
-                "email"=>"rechnung@unitymedia.de",
-                "iban"=>"DE02590100660125799660",
-                "regex" => "/[0-9]{11}/",
-                "imap_folder" => "INBOX.unitymedia"
-            ),
-            array(
-                "email"=>"no-reply@rea-service.de",
-                "iban"=>"DE86508501500000669547",
-                "regex" => "/[0-9]{7}/",
-                "imap_folder" => "INBOX.rea-card"
-            ),
-            array(
-                "email"=>"noreply@alba.info",
-                "iban"=>"DE50100400000190106500",
-                "regex" => "/[0-9]{7}/",
-                "imap_folder" => "INBOX.alba"
-            )         
-        );
-        
-
+        $email_array=$this->db->query("select * from ip_emails_imap")->result_array();
         foreach($email_array as $email){        
         //download all the files (attachments) for every email
         $this->downloadAttachment($email);
