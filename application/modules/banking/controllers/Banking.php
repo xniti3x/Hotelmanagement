@@ -78,7 +78,10 @@ class Banking extends Admin_Controller
                 $this->mdl_bank_api->saveTransaction($item);
             }
         }
-        if($update) echo "no updates";
+        if($update) {
+        $this->session->set_flashdata('alert_success', trans('record_successfully_updated'));
+        }
+        redirect("banking/index");
     }
 
     public function save($transactionId){

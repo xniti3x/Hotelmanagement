@@ -58,12 +58,13 @@
     <table class="table table-hover table-striped">
   <tbody>
   <?php
-  //print_r($trans);
   foreach($transfiles as $tran){
+    //print_r($tran);
     echo "<form method='post' action='".site_url("banking/delete/".$tran->id."/".$id)."'>";
-  echo "<tr><td><a target='_blank' href='".base_url()."/uploads/".$tran->file_name."'>".$tran->file_name."</a></td>
-  <td><input type='submit' value='delete'></td>
-  </tr></form>";
+    $str=$tran->full_path;
+    echo "<tr><td><a target='_blank' href='".base_url().substr($str,strpos($str, 'uploads/'))."'>".$tran->file_name."</a></td>
+    <td><input type='submit' value='delete'></td>
+    </tr></form>";
   }
   ?>
   </tbody>

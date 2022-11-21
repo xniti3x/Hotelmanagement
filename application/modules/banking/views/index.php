@@ -24,15 +24,13 @@
         </div>
     </div>
 </div>
-<?php if(isset($_SESSION['alert_success'])) {echo("<div style='color:green;'>".$_SESSION['alert_success']."</div>");} ?>
 
 <input class="form-control" id="myInput" type="text" placeholder="Search...">
 <div class="table-responsive">
     <table id="bank-table" class="table table-hover table-striped">
   <thead>
     <tr>
-      <th></th>
-      <th></th>
+      <th><?php if(isset($_SESSION['alert_success'])) {echo("<div style='color:green;'>".$_SESSION['alert_success']."</div>");} ?></th>
     </tr>
   </thead>
   <tbody>

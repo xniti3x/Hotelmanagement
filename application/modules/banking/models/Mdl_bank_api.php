@@ -3,6 +3,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Mdl_Bank_Api extends Response_Model
 {
+    private $query_filter="iban NOT IN (SELECT iban FROM ip_transactions_filter)";
     /**
      * access, access_expires, refresh, refresh_expires, institution_id, account_id,secret_id, secret_key, reference
      */
@@ -16,6 +17,15 @@ class Mdl_Bank_Api extends Response_Model
         $this->db->update('bank_api_setup');
     }
 
+    public function getTransactionByInvoiceDesc($iban,$invoice_number){
+        $query = $this->db->query("
+        SELECT * from ip_transactions 
+        WHERE iban ='".$iban."' 
+        AND transactionId NOT IN (SELECT transactionId FROM ip_transaction_files)
+        AND remittanceInformationStructured like '%".$invoice_number."%';
+        ");
+        return $query->row_array();
+    }
     public function getLastTransaction(){
         $query = $this->db->query("SELECT * FROM ip_transactions ORDER BY id DESC LIMIT 1");
         $result = $query->row();
@@ -34,7 +44,7 @@ class Mdl_Bank_Api extends Response_Model
             $title=$array["debtorName"];
             $iban=$array["debtorAccount"]["iban"];
         }
-
+        
     $this->db->set(array(
         "transactionId"=>$array["transactionId"],
         "bookingDate"=>$array["bookingDate"],
@@ -45,22 +55,27 @@ class Mdl_Bank_Api extends Response_Model
         "remittanceInformationStructured"=>isset($array["remittanceInformationStructured"])?$array["remittanceInformationStructured"]:"",	
         "additionalInformation"=>$array["additionalInformation"]
     ));
-        return $this->db->insert('ip_transactions');        
-    }
+    return $this->db->insert('ip_transactions');        
+}
+
+public function saveTransactionFile($array){
     
-    public function saveTransactionFile($array){
-        $this->db->set(array(
-        "file_name" =>$array["file_name"],
-        "file_type	"=>$array["file_type"],
-        "file_path	"=>$array["file_path"],
-        "full_path	"=>$array["full_path"],
-        "raw_name	"=>$array["raw_name"],
-        "file_ext	"=>$array["file_ext"],
-        "file_size	"=>$array["file_size"],	
-        "transactionId"=>$array["transactionId"]
+    $this->db->set(
+        array(
+            "file_name" =>$array["file_name"],
+            "file_type"=>$array["file_type"],
+            "file_path"=>$array["file_path"],
+            "full_path"=>$array["full_path"],
+            "raw_name"=>$array["raw_name"],
+            "file_ext"=>$array["file_ext"],
+            "file_size"=>$array["file_size"],	
+            "transactionId"=>$array["transactionId"]
         ));
+        
         return $this->db->insert('ip_transaction_files');
+        
     }
+
     public function saveTransactionFilter($array){
         $this->db->set(array(
             "transactionId"=>$array["transactionId"],
@@ -75,13 +90,16 @@ class Mdl_Bank_Api extends Response_Model
         
         return $this->db->insert('ip_transactions_filter');
     }
-    private $query_filter="iban NOT IN (SELECT iban FROM ip_transactions_filter)";
     public function getAllTransactionFiles($id){
         return $this->db->query("select * from ip_transaction_files where ip_transaction_files.transactionId='".$id."'")->result();
     }
 
-    public function getAllTransactions(){
-        return $this->db->query("select * from ip_transactions where ".$this->query_filter." order by bookingDate desc")->result_array();
+    public function getAllTransactions($filter=false){
+        $sql="select * from ip_transactions order by bookingDate desc";
+        if($filter){
+        $sql="select * from ip_transactions where ".$this->query_filter." order by bookingDate desc";
+        }
+        return $this->db->query($sql)->result_array();
     }
 
     public function getAllTransactionsNoFiles(){
