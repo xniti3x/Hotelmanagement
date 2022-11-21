@@ -34,9 +34,9 @@ class Emails extends Admin_Controller
 
     public function auto_map(){
         $email_array=$this->db->query("select * from ip_emails_imap")->result_array();
-        foreach($email_array as $email){        
-        //download all the files (attachments) for every email
-        $this->downloadAttachment($email);
+        foreach($email_array as $email){       
+         //download all the files (attachments) for every email
+         $this->downloadAttachment($email);
     
             //after the files are downloaded, map the files to its transaction
             $files=$this->getAllFilenamesFromFolder($email["email"]);
@@ -66,6 +66,7 @@ class Emails extends Admin_Controller
                 }
             }
         }
+        echo "<a href='".site_url("banking/index")."'>zurück</a>";
     }
 
     private function downloadAttachment($email){
@@ -176,7 +177,6 @@ class Emails extends Admin_Controller
                 }
             }
         } 
-        redirect("banking/index");
     }
     private function modifyFileNameBeforSave($email_number,$email,$filename,$overview){
         $folder=$this->emailToFoldername($email["email"]);
