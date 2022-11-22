@@ -108,7 +108,7 @@ public function saveTransactionFile($array){
         FROM ip_transactions 
         WHERE transactionAmount<0 
         AND transactionId 
-        NOT IN (SELECT transactionId FROM ip_transaction_files) and ".$this->query_filter)->result_array();
+        NOT IN (SELECT transactionId FROM ip_transaction_files) and ".$this->query_filter."order by bookingDate desc")->result_array();
     }
 
     public function getAllTransactionsWithFiles(){
@@ -116,7 +116,7 @@ public function saveTransactionFile($array){
         SELECT * 
         FROM ip_transactions 
         WHERE transactionId 
-        IN (SELECT transactionId FROM ip_transaction_files) and ".$this->query_filter)->result_array();
+        IN (SELECT transactionId FROM ip_transaction_files) and ".$this->query_filter."order by bookingDate desc")->result_array();
     }
 
     public function getAllFiltredTransactions(){
