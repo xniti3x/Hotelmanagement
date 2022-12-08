@@ -18,8 +18,9 @@
     </div>
 </div>
 <?php if(isset($_SESSION['alert_success'])) {echo("<div style='color:green;'>".$_SESSION['alert_success']."</div>");} ?>
+<input class="form-control" id="myInput" type="text" placeholder="Search...">
 <div class="table-responsive">
-    <table class="table table-hover table-striped">
+<table id="bank-table" class="table table-hover table-striped">
   <thead>
     <tr>
       <th></th>
