@@ -133,15 +133,6 @@ public function saveTransactionFile($array){
         return $this->db->query("select * from ip_transactions where transactionId='".$transactionId."'")->row_array();
     }
 
-    public function getAllMinusTransactions(){
-        return $this->db->query("
-        SELECT * 
-        FROM ip_transactions 
-        WHERE transactionId 
-        AND transactionAmount<0 
-        AND transactionId NOT IN (SELECT transactionId FROM ip_transaction_files) 
-        AND ".$this->query_filter."order by bookingDate desc")->result_array();
-    }
     public function deleteTransactionFile($dbId){
         $this->db->where('id', $dbId);
         $this->db->delete('ip_transaction_files');

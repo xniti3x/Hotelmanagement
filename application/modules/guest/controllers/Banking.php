@@ -84,7 +84,7 @@ class Banking extends Base_Controller
     public function getAllMinusTransactions($ckey){
         if(strcmp($ckey,$this->mdl_bank_api->getValue('ckey'))!=0) exit('No direct script access allowed');
         header('Content-Type: application/json');        
-        $data = $this->mdl_bank_api->getAllMinusTransactions();
+        $data = $this->mdl_bank_api->getAllTransactionsNoFiles();
         echo json_encode($data);
     }
 
