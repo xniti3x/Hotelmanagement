@@ -24,6 +24,18 @@
                         <li><?php echo anchor('clients/index', trans('view_clients')); ?></li>
                     </ul>
                 </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-caret-down"></i> &nbsp;
+                        <span class="hidden-md"><?php _trans('invoices'); ?></span>
+                        <i class="visible-md-inline fa fa-file-text"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="create-invoice"><?php _trans('create_invoice'); ?></a></li>
+                        <li><?php echo anchor('invoices//status/all', trans('view_invoices')); ?></li>
+                        <li><?php echo anchor('invoices/recurring/index', trans('view_recurring_invoices')); ?></li>
+                    </ul>
+                </li>
                 <li><?php echo anchor('invoices/index', trans('view_reservations')); ?></li>
                 <li><?php echo anchor('emails/index', trans('email')); ?></li>
                 <li class="dropdown">

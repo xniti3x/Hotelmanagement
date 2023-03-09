@@ -366,6 +366,9 @@ foreach ($custom_fields as $custom_field) {
                     </div>
 
                 </div>
+                <div class="col-xs-12 col-md-6">
+                <?php $this->layout->load_view('upload/dropzone-client-html'); ?>
+                </div>
             </div>
 
         </div>
@@ -385,3 +388,5 @@ foreach ($custom_fields as $custom_field) {
     </div>
 
 </div>
+
+<?php $this->layout->load_view('upload/dropzone-client-scripts'); ?>

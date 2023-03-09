@@ -263,13 +263,6 @@ if ($this->config->item('disable_read_only') == true) {
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="#" id="btn_create_recurring"
-                       data-invoice-id="<?php echo $invoice_id; ?>">
-                        <i class="fa fa-refresh fa-margin"></i>
-                        <?php _trans('create_recurring'); ?>
-                    </a>
-                </li>
-                <li>
                     <a href="#" id="btn_copy_invoice"
                     data-invoice-id="<?php echo $invoice_id; ?>">
                     <i class="fa fa-copy fa-margin"></i>
@@ -282,6 +275,13 @@ if ($this->config->item('disable_read_only') == true) {
                     <a href="<?php echo site_url('invoices/convertToInvoice/' . $invoice->invoice_id); ?>">
                         <i class="fa fa-send fa-margin"></i>
                         <?php _trans('Rechnung erstellen'); ?>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="btn_create_recurring"
+                       data-invoice-id="<?php echo $invoice_id; ?>">
+                        <i class="fa fa-refresh fa-margin"></i>
+                        <?php _trans('create_recurring'); ?>
                     </a>
                 </li>
             <?php endif; ?>
