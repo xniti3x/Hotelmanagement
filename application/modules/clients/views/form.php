@@ -175,24 +175,6 @@ $cv = $this->controller->view_data['custom_values'];
                     </div>
 
                     <div class="panel-body">                  
-                        <div class="form-group">
-                            <label for="client_iban"><?php _trans('Iban'); ?></label>
-                            <div class="controls">
-                                <input type="text" name="client_iban" id="client_iban" class="form-control" value="<?php echo $this->mdl_clients->form_value('client_iban', true); ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="client_amount"><?php _trans('Amount'); ?></label>
-                            <div class="controls">
-                                <input type="number" name="client_amount" id="client_amount" class="form-control" value="<?php echo $this->mdl_clients->form_value('client_amount', true); ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="client_rule"><?php _trans('Rule Day'); ?></label>
-                            <div class="controls">
-                                <input type="number" name="client_rule" id="client_rule" class="form-control" value="<?php echo $this->mdl_clients->form_value('client_rule', true); ?>">
-                            </div>
-                        </div>
 
                         <div class="form-group">
                             <label for="client_phone"><?php _trans('phone_number'); ?></label>
