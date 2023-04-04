@@ -27,7 +27,7 @@
     </td>
   </tr>
   <tr><td><b>§1  Mieträume</b><br>
-        Der Vermieter vermietet dem Mieter  zu <u><?php echo $wohnzweck; ?></u> die im Hause: <u><?php echo $adresse; ?></u> 
+        Der Vermieter vermietet dem Mieter  zu Wohnzwecken die im Hause: <u><?php echo $adresse; ?></u> 
         Die Wohnfläche beträgt <u><?php echo $wohnfleche; ?></u>qm, vermietet wird: <u><?php echo $raumlichkeiten; ?></u>
     </td>
   </tr>

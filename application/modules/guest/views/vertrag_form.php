@@ -34,11 +34,6 @@
                         </select>
                             <input type="text" name="mieter" id="mieter" class="form-control" placeholder="mieter name | adresse | ...">
                             <input type="text" name="wohnfleche" id="wohnfleche" class="form-control" placeholder="wohnfläche"> 
-                        <select name="wohnzweck" id="wohnzweck" class="form-control simple-select">
-                        <?php $pieces = explode(";", $wohnzweck); foreach($pieces as $p){ ?>
-                            <option value="<?php echo $p; ?>"><?php echo $p; ?></option>
-                            <?php } ?>
-                        </select>
                         <select name="adresse" id="adresse" class="form-control simple-select">
                         <?php $pieces = explode(";", $adresse); foreach($pieces as $p){ ?>
                             <option value="<?php echo $p; ?>"><?php echo $p; ?></option>

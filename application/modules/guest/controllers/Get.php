@@ -47,4 +47,38 @@ class Get extends Base_Controller
         exit;
     }
 
+    public function fireNotification($cron_key)
+    {
+        $this->load->model('invoices/mdl_items');
+        $this->load->model('settings/mdl_settings');
+        
+       if (strcmp($cron_key, $this->mdl_settings->get('cron_key')) !== 0) { exit;} 
+        $url = 'http://xdroid.net/api/message';
+        date_default_timezone_set('Europe/Berlin');
+        $date_start=date("Y-m-d");
+        $items=$this->mdl_items->getAllItemsWithStartDate($date_start);
+        foreach($items as $item){
+            $data=array(
+                "k" => "k-2fdf689e017d",
+                "t" => "14:00Uhr - ".substr($item->client_name, 0, 30),
+                "c" => $date_start." - ".$item->item_date_end." | ".$item->item_price,
+                "u" => site_url("invoices/status/gant")
+            );
+            
+            $this->httpPost($url,$data);
+        }
+        
+    }
+    
+    private function httpPost($url, $data)
+    {
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return $response;
+    }
+
 }
