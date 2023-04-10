@@ -1,6 +1,6 @@
-<div class="panel panel-default no-margin">
+<div class="card">
 
-    <div class="panel-heading">
+    <div class="card-header">
         
             
         <?php _trans('Vertrag'); ?>   

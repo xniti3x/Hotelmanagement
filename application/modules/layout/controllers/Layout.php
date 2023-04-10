@@ -61,7 +61,7 @@ class Layout extends MX_Controller
         return $this;
     }
 
-    public function render($view = 'layout')
+    public function render($view = 'admin_lte/layout')
     {
         $this->load->view('layout/' . $view, $this->view_data);
     }

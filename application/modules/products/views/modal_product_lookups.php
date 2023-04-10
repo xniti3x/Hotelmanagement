@@ -18,7 +18,18 @@
             }, function (data) {
                 <?php echo(IP_DEBUG ? 'console.log(data);' : ''); ?>
                 var items = JSON.parse(data);
+                
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var dd2 = String(today.getDate()+1).padStart(2, '0');
+                var mm = String(today.getMonth()+1).padStart(2, '0'); //January is 0!
+                var yyyy = today.getFullYear();
 
+                today = dd+ '-' + mm  + '-' + yyyy;
+                tomorow=dd2+ '-' + mm  + '-' + yyyy;
+
+                // This arrangement can be altered based on how we want the date's format to appear.
+                
                 for (var key in items) {
                     // Set default tax rate id if empty
                     if (!items[key].tax_rate_id) items[key].tax_rate_id = '<?php echo $default_item_tax_rate; ?>';
@@ -32,6 +43,9 @@
                     last_item_row.find('input[name=item_name]').val(items[key].product_name);
                     last_item_row.find('textarea[name=item_description]').val(items[key].product_description);
                     last_item_row.find('input[name=item_price]').val(items[key].product_price);
+                    last_item_row.find('input[name=item_date_start]').val(today);
+                    last_item_row.find('input[name=item_date_end]').val(tomorow);
+                    
                     last_item_row.find('input[name=item_quantity]').val('1');
                     last_item_row.find('select[name=item_tax_rate_id]').val(items[key].tax_rate_id);
                     last_item_row.find('input[name=item_product_id]').val(items[key].product_id);

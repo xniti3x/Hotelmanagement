@@ -193,6 +193,30 @@ class Ajax extends Admin_Controller
         echo json_encode($response);
     }
 
+    public function save_item()
+    {
+        $this->load->model('mdl_items');
+        $this->load->model('invoices/mdl_invoices');
+        $this->load->model('units/mdl_units');
+        $this->load->model('invoices/mdl_invoice_sumex');
+        $item=array(
+            'invoice_id'=> $this->input->post('invoice_id'),
+            'item_date_end'=> ($this->input->post('item_date_end')),
+            'item_date_start'=> ($this->input->post('item_date_start')),
+            'item_description'=> "",
+            'item_id'=> "",
+            'item_name'=> "Übernachtung ohne Frühstück",
+            'item_order'=> 1,
+            'item_price'=> "50.00",
+            'item_product_id'=> "1",
+            'item_quantity'=> "1",
+            'item_room'=> $this->input->post('item_room'),
+            'item_task_id'=> "",
+            'item_tax_rate_id'=> "1"
+        );
+        $this->mdl_items->save(null,$item);
+    }
+
     public function save_invoice_tax_rate()
     {
         $this->load->model('invoices/mdl_invoice_tax_rates');

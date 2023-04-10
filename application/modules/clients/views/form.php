@@ -17,7 +17,6 @@ $cv = $this->controller->view_data['custom_values'];
            value="<?php echo $this->security->get_csrf_hash() ?>">
 
     <div id="headerbar">
-        <h1 class="headerbar-title"><?php _trans('client_form'); ?></h1>
         <?php $this->layout->load_view('layout/header_buttons'); ?>
     </div>
 
@@ -36,11 +35,11 @@ $cv = $this->controller->view_data['custom_values'];
         <div class="row">
             <div class="col-xs-12 col-sm-6">
 
-                <div class="panel panel-default">
-                    <div class="panel-heading form-inline clearfix">
+                <div class="card">
+                    <div class="card-header">
                         <?php _trans('personal_information'); ?>
 
-                        <div class="pull-right">
+                        <div class="card-tools">
                             <label for="client_active" class="control-label">
                                 <?php _trans('active_client'); ?>
                                 <input id="client_active" name="client_active" type="checkbox" value="1"
@@ -53,7 +52,7 @@ $cv = $this->controller->view_data['custom_values'];
                         </div>
                     </div>
 
-                    <div class="panel-body">
+                    <div class="card-body">
 
                     <div class="form-group">
                             <label for="client_Data">Name/Titel<br>Straße.Nr<br>Plz<br>Ort
@@ -168,13 +167,13 @@ $cv = $this->controller->view_data['custom_values'];
             </div>
             <div class="col-xs-12 col-sm-6">
 
-                <div class="panel panel-default">
+                <div class="card">
 
-                    <div class="panel-heading">
+                    <div class="card-header">
                         <?php _trans('contact_information'); ?>
                     </div>
 
-                    <div class="panel-body">                  
+                    <div class="card-body">                  
 
                         <div class="form-group">
                             <label for="client_phone"><?php _trans('phone_number'); ?></label>
@@ -238,13 +237,13 @@ $cv = $this->controller->view_data['custom_values'];
         <div class="row">
             <div class="col-xs-12 col-sm-6">
 
-                <div class="panel panel-default">
+                <div class="card card-default">
 
-                    <div class="panel-heading">
+                    <div class="card-header">
                         <?php _trans('personal_information'); ?>
                     </div>
 
-                    <div class="panel-body">
+                    <div class="card-body">
                         <div class="form-group">
                             <label for="client_gender"><?php _trans('gender'); ?></label>
 
@@ -333,12 +332,12 @@ $cv = $this->controller->view_data['custom_values'];
             </div>
             <div class="col-xs-12 col-sm-6">
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+                <div class="card card-default">
+                    <div class="card-header">
                         <?php _trans('tax_information'); ?>
                     </div>
 
-                    <div class="panel-body">
+                    <div class="card-body">
                         <div class="form-group">
                             <label for="client_vat_id"><?php _trans('vat_id'); ?></label>
 
@@ -374,13 +373,13 @@ $cv = $this->controller->view_data['custom_values'];
             <div class="row">
                 <div class="col-xs-12 col-md-6">
 
-                    <div class="panel panel-default">
+                    <div class="card card-default">
 
-                        <div class="panel-heading">
+                        <div class="card-header">
                             <?php _trans('custom_fields'); ?>
                         </div>
 
-                        <div class="panel-body">
+                        <div class="card-body">
                             <?php foreach ($custom_fields as $custom_field): ?>
                                 <?php if ($custom_field->custom_field_location != 0) {
                                     continue;

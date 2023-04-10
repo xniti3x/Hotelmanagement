@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse" role="navigation">
+<nav id="navigationBar" class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#ip-navbar-collapse">
@@ -32,7 +32,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="#" class="create-invoice"><?php _trans('create_invoice'); ?></a></li>
-                        <li><?php echo anchor('invoices//status/all', trans('view_invoices')); ?></li>
+                        <li><?php echo anchor('invoices/status/all', trans('view_invoices')); ?></li>
                         <li><?php echo anchor('invoices/recurring/index', trans('view_recurring_invoices')); ?></li>
                     </ul>
                 </li>

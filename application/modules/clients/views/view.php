@@ -1,33 +1,31 @@
 <script>
-    $(function () {
-        $('#save_client_note').click(function () {
-            $.post('<?php echo site_url('clients/ajax/save_client_note'); ?>',
-                {
-                    client_id: $('#client_id').val(),
-                    client_note: $('#client_note').val()
-                }, function (data) {
-                    <?php echo(IP_DEBUG ? 'console.log(data);' : ''); ?>
-                    var response = JSON.parse(data);
-                    if (response.success === 1) {
-                        // The validation was successful
-                        $('.control-group').removeClass('error');
-                        $('#client_note').val('');
+    $(function() {
+        $('#save_client_note').click(function() {
+            $.post('<?php echo site_url('clients/ajax/save_client_note'); ?>', {
+                client_id: $('#client_id').val(),
+                client_note: $('#client_note').val()
+            }, function(data) {
+                <?php echo (IP_DEBUG ? 'console.log(data);' : ''); ?>
+                var response = JSON.parse(data);
+                if (response.success === 1) {
+                    // The validation was successful
+                    $('.control-group').removeClass('error');
+                    $('#client_note').val('');
 
-                        // Reload all notes
-                        $('#notes_list').load("<?php echo site_url('clients/ajax/load_client_notes'); ?>",
-                            {
-                                client_id: <?php echo $client->client_id; ?>
-                            }, function (response) {
-                                <?php echo(IP_DEBUG ? 'console.log(response);' : ''); ?>
-                            });
-                    } else {
-                        // The validation was not successful
-                        $('.control-group').removeClass('error');
-                        for (var key in response.validation_errors) {
-                            $('#' + key).parent().addClass('has-error');
-                        }
+                    // Reload all notes
+                    $('#notes_list').load("<?php echo site_url('clients/ajax/load_client_notes'); ?>", {
+                        client_id: <?php echo $client->client_id; ?>
+                    }, function(response) {
+                        <?php echo (IP_DEBUG ? 'console.log(response);' : ''); ?>
+                    });
+                } else {
+                    // The validation was not successful
+                    $('.control-group').removeClass('error');
+                    for (var key in response.validation_errors) {
+                        $('#' + key).parent().addClass('has-error');
                     }
-                });
+                }
+            });
         });
     });
 </script>
@@ -44,24 +42,17 @@ foreach ($custom_fields as $custom_field) {
 ?>
 
 <div id="headerbar">
-    <h1 class="headerbar-title"><?php _htmlsc(format_client($client)); ?></h1>
-
     <div class="headerbar-item pull-right">
         <div class="btn-group btn-group-sm">
-            <a href="#" class="btn btn-default client-create-quote"
-               data-client-id="<?php echo $client->client_id; ?>">
+            <a href="#" class="btn btn-default client-create-quote" data-client-id="<?php echo $client->client_id; ?>">
                 <i class="fa fa-file"></i> <?php _trans('create_quote'); ?>
             </a>
-            <a href="#" class="btn btn-default client-create-invoice"
-               data-client-id="<?php echo $client->client_id; ?>">
+            <a href="#" class="btn btn-default client-create-invoice" data-client-id="<?php echo $client->client_id; ?>">
                 <i class="fa fa-file-text"></i> <?php _trans('create_invoice'); ?></a>
-            <a href="<?php echo site_url('clients/form/' . $client->client_id); ?>"
-               class="btn btn-default">
+            <a href="<?php echo site_url('clients/form/' . $client->client_id); ?>" class="btn btn-default">
                 <i class="fa fa-edit"></i> <?php _trans('edit'); ?>
             </a>
-            <a class="btn btn-danger"
-               href="<?php echo site_url('clients/delete/' . $client->client_id); ?>"
-               onclick="return confirm('<?php _trans('delete_client_warning'); ?>');">
+            <a class="btn btn-danger" href="<?php echo site_url('clients/delete/' . $client->client_id); ?>" onclick="return confirm('<?php _trans('delete_client_warning'); ?>');">
                 <i class="fa fa-trash-o"></i> <?php _trans('delete'); ?>
             </a>
         </div>
@@ -69,15 +60,17 @@ foreach ($custom_fields as $custom_field) {
 
 </div>
 
-<ul id="submenu" class="nav nav-tabs nav-tabs-noborder">
-    <li class="active"><a data-toggle="tab" href="#clientDetails"><?php _trans('details'); ?></a></li>
-    <li><a data-toggle="tab" href="#clientQuotes"><?php _trans('quotes'); ?></a></li>
-    <li><a data-toggle="tab" href="#clientInvoices"><?php _trans('invoices'); ?></a></li>
-    <li><a data-toggle="tab" href="#clientReservations"><?php _trans('reservation'); ?></a></li>
-    <li><a data-toggle="tab" href="#clientPayments"><?php _trans('payments'); ?></a></li>
-</ul>
 
-<div id="content" class="tabbable tabs-below no-padding">
+
+<div id="content" class="card">
+    <div class="card-header">
+        <ul id="submenu" class="nav nav-pills ">
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#clientDetails"><?php _trans('details'); ?></a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#clientInvoices"><?php _trans('invoices'); ?></a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#clientReservations"><?php _trans('reservation'); ?></a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#clientPayments"><?php _trans('payments'); ?></a></li>
+        </ul>
+    </div>
     <div class="tab-content no-padding">
 
         <div id="clientDetails" class="tab-pane tab-rich-content active">
@@ -86,12 +79,7 @@ foreach ($custom_fields as $custom_field) {
 
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6">
-
-                    <h3><?php _htmlsc(format_client($client)); ?></h3>
-                    <p>
-                        <?php $this->layout->load_view('clients/partial_client_address'); ?>
-                    </p>
-
+                    <?php $this->layout->load_view('clients/partial_client_address'); ?>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
 
@@ -230,7 +218,8 @@ foreach ($custom_fields as $custom_field) {
                 </div>
             </div>
 
-            <?php if ($client->client_surname != ""): //Client is not a company ?>
+            <?php if ($client->client_surname != "") : //Client is not a company 
+            ?>
                 <hr>
 
                 <div class="row">
@@ -251,7 +240,7 @@ foreach ($custom_fields as $custom_field) {
                                         <th><?php _trans('gender'); ?></th>
                                         <td><?php echo format_gender($client->client_gender) ?></td>
                                     </tr>
-                                    <?php if ($this->mdl_settings->setting('sumex') == '1'): ?>
+                                    <?php if ($this->mdl_settings->setting('sumex') == '1') : ?>
                                         <tr>
                                             <th><?php _trans('sumex_ssn'); ?></th>
                                             <td><?php echo format_avs($client->client_avs) ?></td>
@@ -328,16 +317,15 @@ foreach ($custom_fields as $custom_field) {
             <div class="row">
                 <div class="col-xs-12 col-md-6">
 
-                    <div class="panel panel-default no-margin">
-                        <div class="panel-heading">
+                    <div class="card ">
+                        <div class="card-header">
                             <?php _trans('notes'); ?>
                         </div>
                         <div class="panel-body">
                             <div id="notes_list">
                                 <?php echo $partial_notes; ?>
                             </div>
-                            <input type="hidden" name="client_id" id="client_id"
-                                   value="<?php echo $client->client_id; ?>">
+                            <input type="hidden" name="client_id" id="client_id" value="<?php echo $client->client_id; ?>">
                             <div class="input-group">
                                 <textarea id="client_note" class="form-control" rows="2" style="resize:none"></textarea>
                                 <span id="save_client_note" class="input-group-addon btn btn-default">
@@ -349,15 +337,12 @@ foreach ($custom_fields as $custom_field) {
 
                 </div>
                 <div class="col-xs-12 col-md-6">
-                <?php $this->layout->load_view('upload/dropzone-client-html'); ?>
+                    <?php $this->layout->load_view('upload/dropzone-client-html'); ?>
                 </div>
             </div>
 
         </div>
 
-        <div id="clientQuotes" class="tab-pane table-content">
-            <?php echo $quote_table; ?>
-        </div>
         <div id="clientInvoices" class="tab-pane table-content">
             <?php echo $invoice_table; ?>
         </div>

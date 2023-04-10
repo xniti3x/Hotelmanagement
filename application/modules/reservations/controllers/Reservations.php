@@ -28,9 +28,5 @@ class Reservations extends Admin_Controller
     /**
      * @param int $page
      */
-    public function index(){
-       
-        $this->layout->buffer('content', 'reservations/index');
-        $this->layout->render('layout_no_navbar');
-    }
+    public function index(){ }
 }

@@ -1,5 +1,5 @@
-<div class="headerbar-item pull-right">
-    <div class="btn-group btn-group-sm">
+<div class="card-header">
+    <div class="card-tools">
         <?php if (!isset($hide_submit_button)) : ?>
             <button id="btn-submit" name="btn_submit" class="btn btn-success ajax-loader" value="1">
                 <i class="fa fa-check"></i> <?php _trans('save'); ?>

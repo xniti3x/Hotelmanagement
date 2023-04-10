@@ -1,16 +1,28 @@
 <?php $this->load->helper('country'); ?>
+<div class="card">
+    <div class="card-header">
+    <h3 class="card-title">
+        <a href="<?php echo site_url('clients/view/' . $client->client_id); ?>">
+            <?php _htmlsc(format_client($client)) ?>
+        </a>
+    </h3>
+    </div>
+<table class="table table-borderless table-responsive">
+    <tr>
+        <?php echo ($client->client_address_1 ? "<td>" . htmlsc($client->client_address_1) . '</td>' : ''); ?>
+        <?php echo ($client->client_address_2 ? "<td>" . htmlsc($client->client_address_2) . '</td>' : ''); ?>
+        <?php echo ($client->client_zip ? "<td>" . htmlsc($client->client_zip) . '</td>' : ''); ?>
+        <?php echo ($client->client_city ? "<td>" . htmlsc($client->client_city) . "</td>" : ''); ?>
+        <?php echo ($client->client_country ? "<td>" . htmlsc($client->client_country) . "</td>" : ''); ?>
+        <?php echo ($client->client_phone ? "<td>" . htmlsc($client->client_phone) . '</td>' : ''); ?>
+        <?php echo ($client->client_email ? "<td>" . htmlsc($client->client_email) . "</td>" : ''); ?>
+        <td style="min-width: 100px;">
+            
+        <button id="invoice_change_client" class="btn btn-default btn-flat btn-sm" data-toggle="tooltip" data-placement="bottom" title="<?php _trans('change_client'); ?>"><i class="fa fa-edit"></i></button>
+        <button id="invoice_add_client" class="btn btn-default btn-flat btn-sm" data-toggle="tooltip" title="<?php _trans('add_client'); ?>"><i class="fa fa-plus"></i></button>
+    
+        </td>
+    </tr>
 
-<span class="client-address-street-line">
-    <?php echo($client->client_address_1 ? htmlsc($client->client_address_1) . '<br>' : ''); ?>
-</span>
-<span class="client-address-street-line">
-    <?php echo($client->client_address_2 ? htmlsc($client->client_address_2) . '<br>' : ''); ?>
-</span>
-<span class="client-adress-town-line">
-    <?php echo($client->client_city ? htmlsc($client->client_city) . ' ' : ''); ?>
-    <?php echo($client->client_state ? htmlsc($client->client_state) . ' ' : ''); ?>
-    <?php echo($client->client_zip ? htmlsc($client->client_zip) : ''); ?>
-</span>
-<span class="client-adress-country-line">
-    <?php echo($client->client_country ? '<br>' . get_country_name(trans('cldr'), $client->client_country) : ''); ?>
-</span>
+</table>
+</div>

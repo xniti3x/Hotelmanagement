@@ -60,19 +60,40 @@
 
 </script>
 
-<div id="create-invoice" class="modal modal-lg"
-     role="dialog" aria-labelledby="modal_create_invoice" aria-hidden="true">
+<style>
+    .select2-container .select2-choice {
+    padding: 5px 10px;
+    height: 40px;
+    width: 132px; 
+    font-size: 1.2em;  
+}
+
+.select2-container .select2-choice .select2-arrow {
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#424242), to(#030303));
+    background-image: -moz-linear-gradient(top, #424242, #030303);
+    background-image: -ms-linear-gradient(top, #424242, #030303);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #424242), color-stop(100%, #030303));
+    background-image: -webkit-linear-gradient(top, #424242, #030303);
+    background-image: -o-linear-gradient(top, #424242, #030303);
+    background-image: linear-gradient(#424242, #030303);
+    width: 40px;
+    color: #fff;
+    font-size: 1.3em;
+    padding: 4px 12px;
+}
+</style>
+<div id="create-invoice" class="modal modal" role="dialog" aria-labelledby="modal_create_invoice" aria-hidden="true">
     <form class="modal-content">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><i class="fa fa-close"></i></button>
-            <h4 class="panel-title"><?php _trans('create_invoice'); ?></h4>
+            <h4 class=""><?php _trans('create_invoice'); ?></h4>
+            <button type="button" class="close btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i></button>
         </div>
         <div class="modal-body">
 
-            <input class="hidden" id="payment_method_id"
+            <input class="hidden" hidden id="payment_method_id"
                    value="<?php echo get_setting('invoice_default_payment_method'); ?>">
 
-            <input class="hidden" id="input_permissive_search_clients"
+            <input class="hidden" hidden id="input_permissive_search_clients"
                    value="<?php echo get_setting('enable_permissive_search_clients'); ?>">
 
             <div class="form-group has-feedback">
@@ -104,7 +125,7 @@
                 </div>
             </div>
 
-            <div class="hidden form-group">
+            <div class="hidden form-group" hidden>
                 <label for="invoice_password"><?php _trans('invoice_password'); ?></label>
                 <input type="text" name="invoice_password" id="invoice_password" class="form-control"
                        value="<?php echo get_setting('invoice_pre_password') == '' ? '' : get_setting('invoice_pre_password'); ?>"
@@ -114,7 +135,7 @@
             <div class="form-group">
                 <label for="invoice_group_id"><?php _trans('invoice_group'); ?></label>
                 <select name="invoice_group_id" id="invoice_group_id"
-                	class="form-control simple-select" data-minimum-results-for-search="Infinity">
+                	class="form-control select2-choice simple-select" data-minimum-results-for-search="Infinity">
                     <?php foreach ($invoice_groups as $invoice_group) { ?>
                         <option value="<?php echo $invoice_group->invoice_group_id; ?>"
                                 <?php if (get_setting('default_invoice_group') == $invoice_group->invoice_group_id) { ?>selected="selected"<?php } ?>>

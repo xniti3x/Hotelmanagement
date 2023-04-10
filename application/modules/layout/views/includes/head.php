@@ -23,6 +23,7 @@
     <script src="<?php _core_asset('js/locales/select2/' . trans('cldr') . '.js'); ?>"></script>
 <?php } ?>
 
+
 <script>
     Dropzone.autoDiscover = false;
 
@@ -40,6 +41,27 @@
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
+        var clicked_item=null;
+        $('body').on('focus', 'input[name=item_room]', function () {
+            clicked_item=this;
+            $('.modal_numbers').modal({show: true});
+        });
+
+        $(document).on('click', '.room_btn', function () {
+            $(clicked_item).val($(this).text());
+        });
+
+
+        var clicked_item_price=null;
+        $('body').on('focus', 'input[name=item_price]', function () {
+            clicked_item_price=this;
+            $('.modal_price_select').modal({show: true});
+        });
+
+        $(document).on('click', '.price_btn', function () {
+            $(clicked_item_price).val($(this).text());
+        });
+        
 
         $('body').on('focus', '.datepicker', function () {
             $(this).datepicker({
@@ -63,6 +85,7 @@
                 weekStart: '<?php echo get_setting('first_day_of_week'); ?>',
                 todayBtn: "linked"
             });
+
             $(this).datepicker().on('changeDate', function(e) {
                 tstart=$(this).closest('table tbody.item').find('[name="item_date_start"]').val();
                 tend=$(this).closest('table tbody.item').find('[name="item_date_end"]').val();
@@ -78,6 +101,7 @@
                 $(this).closest('table tbody.item').find('[name="item_quantity"]').val(diffDays);
             });
         });
+
 
         $(document).on('click', '.create-invoice', function () {
             $('#modal-placeholder').load("<?php echo site_url('invoices/ajax/modal_create_invoice'); ?>");

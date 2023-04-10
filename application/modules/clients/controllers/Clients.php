@@ -47,6 +47,7 @@ class Clients extends Admin_Controller
 
         $this->layout->set(
             array(
+                'status' => $status,
                 'records' => $clients,
                 'filter_display' => true,
                 'filter_placeholder' => trans('filter_clients'),
@@ -110,7 +111,7 @@ class Clients extends Admin_Controller
                 redirect('clients/form/' . $id);
                 return;
             } else {
-                redirect('invoices/create_invoice_view/' . $id);
+                redirect('clients/view/' . $id);
             }
         }
 
@@ -218,7 +219,10 @@ class Clients extends Admin_Controller
                 'client' => $client,
                 'client_notes' => $this->mdl_client_notes->where('client_id', $client_id)->get()->result(),
                 'invoices' => $this->mdl_invoices->by_client($client_id)->where("ip_invoices.invoice_group_id !=",5)->limit(20)->get()->result(),
-                'reservations' => $this->mdl_invoices->by_client($client_id)->where("ip_invoices.invoice_group_id =",5)->limit(20)->get()->result(),
+                'reservations' => $this->mdl_invoices->db->query('select ip_invoice_items.*,ip_invoices.*,ip_clients.* from ip_invoice_items,ip_invoices,ip_clients 
+                where ip_invoice_items.invoice_id=ip_invoices.invoice_id 
+                AND ip_invoices.invoice_group_id=5 
+                AND ip_invoices.client_id='.$client_id.' group by ip_invoices.invoice_id ' )->result(),
                 'quotes' => $this->mdl_quotes->by_client($client_id)->limit(20)->get()->result(),
                 'payments' => $this->mdl_payments->by_client($client_id)->limit(20)->get()->result(),
                 'custom_fields' => $custom_fields,

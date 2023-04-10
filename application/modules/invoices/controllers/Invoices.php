@@ -26,8 +26,12 @@ class Invoices extends Admin_Controller
         parent::__construct();
 
         $this->load->model('mdl_invoices');
+        $this->load->model('mdl_items');
     }
 
+    public function adminlte(){
+        $this->load->view("layout/iframe");
+    }
     public function index()
     {
         // Display all invoices by default
@@ -67,10 +71,15 @@ class Invoices extends Admin_Controller
         
         $this->mdl_invoices->paginate(site_url('invoices/status/' . $status), $page);
         $invoices = $this->mdl_invoices->result();
+        $reservations=$this->mdl_items->db->query("select ip_invoice_items.*,ip_invoices.*,ip_clients.* 
+        from ip_invoice_items,ip_invoices,ip_clients 
+        where ip_invoice_items.invoice_id=ip_invoices.invoice_id 
+        AND ip_clients.client_id=ip_invoices.client_id
+        AND ip_invoices.invoice_group_id=5")->result();
         $this->layout->set(
             [
                 'invoices' => $invoices,
-                'reservations' => $this->mdl_invoices->where("ip_invoices.invoice_group_id =",5)->get()->result(),
+                'reservations' => $reservations,
                 'status' => $status,
                 'filter_display' => true,
                 'filter_placeholder' => ($status=='reservation')?trans('filter_invoices'):trans('filter_invoices'),
@@ -125,7 +134,7 @@ class Invoices extends Admin_Controller
     /**
      * @param $invoice_id
      */
-    public function view($invoice_id,$layout='layout')
+    public function view($invoice_id)
     {
         $this->load->model(
             [
@@ -233,7 +242,7 @@ class Invoices extends Admin_Controller
             );
         }
 
-        $this->layout->render($layout);
+        $this->layout->render();
     }
 
 
@@ -405,4 +414,5 @@ class Invoices extends Admin_Controller
     private function substr_startswith($haystack, $needle) {
         return substr($haystack, 0, strlen($needle)) === $needle;
     }
+
 }
