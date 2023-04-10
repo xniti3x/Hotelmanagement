@@ -28,28 +28,28 @@
             </td>
             <td class="td-amount">
                 <div class="input-group">
-                    <span class="input-group-addon"><?php _trans('price'); ?></span> 
-                    <input type="number" name="item_price" class="input-sm form-control amount" value="">
+                    <span id="btn_price" class="btn btn-primary input-group-addon"><?php _trans('price'); ?></span> 
+                    <input type="number" name="item_price" style="width:90px;" class="input-sm form-control amount" value="50">
                 </div>
             </td>
             <td class="td-amount">
             <div class="input-group input-daterange">
-                <input type="text" name="item_date_start" autocomplete="off" class="input-sm form-control datepickerItem" value="">
+                <input type="text" name="item_date_start" autocomplete="off" class="input-sm form-control datepickerItem" value="<? echo date("d-m-Y"); ?>">
                 <div class="input-group-addon">bis</div>
-                <input type="text" name="item_date_end" autocomplete="off" class="input-sm form-control datepickerItem" value="">
+                <input type="text" name="item_date_end" autocomplete="off" class="input-sm form-control datepickerItem" value="<? echo date("d-m-Y",strtotime("+1 day")); ?>">
             </div>
             </td>
             <td class="td-amount">
                 <div class="input-group">
                     <span class="input-group-addon"><?php _trans('zimmer'); ?></span> 
-                    <input type="number" name="item_room" min="1" class="input-sm form-control number" value="">
+                    <input type="number" name="item_room" min="1" class="input-sm form-control number" value="1">
                 </div> 
                 
             </td>
             <td class="td-amount">
                 <div class="input-group">
                     <span class="input-group-addon"><?php _trans('quantity'); ?></span>
-                    <input type="number" name="item_quantity" autoco class="input-sm form-control amount" value="">
+                    <input type="number" name="item_quantity" autoco class="input-sm form-control amount" value="1">
                 </div>
             </td>
             <td class="td-text">
@@ -60,7 +60,7 @@
                 
                 <div class="input-group">
                     <span class="input-group-addon"><?php _trans('item'); ?></span>
-                    <input type="text" name="item_name" class="input-sm form-control" value="">
+                    <input type="text" name="item_name" class="input-sm form-control" value="Übernachtung ohne Frühstück">
                 </div>
             </td>
             <td class="td-textarea">
@@ -117,7 +117,7 @@
 
                 <td class="td-amount">
                     <div class="input-group">
-                        <span class="input-group-addon"><?php _trans('price'); ?></span>
+                        <span class="btn_price input-group-addon"><?php _trans('price'); ?></span>
                         <input type="number" min="1" name="item_price" class="input-sm form-control amount"
                         value="<?php echo format_amount($item->item_price); ?>"
                         <?php if ($invoice->is_read_only == 1) {
@@ -322,4 +322,45 @@
         </table>
     </div>
     
+</div>
+
+
+<div id="modal_price" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal_room" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -138,5 +138,9 @@
             });
         });
 
+        $(document).on('click', '#btn_price', function () {
+            $('#modal_price').modal({show: true});
+        });
+
     });
 </script>
