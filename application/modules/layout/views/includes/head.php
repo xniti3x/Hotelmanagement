@@ -138,8 +138,23 @@
             });
         });
 
+        var item_value=null;
         $(document).on('click', '#btn_price', function () {
-            $('#modal_price').modal({show: true});
+            item_value=this;
+            $('.modal_price_select').modal({show: true});
+        });
+        
+        $(document).on('click', '.price_btn', function () {
+            $(item_value).parent().find("[name=item_price]").val($(this).text());
+        });
+
+        $(document).on('click', '#btn_room', function () {
+            item_value=this;
+            $('.modal_numbers').modal({show: true});
+        });
+        
+        $(document).on('click', '.room_btn', function () {
+            $(item_value).parent().find("[name=item_room]").val($(this).text());
         });
 
     });

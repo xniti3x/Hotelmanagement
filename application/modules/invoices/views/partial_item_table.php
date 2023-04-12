@@ -1,16 +1,15 @@
 <div class="table-responsive">
-    <table id="item_table" class="items table table-condensed table-bordered no-margin">
-        <thead style="display: none">
+    <table id="item_table" class="items table table-condensed">
+        <thead style="">
         <tr>
             <th></th>
+            <th><?php _trans('price'); ?></th>
+            <th><?php _trans('Daterange'); ?></th>
+            <th><?php _trans('room'); ?></th>
+            <th><?php _trans('quantity'); ?></th>
             <th><?php _trans('item'); ?></th>
             <th><?php _trans('description'); ?></th>
-            <th><?php _trans('quantity'); ?></th>
-            <th><?php _trans('price'); ?></th>
-            <th><?php _trans('date_range'); ?></th>
-            <th><?php _trans('subtotal'); ?></th>
-             <th><?php _trans('tax'); ?></th>
-            <th><?php _trans('total'); ?></th>
+             <th><?php _trans('tax_rate'); ?></th>
             <th></th>
         </tr>
         </thead>
@@ -28,51 +27,47 @@
             </td>
             <td class="td-amount">
                 <div class="input-group">
-                    <span id="btn_price" class="btn btn-primary input-group-addon"><?php _trans('price'); ?></span> 
-                    <input type="number" name="item_price" style="width:90px;" class="input-sm form-control amount" value="50">
+                    <span id="btn_price" class="btn btn-primary input-group-addon"><i class="fa fa-money"></i></span> 
+                    <input type="number" name="item_price" class="input-sm form-control amount" value="50">
                 </div>
             </td>
             <td class="td-amount">
             <div class="input-group input-daterange">
                 <input type="text" name="item_date_start" autocomplete="off" class="input-sm form-control datepickerItem" value="<? echo date("d-m-Y"); ?>">
-                <div class="input-group-addon">bis</div>
+                <div class="input-group-addon">-</div>
                 <input type="text" name="item_date_end" autocomplete="off" class="input-sm form-control datepickerItem" value="<? echo date("d-m-Y",strtotime("+1 day")); ?>">
             </div>
             </td>
             <td class="td-amount">
                 <div class="input-group">
-                    <span class="input-group-addon"><?php _trans('zimmer'); ?></span> 
+                    <span id="btn_room" class="btn btn-primary input-group-addon"><i class="fa fa-cube"></i></span> 
                     <input type="number" name="item_room" min="1" class="input-sm form-control number" value="1">
                 </div> 
                 
             </td>
             <td class="td-amount">
                 <div class="input-group">
-                    <span class="input-group-addon"><?php _trans('quantity'); ?></span>
                     <input type="number" name="item_quantity" autoco class="input-sm form-control amount" value="1">
                 </div>
             </td>
             <td class="td-text">
                 <input type="hidden" name="invoice_id" value="<?php echo $invoice_id; ?>">
                 <input type="hidden" name="item_id" value="">
-                <input type="hidden" name="item_product_id" value="">
+                <input type="hidden" name="item_product_id" value="1">
                 <input type="hidden" name="item_task_id" class="item-task-id" value="">
                 
                 <div class="input-group">
-                    <span class="input-group-addon"><?php _trans('item'); ?></span>
                     <input type="text" name="item_name" class="input-sm form-control" value="Übernachtung ohne Frühstück">
                 </div>
             </td>
             <td class="td-textarea">
                 <div class="input-group">
-                    <span class="input-group-addon"><?php _trans('description'); ?></span>
                     <textarea name="item_description" class="input-sm form-control"></textarea>
                 </div>
             </td>
             
             <td class="td-amount">
                 <div class="input-group">
-                    <span class="input-group-addon"><?php _trans('tax_rate'); ?></span>
                     <select name="item_tax_rate_id" class="form-control input-sm">
                         <option value="0"><?php _trans('none'); ?></option>
                         <?php foreach ($tax_rates as $tax_rate) { ?>
@@ -115,17 +110,17 @@
                     <?php endif; ?>
                 </td>
 
-                <td class="td-amount">
+                <td style="min-width: 90px; max-width: 90px;">
                     <div class="input-group">
-                        <span class="btn_price input-group-addon"><?php _trans('price'); ?></span>
-                        <input type="number" min="1" name="item_price" class="input-sm form-control amount"
+                        <span id="btn_price" class="btn btn-primary input-group-addon"><i class="fa fa-money"></i></span>
+                        <input type="number"  min="1" name="item_price" class="input-sm form-control amount"
                         value="<?php echo format_amount($item->item_price); ?>"
                         <?php if ($invoice->is_read_only == 1) {
                             echo 'disabled="disabled"';
                         } ?>>
                     </div>
                 </td>
-                <td>
+                <td style="min-width: 200px; max-width: 200px;">
                 <div class="input-group input-daterange">
                 <input name="item_date_start" autocomplete="off" class="input-sm form-control datepicker datepickerItem"
                         value="<?php if (property_exists($item, 'item_date_start')) echo format_date($item->item_date_start); ?>"
@@ -133,7 +128,7 @@
                         <?php if ($invoice->is_read_only == 1) {
                             echo 'disabled="disabled"';
                         } ?>>
-                    <div class="input-group-addon">bis</div>
+                        <div class="input-group-addon">-</div>
                     <input type="text" name="item_date_end" autocomplete="off" class="input-sm form-control datepicker datepickerItem"
                         value="<?php if (property_exists($item, 'item_date_end')) echo format_date($item->item_date_end); ?>"
                         
@@ -142,24 +137,23 @@
                         } ?>>
                 </div>
                 </td>
-                <td class="td-amount">
+                <td style="min-width: 70px; max-width: 70px;">
                     <div class="input-group">
-                        <span class="input-group-addon"><?php _trans('zimmer'); ?></span> 
-                        <input type="number" name="item_room" min="1" class="input-sm form-control number"  value="<?php echo ($item->item_room); ?>">
+                        <span id="btn_room" class="btn btn-primary input-group-addon"><i class="fa fa-cube"></i></span> 
+                        <input type="number" style="max-width: 70px;" name="item_room" min="1" class="input-sm form-control number"  value="<?php echo ($item->item_room); ?>">
                     </div> 
                     
                 </td>
-                <td class="td-amount td-quantity">
+                <td style="min-width: 70px; max-width: 70px;">
                     <div class="input-group">
-                        <span class="input-group-addon"><?php _trans('quantity'); ?></span>
-                        <input type="number" min="1" name="item_quantity" class="input-sm form-control amount"
+                        <input type="number" style="max-width: 70px;" min="1" name="item_quantity" class="input-sm form-control amount"
                         value="<?php echo format_amount($item->item_quantity); ?>"
                         <?php if ($invoice->is_read_only == 1) {
                             echo 'disabled="disabled"';
                         } ?>>
                     </div>
                 </td>
-                <td class="td-text">
+                <td style="min-width: 200px; max-width: 200px;">
                     <input type="hidden" name="invoice_id" value="<?php echo $invoice_id; ?>">
                     <input type="hidden" name="item_id" value="<?php echo $item->item_id; ?>"
                         <?php if ($invoice->is_read_only == 1) {
@@ -172,7 +166,6 @@
                     <input type="hidden" name="item_product_id" value="<?php echo $item->item_product_id; ?>">
                     
                     <div class="input-group">
-                        <span class="input-group-addon"><?php _trans('item'); ?></span>
                         <input type="text" name="item_name" class="input-sm form-control"
                         value="<?php _htmlsc($item->item_name); ?>"
                         <?php if ($invoice->is_read_only == 1) {
@@ -180,9 +173,8 @@
                         } ?>>
                     </div>
                 </td>
-                <td class="td-textarea">
+                <td style="min-width: 150px; max-width: 150px;">
                     <div class="input-group">
-                        <span class="input-group-addon"><?php _trans('description'); ?></span>
                         <textarea name="item_description"
                         class="input-sm form-control"
                         <?php if ($invoice->is_read_only == 1) {
@@ -190,9 +182,8 @@
                         } ?>><?php echo htmlsc($item->item_description); ?></textarea>
                 </div>
                 </td>
-                <td class="td-amount">
+                <td style="min-width: 100px; max-width: 100px;">
                     <div class="input-group">
-                        <span class="input-group-addon"><?php _trans('tax_rate'); ?></span>
                         <select name="item_tax_rate_id" class="form-control input-sm"
                             <?php if ($invoice->is_read_only == 1) {
                                 echo 'disabled="disabled"';
@@ -229,14 +220,14 @@
         <div class="btn-group">
             <?php if ($invoice->is_read_only != 1) { ?>
                 <a href="#" class="btn_add_row btn btn-sm btn-default">
-                    <i class="fa fa-plus"></i> <?php _trans('add_new_row'); ?>
+                    <i class="fa fa-plus"></i> <?php _trans('Zeile'); ?>
                 </a>
                 <a href="#" class="btn_add_product btn btn-sm btn-default">
-                    <i class="fa fa-database"></i>
-                    <?php _trans('add_product'); ?>
+                    <i class="fa fa-plus"></i>
+                    <?php _trans('product'); ?>
                 </a>
                 <a href="#" class="btn_copy_row btn btn-sm btn-default">
-                    <i class="fa fa-copy"></i> <?php _trans('copy_last_row'); ?>
+                    <i class="fa fa-copy"></i> <?php _trans('Letzte Zeile'); ?>
                 </a> 
             <?php } ?>
         </div>
@@ -325,42 +316,44 @@
 </div>
 
 
-<div id="modal_price" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+<div class="modal modal_numbers" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Zimmer Auswahl
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                    <?php for ($i = 1; $i < 22; $i++) { ?>
+                        <button class="room_btn btn" style="width:50px;" data-dismiss="modal"><?php echo $i; ?></button>
+                    <?php } ?>
+                </div>
+            </div>
+
+        </div>
     </div>
-  </div>
 </div>
 
-<div id="modal_room" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+<div class="modal modal_price_select" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Preis Auswahl
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                    <?php for ($i = 10; $i < 155; $i += 5) { ?>
+                        <button style="width:50px;" class="price_btn btn" data-dismiss="modal"><?php echo $i; ?></button>
+                    <?php } ?>
+                </div>
+            </div>
+
+        </div>
     </div>
-  </div>
 </div>
