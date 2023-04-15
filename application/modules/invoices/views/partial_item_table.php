@@ -33,9 +33,9 @@
             </td>
             <td class="td-amount">
             <div class="input-group input-daterange">
-                <input type="text" name="item_date_start" autocomplete="off" class="input-sm form-control datepickerItem" value="<? echo date("d-m-Y"); ?>">
+                <input type="text" name="item_date_start" autocomplete="off" class="input-sm form-control datepickerItem" value="<?php echo date("d-m-Y"); ?>">
                 <div class="input-group-addon">-</div>
-                <input type="text" name="item_date_end" autocomplete="off" class="input-sm form-control datepickerItem" value="<? echo date("d-m-Y",strtotime("+1 day")); ?>">
+                <input type="text" name="item_date_end" autocomplete="off" class="input-sm form-control datepickerItem" value="<?php echo date("d-m-Y",strtotime("+1 day")); ?>">
             </div>
             </td>
             <td class="td-amount">
