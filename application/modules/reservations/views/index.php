@@ -1,5 +1,4 @@
 <div>
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/custom_assets/styles/css/demo.css" />
     <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/custom_assets/styles/css/layout.css?v=2019.3.3903" />
     <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/custom_assets/styles/css/elements.css?v=2019.3.3903" />
     <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>/custom_assets/styles/themes/scheduler_8.css" />
@@ -35,6 +34,10 @@
                         modal.width=$(window).width();
                         modal.height=$(window).height()-50;                   
                         modal.theme="modal_min";
+                        modal.closed = function() {
+                            dp.clearSelection();
+                            loadEvents();
+                        };
                     //dp.bubble = new DayPilot.Bubble({});
                     //dp.startDate = new DayPilot.Date().firstDayOfMonth();
                     //dp.eventClickHandling="Disabled",
@@ -66,10 +69,7 @@
                                 }];
                     };
                     dp.onTimeRangeSelected = function (args) {
-                        modal.closed = function() {
-                            dp.clearSelection();
-                            loadEvents();
-                        };
+                        
                         var start = args.start;
                         var end = args.end;
                         var temp=args.end.addDays(-1);
@@ -79,7 +79,10 @@
                             start=start.addHours(14);
                             end=temp.addHours(12);
                         }
-                        modal.showUrl("<?php echo site_url('invoices/create_invoice_view'); ?>");
+                        
+                        $('#modal-placeholder').load("<?php echo site_url('invoices/ajax/modal_create_reservation'); ?>"+"/"+args.resource+"/"+start.toString("dd-MM-yyyy")+"/"+end.toString("dd-MM-yyyy"));
+                        dp.clearSelection();
+                        loadEvents();
                     };
 
                     dp.onEventClick = function(args) {
