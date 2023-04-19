@@ -4,7 +4,7 @@
                 data-toggle="collapse" data-target="#ip-submenu-collapse">
             <i class="fa fa-bars"></i> <?php _trans('submenu'); ?>
         </button>
-        <a class="<?php echo ($status == 'reservation' || $status == 'gant' ) ? 'create-reservation':'create-invoice'; ?> btn btn-sm btn-primary" href="#">
+        <a class="<?php echo ($status == 'reservation' || $status == 'gant' ) ? 'create-invoice_rs':'create-invoice'; ?> btn btn-sm btn-primary" href="#">
             <i class="fa fa-plus"></i> <?php ($status=='reservation' || $status=='gant')?_trans('reservation'):_trans('invoice'); ?>
         </a>
     </div>

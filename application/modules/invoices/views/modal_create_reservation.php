@@ -33,21 +33,21 @@
             // will create the new client if necessar
             $.post("<?php echo site_url('invoices/ajax/create'); ?>", {
                     client_id: $('#create_invoice_client_id').val(),
-                    invoice_date_created: $('#invoice_date_created').val(),
+                    invoice_date_created: '<?php echo date("d-m-Y"); ?>',
                     invoice_group_id: $('#invoice_group_id').val(),
                     invoice_time_created: '<?php echo date('H:i:s') ?>',
-                    invoice_password: $('#invoice_password').val(),
+                    invoice_password: "",
                     user_id: '<?php echo $this->session->userdata('user_id'); ?>',
-                    payment_method: $('#payment_method_id').val()
+                    payment_method: ""
                 },
                 function (data) {
                     <?php echo(IP_DEBUG ? 'console.log(data);' : ''); ?>
                     var response = JSON.parse(data);
                     if (response.success === 1) {
                         // The validation was successful and invoice was created
-                        window.location = "<?php echo site_url('invoices/view'); ?>/" + response.invoice_id;
-                    }
-                    else {
+                        //window.location = "<?php echo site_url('invoices/view'); ?>/" + response.invoice_id;
+                        save_item(response.invoice_id);
+                    } else {
                         // The validation was not successful
                         $('.control-group').removeClass('has-error');
                         for (var key in response.validation_errors) {
@@ -56,6 +56,21 @@
                     }
                 });
         });
+
+        
+        function save_item(created_invoice_id) {
+            $.post("<?php echo site_url('invoices/ajax/save_item'); ?>", {
+                    invoice_id: created_invoice_id,
+                    item_date_end: $('#item_date_end').val(),
+                    item_date_start: $('#item_date_start').val(),
+                    item_room: $('#item_room').val()
+                },
+                function(data) {
+                    console.log(data);
+                    window.location = "<?php echo site_url('invoices/view'); ?>/" + created_invoice_id;
+                    //modal.showUrl("<?php echo site_url('invoices/view'); ?>/" + created_invoice_id);
+                });
+        }
 
         // Create Client
         $('#invoice_create_client').click(function() {
@@ -71,7 +86,7 @@
                     client_active: 1
                 },
                 function(data) {
-                    alert($('#client_name').val()+' erfolgreich hinzugefügt.');
+                    alert($('#client_name').val() + ' erfolgreich hinzugefügt.');
                     $('#client_name').val("");
                     $('#client_address_1').val("");
                     $('#client_zip').val("");
@@ -100,8 +115,7 @@
 
                 <div role="tabpanel" class="tab-pane fade in active" id="one">
                     <form>
-                        <input class="hidden" id="payment_method_id" value="<?php echo get_setting('invoice_default_payment_method'); ?>">
-
+                       
                         <input class="hidden" id="input_permissive_search_clients" value="<?php echo get_setting('enable_permissive_search_clients'); ?>">
 
                         <div class="form-group has-feedback">
@@ -117,36 +131,36 @@
                                 </span>
                             </div>
                         </div>
-
-                        <div class="form-group has-feedback hidden">
-                            <label for="invoice_date_created"><?php _trans('invoice_date'); ?></label>
-
+                        <div class="form-group has-feedback">
+                            <label for="item_date_start"><?php _trans('start'); ?></label>
                             <div class="input-group">
-                                <input name="invoice_date_created" id="invoice_date_created" class="form-control datepicker" value="<?php echo date(date_format_setting()); ?>">
+                                <input name="item_date_start" id="item_date_start" class="form-control datepicker" value="<?php echo $start; ?>">
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar fa-fw"></i>
                                 </span>
                             </div>
                         </div>
-                        
-                        
                         <div class="form-group has-feedback">
-                            <label for="invoice_item"><?php _trans('reservation'); ?></label>
+                            <label for="item_date_end"><?php _trans('end'); ?></label>
+                            <div class="input-group">
+                                <input name="item_date_end" id="item_date_end" class="form-control datepicker" value="<?php echo $end; ?>">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar fa-fw"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="item_room"><?php _trans('room'); ?></label>
 
                             <div class="input-group">
-                                <input name="invoice_item" id="invoice_item" readonly class="form-control" value="<?php echo "Room ".$room. ": ".$start." - ". $end; ?>">
+                                <input type="number" name="item_room" id="item_room" class="form-control" value="<?php echo $room; ?>">
                                 <span class="input-group-addon">
                                     <i class="fa fa-cube"></i>
                                 </span>
                             </div>
                         </div>
 
-                        <div class="hidden form-group">
-                            <label for="invoice_password"><?php _trans('invoice_password'); ?></label>
-                            <input type="text" name="invoice_password" id="invoice_password" class="form-control" value="<?php echo get_setting('invoice_pre_password') == '' ? '' : get_setting('invoice_pre_password'); ?>" style="margin: 0 auto;" autocomplete="off">
-                        </div>
-
-                        <div class="form-group">
+                        <div class="form-group hidden">
                             <label for="invoice_group_id"><?php _trans('invoice_group'); ?></label>
                             <select name="invoice_group_id" id="invoice_group_id" class="form-control simple-select" data-minimum-results-for-search="Infinity">
                                 <?php foreach ($invoice_groups as $invoice_group) { ?>

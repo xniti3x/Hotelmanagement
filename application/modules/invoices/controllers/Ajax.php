@@ -265,7 +265,7 @@ class Ajax extends Admin_Controller
         echo json_encode($item);
     }
 
-    public function modal_create_invoice()
+    public function modal_create_invoice($group='invoice')
     {
         $this->load->module('layout');
         $this->load->model('invoice_groups/mdl_invoice_groups');
@@ -277,6 +277,7 @@ class Ajax extends Admin_Controller
             'tax_rates' => $this->mdl_tax_rates->get()->result(),
             'client' => $this->mdl_clients->get_by_id($this->input->post('client_id')),
             'clients' => $this->mdl_clients->get_latest(),
+            'group' =>$group
         ];
 
         $this->layout->load_view('invoices/modal_create_invoice', $data);
@@ -511,6 +512,38 @@ class Ajax extends Admin_Controller
         echo json_encode([
             'success' => $success
         ]);
+    }
+
+    public function save_item()
+    {
+        $this->load->model('mdl_items');
+        $this->load->model('invoices/mdl_invoices');
+        $this->load->model('units/mdl_units');
+        $this->load->model('invoices/mdl_invoice_sumex');
+        
+        $end=date('Y-m-d', strtotime($this->input->post('item_date_end')));
+        $start=date('Y-m-d', strtotime($this->input->post('item_date_start')));
+
+        $date1=date_create($start);
+        $date2=date_create($end);
+        $diff=date_diff($date1,$date2);
+
+        $item=array(
+            'invoice_id'=> $this->input->post('invoice_id'),
+            'item_date_end'=> $end,
+            'item_date_start'=> $start,
+            'item_description'=> "",
+            'item_id'=> "",
+            'item_name'=> "Übernachtung ohne Frühstück",
+            'item_order'=> 1,
+            'item_price'=> "55.00",
+            'item_product_id'=> "1",
+            'item_quantity'=> $diff->format("%a"),
+            'item_room'=> $this->input->post('item_room'),
+            'item_task_id'=> "",
+            'item_tax_rate_id'=> "1"
+        );
+        $this->mdl_items->save(null,$item);
     }
 
 }
