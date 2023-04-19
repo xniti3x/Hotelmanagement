@@ -327,8 +327,8 @@
             </div>
             <div class="modal-body">
                 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                    <?php for ($i = 1; $i < 22; $i++) { ?>
-                        <button class="room_btn btn" style="width:50px;" data-dismiss="modal"><?php echo $i; ?></button>
+                    <?php foreach ($this->db->get('ip_rooms')->result() as $room) { ?>
+                        <button class="room_btn btn" style="width:50px;" data-dismiss="modal"><?php echo $room->id; ?></button>
                     <?php } ?>
                 </div>
             </div>
