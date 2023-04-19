@@ -110,7 +110,7 @@ class Clients extends Admin_Controller
                 redirect('clients/form/' . $id);
                 return;
             } else {
-                redirect('invoices/create_invoice_view/' . $id);
+                redirect('clients/view/' . $id);
             }
         }
 
