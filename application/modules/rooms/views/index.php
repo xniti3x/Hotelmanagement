@@ -9,7 +9,8 @@
     <table class="table table-hover table-striped">
     <tr>
 		<th>ID</th>
-		<th>Active</th>
+		<th>Available on Gant</th>
+        <th>Available for Clients</th>
 		<th>Name</th>
 		<th>Actions</th>
     </tr>
@@ -17,6 +18,7 @@
     <tr>
 		<td><?php echo $i['id']; ?></td>
 		<td><?php echo $i['active']; ?></td>
+        <td><?php echo $i['show_on_system']; ?></td>
 		<td><?php echo $i['name']; ?></td>
 		<td>
             <a href="<?php echo site_url('rooms/edit/'.$i['id']); ?>">Edit</a> | 
