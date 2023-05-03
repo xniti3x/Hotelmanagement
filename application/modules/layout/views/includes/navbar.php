@@ -37,7 +37,7 @@
                     </ul>
                 </li>
                 <li><?php echo anchor('invoices/index', trans('view_reservations')); ?></li>
-                <li><?php echo anchor('emails/index', trans('email')); ?></li>
+               <!-- <li><?php echo anchor('emails/index', trans('email')); ?></li> -->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i> &nbsp;
