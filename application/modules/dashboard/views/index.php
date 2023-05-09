@@ -17,44 +17,52 @@
                 <b><i class="fa fa-table fa-margin"></i> <?php _trans('invoice_overview'); ?></b>
             </div>
             <div class="card-body table-responsive">
-            <table class="table table-striped table-hover text-nowrap">
-                <?php foreach ($invoice_status_totals as $total) { ?>
+                <table class="table table-striped table-hover text-nowrap">
+                    <?php foreach ($invoice_status_totals as $total) { ?>
+                        <tr>
+                            <td>
+                                <a href="<?php echo site_url($total['href']); ?>">
+                                    <?php echo $total['label']; ?>
+                                </a>
+                            </td>
+                            <td>
+                                <span class="<?php echo $total['class']; ?>">
+                                    <?php echo format_currency($total['sum_total']); ?>
+                                </span>
+                            </td>
+                        </tr>
+                    <?php } ?>
                     <tr>
-                        <td>
-                            <a href="<?php echo site_url($total['href']); ?>">
-                                <?php echo $total['label']; ?>
-                            </a>
-                        </td>
-                        <td>
-                            <span class="<?php echo $total['class']; ?>">
-                                <?php echo format_currency($total['sum_total']); ?>
-                            </span>
-                        </td>
+                        <?php if (empty($overdue_invoices)) { ?>
+                            <td colspan="2">
+                                <span class="text-muted"><?php _trans('no_overdue_invoices'); ?></span>
+                            </td>
+                        <?php } else {
+                            $overdue_invoices_total = 0;
+                            foreach ($overdue_invoices as $invoice) {
+                                $overdue_invoices_total += $invoice->invoice_balance;
+                            }
+                        ?>
+                            <td>
+                                <?php echo anchor('invoices/status/overdue', '<i class="fa fa-arrow-left"></i> ' . trans('overdue'), 'class="text-danger"'); ?>
+
+                            </td>
+                            <td>
+                                <span class="pull-right text-danger">
+                                    <?php echo format_currency($overdue_invoices_total); ?>
+                                </span>
+                            </td>
+                        <?php } ?>
+
                     </tr>
-                <?php } ?>
-            </table>
+                </table>
             </div>
         </div>
 
 
-        <?php if (empty($overdue_invoices)) { ?>
-            <div class="card-header">
-                <span class="text-muted"><?php _trans('no_overdue_invoices'); ?></span>
-            </div>
-        <?php } else {
-            $overdue_invoices_total = 0;
-            foreach ($overdue_invoices as $invoice) {
-                $overdue_invoices_total += $invoice->invoice_balance;
-            }
-        ?>
-            <div class="card-header">
-                <?php echo anchor('invoices/status/overdue', '<i class="fa fa-external-link"></i> ' . trans('overdue_invoices'), 'class="text-danger"'); ?>
-                <span class="pull-right text-danger">
-                    <?php echo format_currency($overdue_invoices_total); ?>
-                </span>
-            </div>
-        <?php } ?>
+
     </div>
+
     <div class="col-xs-12 col-md-6">
         <div id="panel-recent-invoices" class="card">
 
@@ -201,7 +209,7 @@
                 <b></b><i class="fa fa-bar-chart fa-margin"></i> <?php _trans('Statistic'); ?></b>
                 <span class="pull-right text-muted"></span>
             </div>
-            
+
             <div class="row card-body">
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="info-box">
@@ -209,7 +217,7 @@
                         <div class="info-box-content">
                             <span class="info-box-text">Besucher</span>
                             <span class="info-box-number">
-                            <?php echo ($monthVisitors[0]->Visitors); ?>
+                                <?php echo ($monthVisitors[0]->Visitors); ?>
                             </span>
                         </div>
 
