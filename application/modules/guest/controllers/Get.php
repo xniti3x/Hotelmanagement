@@ -53,28 +53,32 @@ class Get extends Base_Controller
         $this->load->model('settings/mdl_settings');
         
        if (strcmp($cron_key, $this->mdl_settings->get('cron_key')) !== 0) { exit;} 
-        $url = 'http://xdroid.net/api/message';
+        $url = $this->mdl_settings->get('ntfy_url');
         date_default_timezone_set('Europe/Berlin');
         $date_start=date("Y-m-d");
         $items=$this->mdl_items->getAllItemsWithStartDate($date_start);
         foreach($items as $item){
-            $data=array(
-                "k" => "k-2fdf689e017d",
-                "t" => "14:00Uhr - ".substr($item->client_name, 0, 30),
-                "c" => $date_start." - ".$item->item_date_end." | ".$item->item_price,
-                "u" => site_url("invoices/status/gant")
+            $header=array(
+                "Title:Reservierung - ".substr($item->client_name, 0, 20)."..",
+                "Priority:3",
+                "Tags:memo",
+                "Actions:view, Anzeigen, ".site_url("invoices/status/gant"),
+                "Authorization: ".$this->mdl_settings->get('ntfy_basic_auth'),
+                "Content-Type: text/plain"
             );
-            
-            $this->httpPost($url,$data);
+            $body="Zimmer:".$item->item_room." - Von:".$item->item_date_start." - Bis:".$item->item_date_end." - Preis:".$item->item_price;
+            $this->httpPost($url,$body,$header);
         }
         
     }
     
-    private function httpPost($url, $data)
+    private function httpPost($url, $data,$header)
     {
         $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_HEADER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
         curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($curl);
         curl_close($curl);

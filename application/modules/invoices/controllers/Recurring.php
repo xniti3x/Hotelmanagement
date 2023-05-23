@@ -31,8 +31,9 @@ class Recurring extends Admin_Controller
     public function index($page = 0)
     {
         $this->mdl_invoices_recurring->paginate(site_url('invoices/recurring'), $page);
-        $recurring_invoices = $this->mdl_invoices_recurring->result();
-
+        $recurring_invoices = $this->mdl_invoices_recurring->result();       
+        $recurring_cron_link=base_url("invoices/cron/recur/").get_setting("cron_key");
+        $this->layout->set('recurring_cron_link', $recurring_cron_link);
         $this->layout->set('recur_frequencies', $this->mdl_invoices_recurring->recur_frequencies);
         $this->layout->set('recurring_invoices', $recurring_invoices);
         $this->layout->buffer('content', 'invoices/index_recurring');

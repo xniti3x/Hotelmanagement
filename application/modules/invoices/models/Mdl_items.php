@@ -161,7 +161,7 @@ class Mdl_Items extends Response_Model
     }
 
     public function getAllItemsWithStartDate($startdate){
-        return $this->db->query("SELECT ip_clients.client_name ,ip_invoice_items.item_price,ip_invoice_items.item_room,ip_invoice_items.item_date_end FROM ip_invoice_items,ip_invoices,ip_clients 
+        return $this->db->query("SELECT ip_clients.client_name ,ip_invoice_items.item_price,ip_invoice_items.item_room,ip_invoice_items.item_date_start,ip_invoice_items.item_date_end FROM ip_invoice_items,ip_invoices,ip_clients 
         WHERE ip_invoices.invoice_id=ip_invoice_items.invoice_id 
         AND ip_invoice_items.item_date_start = '".$startdate."'
         AND ip_invoices.client_id=ip_clients.client_id group by ip_invoices.invoice_id")->result();

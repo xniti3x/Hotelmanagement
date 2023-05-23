@@ -1,6 +1,6 @@
 <div id="headerbar">
-    <h1 class="headerbar-title"><?php _trans('recurring_invoices'); ?></h1>
-
+    <h1 class="headerbar-title"><?php _trans('recurring_invoices'); ?><i class="fa fa-info"></i></h1>
+    <?php  echo $recurring_cron_link; ?>
     <div class="headerbar-item pull-right">
         <?php echo pager(site_url('invoices/recurring/index'), 'mdl_invoices_recurring'); ?>
     </div>
