@@ -67,10 +67,18 @@ class Invoices extends Admin_Controller
         
         $this->mdl_invoices->paginate(site_url('invoices/status/' . $status), $page);
         $invoices = $this->mdl_invoices->result();
+        $db_reservations=$this->mdl_invoices->where("ip_invoices.invoice_group_id =",5)->get()->result();
+        $this->load->model('mdl_items');
+        $reservations=array();
+        foreach($db_reservations as $invoice){
+            $invoice_products = $this->mdl_items->where('invoice_id', $invoice->invoice_id)->get()->result_array();
+            $invoice->{'product_items'}=$invoice_products;
+            $reservations[]=$invoice;
+        }
         $this->layout->set(
             [
                 'invoices' => $invoices,
-                'reservations' => $this->mdl_invoices->where("ip_invoices.invoice_group_id =",5)->get()->result(),
+                'reservations' =>$reservations,
                 'status' => $status,
                 'filter_display' => true,
                 'filter_placeholder' => ($status=='reservation')?trans('filter_invoices'):trans('filter_invoices'),
@@ -374,7 +382,8 @@ class Invoices extends Admin_Controller
                 "start"=>$res->item_date_start."T14:00:00",
                 "end"=>$res->item_date_end."T12:00:00",
                 "resource"=>$res->item_room,
-                "invoice_id"=>$res->invoice_id
+                "invoice_id"=>$res->invoice_id,
+                
             );
             
             $result[]=$event;
