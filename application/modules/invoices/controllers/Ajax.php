@@ -520,7 +520,10 @@ class Ajax extends Admin_Controller
         $this->load->model('invoices/mdl_invoices');
         $this->load->model('units/mdl_units');
         $this->load->model('invoices/mdl_invoice_sumex');
+        $this->load->model('products/mdl_products');
         
+        $product=$this->db->query("select * from ip_products where product_id=2")->row();
+
         $end=date('Y-m-d', strtotime($this->input->post('item_date_end')));
         $start=date('Y-m-d', strtotime($this->input->post('item_date_start')));
 
@@ -532,16 +535,16 @@ class Ajax extends Admin_Controller
             'invoice_id'=> $this->input->post('invoice_id'),
             'item_date_end'=> $end,
             'item_date_start'=> $start,
-            'item_description'=> "",
+            'item_description'=> $product->product_description,
             'item_id'=> "",
-            'item_name'=> "Übernachtung ohne Frühstück",
+            'item_name'=> $product->product_name,
             'item_order'=> 1,
-            'item_price'=> "55.00",
-            'item_product_id'=> "1",
+            'item_price'=> $product->product_price,
+            'item_product_id'=> $product->product_id,
             'item_quantity'=> $diff->format("%a"),
             'item_room'=> $this->input->post('item_room'),
             'item_task_id'=> "",
-            'item_tax_rate_id'=> "1"
+            'item_tax_rate_id'=> $product->tax_rate_id
         );
         $this->mdl_items->save(null,$item);
     }

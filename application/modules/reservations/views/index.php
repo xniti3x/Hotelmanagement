@@ -20,9 +20,9 @@
                     dp.allowEventOverlap = true;
                     dp.locale= "de-de";
                     dp.scale = "Day";
-                    dp.scrollTo(new DayPilot.Date().addDays(-5));
+                    dp.scrollTo(new DayPilot.Date().addDays(-1));
                     dp.days = 100;
-                    loadTimeline(DayPilot.Date.today().addDays(-15));
+                    loadTimeline(DayPilot.Date.today().addDays(-20));
                     dp.useEventBoxes = "Never";
                     dp.eventMoveHandling = "Disabled";
                     dp.eventResizeHandling = "Disabled";
