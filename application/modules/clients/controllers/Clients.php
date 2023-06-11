@@ -213,12 +213,20 @@ class Clients extends Admin_Controller
             show_404();
         }
 
+        $db_reservations=$this->mdl_invoices->by_client($client_id)->where("ip_invoices.invoice_group_id =",5)->limit(20)->get()->result();
+        $this->load->model('invoices/mdl_items');
+        $reservations=array();
+        foreach($db_reservations as $invoice){
+            $invoice_products = $this->mdl_items->where('invoice_id', $invoice->invoice_id)->get()->result_array();
+            $invoice->{'product_items'}=$invoice_products;
+            $reservations[]=$invoice;
+        }
         $this->layout->set(
             array(
                 'client' => $client,
                 'client_notes' => $this->mdl_client_notes->where('client_id', $client_id)->get()->result(),
                 'invoices' => $this->mdl_invoices->by_client($client_id)->where("ip_invoices.invoice_group_id !=",5)->limit(20)->get()->result(),
-                'reservations' => $this->mdl_invoices->by_client($client_id)->where("ip_invoices.invoice_group_id =",5)->limit(20)->get()->result(),
+                'reservations' => $reservations,
                 'quotes' => $this->mdl_quotes->by_client($client_id)->limit(20)->get()->result(),
                 'payments' => $this->mdl_payments->by_client($client_id)->limit(20)->get()->result(),
                 'custom_fields' => $custom_fields,

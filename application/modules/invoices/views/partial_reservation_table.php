@@ -58,11 +58,13 @@
                         <?php _htmlsc(format_client($invoice)); ?>
                     </a>
                 </td>
-                <td>
-                <?php
-                $days = (strtotime($invoice->product_items[0]['item_date_start'])-strtotime('now')) / (60 * 60 * 24);
-                echo (int)$days;
-                ?></td>
+                <?php 
+                    $days = (strtotime($invoice->product_items[0]['item_date_start'])-strtotime('now')) / (60 * 60 * 24); 
+                    $days=(int)$days;
+                ?>
+                <td style="color:<?php echo $days>=0?"green":"red"; ?>;">
+                    <?php echo $days; ?>
+                </td>
                 <td class="amount <?php if ($invoice->invoice_sign == '-1') {
                     echo 'text-danger';
                 }; ?>">
