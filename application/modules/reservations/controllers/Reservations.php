@@ -23,6 +23,7 @@ class Reservations extends Admin_Controller
         parent::__construct();
         
         $this->load->model("rooms/mdl_rooms");
+        $this->load->model("settings/mdl_settings");
     }
 
     /**

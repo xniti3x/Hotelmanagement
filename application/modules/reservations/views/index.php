@@ -22,7 +22,7 @@
                     dp.scale = "Day";
                     dp.scrollTo(new DayPilot.Date().addDays(-1));
                     dp.days = 100;
-                    loadTimeline(DayPilot.Date.today().addDays(-20));
+                    loadTimeline(DayPilot.Date.today().addDays('-<?php echo $this->mdl_settings->get("rs_history_days"); ?>'));
                     dp.useEventBoxes = "Never";
                     dp.eventMoveHandling = "Disabled";
                     dp.eventResizeHandling = "Disabled";

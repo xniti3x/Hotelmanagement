@@ -374,7 +374,7 @@ class Invoices extends Admin_Controller
     public function getBackendReservationsAsItem(){
         
         $this->load->model("mdl_items");
-        foreach($this->mdl_items->getAllInvoiceItems() as $res){
+        foreach($this->mdl_items->getAllInvoiceItems($this->input->post('start')) as $res){
           
             $event=array(
                 "text"=>$res->client_name,
