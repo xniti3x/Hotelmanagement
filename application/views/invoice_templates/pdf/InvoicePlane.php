@@ -110,7 +110,7 @@
     <table class="item-table">
         <thead>
         <tr>
-            <th class="item-name"><?php _trans('Zimmer'); ?></th>
+            <th style="max-width:30px;"><?php _trans('Zim.'); ?></th>
             <th class="item-name"><?php _trans('description'); ?></th>
             <th class="item-name"><?php _trans('Zeitraum'); ?></th>
             <th class="item-amount text-right"><?php _trans('Anzahl'); ?></th>
@@ -230,6 +230,20 @@
                 <b><?php echo format_currency($invoice->invoice_total); ?></b>
             </td>
         </tr>
+		<?php if($invoice->invoice_paid >0){ ?>
+		<tr>
+			<td colspan="5" class="text-right"><?php _trans('paid'); ?></td>
+			<td class="text-right">
+                <?php echo format_currency($invoice->invoice_paid); ?>
+            </td>
+		</tr>
+		<tr>
+			<td colspan="5" class="text-right"><?php _trans('Saldo'); ?></td>
+			<td class="text-right">
+                <?php echo format_currency($invoice->invoice_balance); ?>
+            </td>
+		</tr>
+		<?php } ?>
     </tbody>
 </table>    
 </main>
