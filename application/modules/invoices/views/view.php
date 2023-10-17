@@ -333,6 +333,7 @@ if ($this->config->item('disable_read_only') == true) {
                     <h3>
                         <a href="<?php echo site_url('clients/view/' . $invoice->client_id); ?>">
                             <?php _htmlsc(format_client($invoice)) ?>
+                            
                         </a>
                         <?php if ($invoice->invoice_status_id == 1 && !$invoice->creditinvoice_parent_id) { ?>
                             <span id="invoice_change_client" class="fa fa-edit cursor-pointer small"
