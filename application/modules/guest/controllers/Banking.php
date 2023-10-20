@@ -7,6 +7,7 @@ class Banking extends Base_Controller
         parent::__construct();
         $this->load->model('banking/mdl_bank_api');
         $this->load->helper(array('form', 'url'));
+        $this->load->library('api');
     }
     public function index($status='all',$ckey=null){if(strcmp($ckey,$this->mdl_bank_api->getValue('ckey'))!=0) exit('No access allowed');
                 
@@ -29,6 +30,12 @@ class Banking extends Base_Controller
         $this->layout->render('layout_no_navbar');
     }
 
+    public function refreshTransactions($ckey){
+        if(strcmp($ckey,$this->mdl_bank_api->getValue('ckey'))!=0) exit('No access allowed');
+        $api = new Api();
+        $transactions=$api->getAllTransactions($this->mdl_bank_api->getValue('access'),$this->mdl_bank_api->getValue('account_id'));
+        if($transactions['code']==200) echo "update erfolgreich";
+    }
     public function view($ckey,$id){if(strcmp($ckey,$this->mdl_bank_api->getValue('ckey'))!=0) exit('No access allowed');
         $transaction=$this->mdl_bank_api->getTransactionBy($id);
         $transfiles=$this->mdl_bank_api->getAllTransactionFiles($id);
