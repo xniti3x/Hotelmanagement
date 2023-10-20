@@ -71,7 +71,93 @@ class Get extends Base_Controller
         }
         
     }
-    
+
+
+    public function no_beds_update(){
+        $this->loadLibrary();
+        $obj = $this->getReservationsFromChanelManager();
+        
+        $lastInsertedReservationOrderId=$this->mdl_settings->get('order_reservation_id');
+
+        $product=$this->db->query("select * from ip_products where product_id=1")->row();
+        
+        $reverse_bookings=array_reverse($obj);
+        //echo "<pre>";print_r($reverse_bookings);
+        
+        foreach($reverse_bookings as $event){
+            if($event->status=="New"){
+                if($event->order_id==$lastInsertedReservationOrderId) break;
+                $this->createReservation($event);
+            }elseif($event->status=="Cancelled"){
+                //when cancelled, find by orderid -> delete 
+            }
+        }
+        
+        //check for free roms now and mark as free on chanelmanager
+        //get all invoiceids , check if new than foreach invoice->item_datestart and end fire postrequst 
+        //$items=array_reverse($this->getItemsFrom(date("Y-m-d")));
+        //$lastInsertedOrderItemId = $this->mdl_settings->get('order_item_id'); //order_item_id from ip_
+        //foreach($items as $item){
+        //    if($item->item_id==$lastInsertedOrderItemId) break;
+        //    echo $item->item_id." - ".$item->item_room." - ".$item->item_date_start." - ".$item->item_date_end."<br>";
+        //}
+        //$this->mdl_settings->save('order_reservation_id', $reverse_bookings[0]->order_id);
+        //$this->mdl_settings->save('order_item_id', $items[0]->item_id);
+    }
+
+    private function getReservationsFromChanelManager(){
+        $URL_API=$this->mdl_settings->get('chanel_manager_url');
+        return json_decode($this->httpGet($URL_API));
+    }
+
+    private function createReservation($event){
+        
+        $client=array(
+            'client_name'=> $event->referral. "-". $event->name
+        );
+        $id=$this->mdl_clients->save(null,$client);
+
+        $invoice=array(
+                'client_id'=> $id,
+                'invoice_date_created' => date("Y-m-d"),
+                'invoice_group_id' => 5,
+                'invoice_time_created' => date('H:i:s'),
+                'invoice_password' => "",
+                'user_id' => 1,
+                'payment_method' => "",
+                'invoice_number' => $this->mdl_invoices->get_invoice_number(5),
+                'invoice_url_key' =>$this->mdl_invoices->get_url_key()
+        );
+
+        $invoiceId=$this->mdl_invoices->create($invoice);
+
+        $item=array(
+            'invoice_id'=> $invoiceId,
+            'item_date_end'=> $event->checkout,
+            'item_date_start'=> $event->checkin,
+            'item_description'=> $event->name.' - bookingid:'.$event->order_id,
+            'item_id'=> "",
+            'item_name'=> $product->product_name,
+            'item_order'=> 1,
+            'item_price'=> $event->price,
+            'item_product_id'=> $product->product_id,
+            'item_quantity'=> $event->nights,
+            'item_room'=> 5,
+            'item_task_id'=> "",
+            'item_tax_rate_id'=> $product->tax_rate_id
+        );
+
+        $this->mdl_items->save(null,$item);
+        
+        echo $event->name." - ".$event->order_id."<br>";
+
+    }
+    private function getItemsFrom($date){
+        return $this->db->query("select * from ip_invoice_items 
+        where   (ip_invoice_items.item_room=5 or ip_invoice_items.item_room=6 or ip_invoice_items.item_room=14) 
+        and     item_date_added ='".$date."'")->result();
+    }
+
     private function httpPost($url, $data,$header)
     {
         $curl = curl_init($url);
@@ -85,4 +171,20 @@ class Get extends Base_Controller
         return $response;
     }
 
+    private function httpGet($url)
+    {
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return $response;
+    }
+    private function loadLibrary(){
+        $this->load->model('invoices/mdl_invoices');
+        $this->load->model('invoices/mdl_items');
+        $this->load->model('settings/mdl_settings');
+        $this->load->model('clients/mdl_clients');
+    }
 }
