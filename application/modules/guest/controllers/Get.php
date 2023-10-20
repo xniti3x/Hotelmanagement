@@ -52,7 +52,7 @@ class Get extends Base_Controller
         $this->load->model('invoices/mdl_items');
         $this->load->model('settings/mdl_settings');
         
-       if (strcmp($cron_key, $this->mdl_settings->get('cron_key')) !== 0) { exit;} 
+       if (strcmp($cron_key, $this->mdl_settings->get('cron_key')) !== 0) { exit('No direct script access allowed');} 
         $url = $this->mdl_settings->get('ntfy_url');
         date_default_timezone_set('Europe/Berlin');
         $date_start=date("Y-m-d");
@@ -74,7 +74,7 @@ class Get extends Base_Controller
 
 
     public function no_beds_update($cron_key){ 
-       if (strcmp($cron_key, $this->mdl_settings->get('cron_key')) !== 0) { exit;}
+       if (strcmp($cron_key, $this->mdl_settings->get('cron_key')) !== 0) { exit('No direct script access allowed');}
 
         $this->loadLibrary();
         $obj = $this->getReservationsFromChanelManager();
