@@ -87,7 +87,7 @@ class Get extends Base_Controller
         //echo "<pre>";print_r($reverse_bookings);
         
         foreach($reverse_bookings as $event){
-            if($event->status=="New"){
+            if($event->status=="New" || $event->status=="Modified" ){
                 if($event->order_id==$lastInsertedReservationOrderId) break;
                 $this->createReservation($event,$product);
             }elseif($event->status=="Cancelled"){
@@ -103,19 +103,21 @@ class Get extends Base_Controller
         //    if($item->item_id==$lastInsertedOrderItemId) break;
         //    echo $item->item_id." - ".$item->item_room." - ".$item->item_date_start." - ".$item->item_date_end."<br>";
         //}
-        //$this->mdl_settings->save('order_reservation_id', $reverse_bookings[0]->order_id);
+        $this->mdl_settings->save('order_reservation_id', $reverse_bookings[0]->order_id);
         //$this->mdl_settings->save('order_item_id', $items[0]->item_id);
     }
 
     private function getReservationsFromChanelManager(){
         $URL_API=$this->mdl_settings->get('chanel_manager_url');
-        return json_decode($this->httpGet($URL_API));
+        return json_decode($this->httpGet($URL_API."?fromdate=".date("Y-m-d")."&todate=".(date("Y")+1)."-".date("m-d")));
     }
 
     private function createReservation($event,$product){
         
         $client=array(
-            'client_name'=> $event->referral. "-". $event->name
+            'client_name'=> $event->referral. "-". $event->name,
+            'client_phone' => $event->phone,
+            'client_mobile' => $event->phone
         );
         $id=$this->mdl_clients->save(null,$client);
 
