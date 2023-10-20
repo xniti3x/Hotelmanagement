@@ -73,7 +73,9 @@ class Get extends Base_Controller
     }
 
 
-    public function no_beds_update(){
+    public function no_beds_update($cron_key){ 
+       if (strcmp($cron_key, $this->mdl_settings->get('cron_key')) !== 0) { exit;}
+
         $this->loadLibrary();
         $obj = $this->getReservationsFromChanelManager();
         
