@@ -89,7 +89,7 @@ class Get extends Base_Controller
         foreach($reverse_bookings as $event){
             if($event->status=="New"){
                 if($event->order_id==$lastInsertedReservationOrderId) break;
-                $this->createReservation($event);
+                $this->createReservation($event,$product);
             }elseif($event->status=="Cancelled"){
                 //when cancelled, find by orderid -> delete 
             }
@@ -112,7 +112,7 @@ class Get extends Base_Controller
         return json_decode($this->httpGet($URL_API));
     }
 
-    private function createReservation($event){
+    private function createReservation($event,$product){
         
         $client=array(
             'client_name'=> $event->referral. "-". $event->name
