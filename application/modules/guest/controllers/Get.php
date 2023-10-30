@@ -15,6 +15,50 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 class Get extends Base_Controller
 {
+    public function seeReservations($cron_key){
+        if (strcmp($cron_key, $this->mdl_settings->get('cron_key')) !== 0) { exit('No direct script access allowed');}
+     
+        $this->load->model("rooms/mdl_rooms");
+        $this->load->model("settings/mdl_settings");
+
+        $this->layout->buffer('content', 'guest/reservations');
+        $this->layout->render('layout_no_navbar');
+
+    }
+
+    public function getBackendReservationsAsItem($cron_key){
+        if (strcmp($cron_key, $this->mdl_settings->get('cron_key')) !== 0) { exit('No direct script access allowed');}
+     
+        $this->load->model("invoices/mdl_items");
+        foreach($this->mdl_items->getAllInvoiceItems($this->input->post('start')) as $res){
+          
+            $event=array(
+                "text"=>$res->client_name,
+                "id"=>$res->item_id, //ip_invoices.invoice_id
+                "start"=>$res->item_date_start."T14:00:00",
+                "end"=>$res->item_date_end."T12:00:00",
+                "resource"=>$res->item_room,
+                "invoice_id"=>$res->invoice_id,
+                
+            );
+            
+            $result[]=$event;
+        }
+        header('Content-Type: application/json');
+        echo json_encode($result);
+    }
+
+    public function backend_rooms($cron_key){
+        if (strcmp($cron_key, $this->mdl_settings->get('cron_key')) !== 0) { exit('No direct script access allowed');}
+     
+        $this->load->model("rooms/mdl_rooms");
+        foreach($this->mdl_rooms->getAllActiveRooms() as $room){
+            $result[]=$room;
+        }
+        header('Content-Type: application/json');
+        echo json_encode($result);
+    }
+
     public function attachment($filename)
     {
         $path = UPLOADS_CFILES_FOLDER;
@@ -84,12 +128,14 @@ class Get extends Base_Controller
         $product=$this->db->query("select * from ip_products where product_id=1")->row();
         
         $reverse_bookings=array_reverse($obj);
-        //echo "<pre>";print_r($reverse_bookings);
+        echo "<pre>";print_r($reverse_bookings);
         
         foreach($reverse_bookings as $event){
-            if($event->status=="New" || $event->status=="Modified" ){
+            if($event->status=="New"){
                 if($event->order_id==$lastInsertedReservationOrderId) break;
                 $this->createReservation($event,$product);
+            }elseif($event->status=="Modified"){
+                //check if allready exist in db than perform action else add
             }elseif($event->status=="Cancelled"){
                 //when cancelled, find by orderid -> delete 
             }
