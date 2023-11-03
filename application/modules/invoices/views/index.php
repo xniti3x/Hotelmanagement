@@ -28,3 +28,6 @@
     </div>
         
 <?php endif; ?>
+
+<!-- loads datatable js files -->
+<?php $this->load->view("layout/admin_lte/datatablelib");

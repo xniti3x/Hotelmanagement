@@ -1,6 +1,6 @@
     <div class="card">
         <div class="card-body table-responsive">
-            <table class="table table-hover text-nowrap">
+            <table id="example1" class="table table-hover text-nowrap">
 
                 <thead>
                     <tr>
@@ -78,7 +78,7 @@
 
                             <td>
                                 <div class="btn-group">
-                                    <div class="btn btn-info"><i class="fa fa-cog"></i> <?php _trans('options'); ?></div>
+                                    <div class="btn btn-info"><i class="fa fa-cog"></i></div>
                                     <button type="button" class="btn btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>

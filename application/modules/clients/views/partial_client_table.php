@@ -5,7 +5,7 @@
         </div>
         <div class="btn-group">
             <button type="button" class="btn btn-info btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
-                <span class="sr-only">Toggle Dropdown</span>
+                <span class="sr-only"></span>
             </button>
             <div class="dropdown-menu" role="menu" style="">
                 <a class="dropdown-item" href="<?php echo site_url('clients/status/active'); ?>"><?php _trans('active'); ?></a>
@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="card-body table-responsive">
-        <table class="table table-hover text-nowrap">
+        <table id="example1" class="table table-hover text-nowrap">
             <thead>
                 <tr>
                     <th><?php _trans('active'); ?></th>
@@ -46,7 +46,7 @@
                         <td>
 
                             <div class="btn-group">
-                                <button type="button" class="btn btn-info btn-flat"><i class="fa fa-cog"> </i> <?php _trans('options'); ?></button>
+                                <button type="button" class="btn btn-info btn-flat"><i class="fa fa-cog"> </i></button>
                                 <button type="button" class="btn btn-info btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>

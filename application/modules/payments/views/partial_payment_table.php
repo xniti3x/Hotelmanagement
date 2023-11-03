@@ -1,5 +1,6 @@
-<div class="table-responsive">
-    <table class="table table-hover table-striped">
+<div class="card">
+    <div class="card-body table-responsive">
+    <table id="example1" class="table table-hover table-striped">
 
         <thead>
         <tr>
@@ -30,28 +31,21 @@
                 <td><?php _htmlsc($payment->payment_method_name); ?></td>
                 <td><?php _htmlsc($payment->payment_note); ?></td>
                 <td>
-                    <div class="options btn-group">
-                        <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-cog"></i> <?php _trans('options'); ?>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="<?php echo site_url('payments/form/' . $payment->payment_id); ?>">
-                                    <i class="fa fa-edit fa-margin"></i>
-                                    <?php _trans('edit'); ?>
-                                </a>
-                            </li>
-                            <li>
-                                <form action="<?php echo site_url('payments/delete/' . $payment->payment_id); ?>"
-                                      method="POST">
-                                    <?php _csrf_field(); ?>
-                                    <button type="submit" class="dropdown-button"
-                                            onclick="return confirm('<?php _trans('delete_record_warning'); ?>');">
-                                        <i class="fa fa-trash-o fa-margin"></i> <?php _trans('delete'); ?>
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
+                    <div class="btn-group">
+                        <div class="btn btn-info"><i class="fa fa-cog"></i></div>
+                        <button type="button" class="btn btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <div class="dropdown-menu" role="menu" style="">
+                            <a class="dropdown-item" href="<?php echo site_url('payments/form/' . $payment->payment_id); ?>"><i class="fa fa-edit fa-margin"></i> <?php _trans('edit'); ?></a>
+                            <div class="dropdown-divider"></div>
+                            <form action="<?php echo site_url('payments/delete/' . $payment->payment_id); ?>" method="POST">
+                                <?php _csrf_field(); ?>
+                                <button type="submit" class="dropdown-item" onclick="return confirm('<?php _trans('delete_invoice_warning'); ?>');">
+                                    <i class="fa fa-trash"></i> <?php _trans('delete'); ?>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -59,4 +53,6 @@
         </tbody>
 
     </table>
-</div>
+    </div>
+    </div>
+

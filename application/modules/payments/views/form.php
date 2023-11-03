@@ -21,119 +21,133 @@
 
     });
 </script>
+<div class="card">
+    <div class="card-body">
+        <form method="post" class="form-horizontal">
 
-<form method="post" class="form-horizontal">
+            <input type="hidden" name="<?php echo $this->config->item('csrf_token_name'); ?>"
+                value="<?php echo $this->security->get_csrf_hash() ?>">
 
-    <input type="hidden" name="<?php echo $this->config->item('csrf_token_name'); ?>"
-           value="<?php echo $this->security->get_csrf_hash() ?>">
+            <?php if ($payment_id) { ?>
+                <input type="hidden" name="payment_id" value="<?php echo $payment_id; ?>">
+            <?php } ?>
 
-    <?php if ($payment_id) { ?>
-        <input type="hidden" name="payment_id" value="<?php echo $payment_id; ?>">
-    <?php } ?>
-
-    <div id="headerbar">
-        <h1 class="headerbar-title"><?php _trans('payment_form'); ?></h1>
-        <?php $this->layout->load_view('layout/header_buttons'); ?>
-    </div>
-
-    <div id="content">
-
-        <?php $this->layout->load_view('layout/alerts'); ?>
-
-        <div class="form-group">
-            <div class="col-xs-12 col-sm-2 text-right text-left-xs">
-                <label for="invoice_id" class="control-label"><?php _trans('invoice'); ?></label>
+            <div id="headerbar">
+                <h1 class="headerbar-title"><?php _trans('payment_form'); ?></h1>
+                <?php $this->layout->load_view('layout/header_buttons'); ?>
             </div>
-            <div class="col-xs-12 col-sm-6">
-                <select name="invoice_id" id="invoice_id" class="form-control simple-select">
-                    <?php if (!$payment_id) { ?>
-                        <?php foreach ($open_invoices as $invoice) { ?>
-                            <option value="<?php echo $invoice->invoice_id; ?>"
-                                <?php check_select($this->mdl_payments->form_value('invoice_id'), $invoice->invoice_id); ?>>
-                                <?php echo $invoice->invoice_number . ' - ' . format_client($invoice) . ' - ' . format_currency($invoice->invoice_balance); ?>
-                            </option>
-                        <?php } ?>
-                    <?php } else { ?>
-                        <option value="<?php echo $payment->invoice_id; ?>">
-                            <?php echo $payment->invoice_number . ' - ' . format_client($payment) . ' - ' . format_currency($payment->invoice_balance); ?>
-                        </option>
-                    <?php } ?>
-                </select>
-            </div>
-        </div>
 
-        <div class="form-group has-feedback">
-            <div class="col-xs-12 col-sm-2 text-right text-left-xs">
-                <label for="payment_date" class="control-label"><?php _trans('date'); ?></label>
-            </div>
-            <div class="col-xs-12 col-sm-6">
-                <div class="input-group">
-                    <input name="payment_date" id="payment_date"
-                           class="form-control datepicker"
-                           value="<?php echo date_from_mysql($this->mdl_payments->form_value('payment_date')); ?>">
-                    <span class="input-group-addon">
-                        <i class="fa fa-calendar fa-fw"></i>
-                    </span>
+            <div id="content">
+
+                <?php $this->layout->load_view('layout/alerts'); ?>
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-2 text-left text-left-xs">
+                        <label for="invoice_id" class="control-label"><?php _trans('invoice'); ?></label>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <select name="invoice_id" id="invoice_id" class="form-control simple-select">
+                            <?php if (!$payment_id) { ?>
+                                <?php foreach ($open_invoices as $invoice) { ?>
+                                    <option value="<?php echo $invoice->invoice_id; ?>"
+                                        <?php check_select($this->mdl_payments->form_value('invoice_id'), $invoice->invoice_id); ?>>
+                                        <?php echo $invoice->invoice_number . ' - ' . format_client($invoice) . ' - ' . format_currency($invoice->invoice_balance); ?>
+                                    </option>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <option value="<?php echo $payment->invoice_id; ?>">
+                                    <?php echo $payment->invoice_number . ' - ' . format_client($payment) . ' - ' . format_currency($payment->invoice_balance); ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-xs-12 col-sm-2 text-right text-left-xs">
-                <label for="payment_amount" class="control-label"><?php _trans('amount'); ?></label>
-            </div>
-            <div class="col-xs-12 col-sm-6">
-                <input type="text" name="payment_amount" id="payment_amount" class="form-control"
-                       value="<?php echo format_amount($this->mdl_payments->form_value('payment_amount')); ?>">
-            </div>
-        </div>
+                <div class="form-group has-feedback">
+                    <div class="col-xs-12 col-sm-2 text-left text-left-xs">
+                        <label for="payment_date" class="control-label"><?php _trans('date'); ?></label>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="input-group">
+                        <div class="input-group-prepend"><span class="input-group-text"><i class="far fa-calendar-alt"></i></span></div>
+                            <input name="payment_date" id="payment_date"
+                                class="form-control datepicker"
+                                value="<?php echo date_from_mysql($this->mdl_payments->form_value('payment_date')); ?>">
+                        </div>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <div class="col-xs-12 col-sm-2 text-right text-left-xs">
-                <label for="payment_method_id" class="control-label">
-                    <?php _trans('payment_method'); ?>
-                </label>
-            </div>
-            <div class="col-xs-12 col-sm-6 payment-method-wrapper">
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-2 text-left text-left-xs">
+                        <label for="payment_amount" class="control-label"><?php _trans('amount'); ?></label>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <input type="text" name="payment_amount" id="payment_amount" class="form-control"
+                            value="<?php echo format_amount($this->mdl_payments->form_value('payment_amount')); ?>">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-2 text-left text-left-xs">
+                        <label for="payment_method_id" class="control-label">
+                            <?php _trans('payment_method'); ?>
+                        </label>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 payment-method-wrapper">
+
+                        <?php
+                        // Add a hidden input field if a payment method was set to pass the disabled attribute
+                        if ($this->mdl_payments->form_value('payment_method_id')) { ?>
+                            <input type="hidden" name="payment_method_id" class="hidden"
+                                value="<?php echo $this->mdl_payments->form_value('payment_method_id'); ?>">
+                        <?php } ?>
+
+                        <select id="payment_method_id" name="payment_method_id"
+                            class="form-control simple-select" data-minimum-results-for-search="Infinity"
+                            <?php echo($this->mdl_payments->form_value('payment_method_id') ? 'disabled="disabled"' : ''); ?>>
+
+                            <?php foreach ($payment_methods as $payment_method) { ?>
+                                <option value="<?php echo $payment_method->payment_method_id; ?>"
+                                        <?php if ($this->mdl_payments->form_value('payment_method_id') == $payment_method->payment_method_id) { ?>selected="selected"<?php } ?>>
+                                    <?php echo $payment_method->payment_method_name; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-2 text-left text-left-xs">
+                        <label for="payment_note" class="control-label"><?php _trans('note'); ?></label>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <textarea name="payment_note"
+                                class="form-control"><?php echo $this->mdl_payments->form_value('payment_note', true); ?></textarea>
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+<label>Date:</label>
+<div class="input-group date" id="reservationdate" data-target-input="nearest">
+<input type="text" class="form-control datetimepicker-input" data-target="#reservationdate">
+<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+</div>
+</div>
+</div>
+
 
                 <?php
-                // Add a hidden input field if a payment method was set to pass the disabled attribute
-                if ($this->mdl_payments->form_value('payment_method_id')) { ?>
-                    <input type="hidden" name="payment_method_id" class="hidden"
-                           value="<?php echo $this->mdl_payments->form_value('payment_method_id'); ?>">
-                <?php } ?>
+                $cv = $this->controller->view_data["custom_values"];
+                foreach ($custom_fields as $custom_field) {
+                    print_field($this->mdl_payments, $custom_field, $cv, "col-xs-12 col-sm-2 text-right text-left-xs", "col-xs-12 col-sm-6");
+                } ?>
 
-                <select id="payment_method_id" name="payment_method_id"
-                	class="form-control simple-select" data-minimum-results-for-search="Infinity"
-                    <?php echo($this->mdl_payments->form_value('payment_method_id') ? 'disabled="disabled"' : ''); ?>>
-
-                    <?php foreach ($payment_methods as $payment_method) { ?>
-                        <option value="<?php echo $payment_method->payment_method_id; ?>"
-                                <?php if ($this->mdl_payments->form_value('payment_method_id') == $payment_method->payment_method_id) { ?>selected="selected"<?php } ?>>
-                            <?php echo $payment_method->payment_method_name; ?>
-                        </option>
-                    <?php } ?>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-xs-12 col-sm-2 text-right text-left-xs">
-                <label for="payment_note" class="control-label"><?php _trans('note'); ?></label>
-            </div>
-            <div class="col-xs-12 col-sm-6">
-                <textarea name="payment_note"
-                          class="form-control"><?php echo $this->mdl_payments->form_value('payment_note', true); ?></textarea>
             </div>
 
-        </div>
-
-        <?php
-        $cv = $this->controller->view_data["custom_values"];
-        foreach ($custom_fields as $custom_field) {
-            print_field($this->mdl_payments, $custom_field, $cv, "col-xs-12 col-sm-2 text-right text-left-xs", "col-xs-12 col-sm-6");
-        } ?>
-
+        </form>
     </div>
-
-</form>
+</div>
