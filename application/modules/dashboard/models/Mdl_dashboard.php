@@ -28,4 +28,12 @@ class Mdl_Dashboard extends Response_Model
         WHERE item_date_start >= '".$start."' and item_date_end <= '".$end."' GROUP by item_room order by summe desc;");
         return $query->result();
     }
+
+    public function getExpenditure($start,$end){
+        $query = $this->db->query("SELECT bookingDate,sum(transactionAmount) as 'transactionAmount',title
+        FROM `ip_transactions`
+        where transactionAmount < 0 and bookingDate >= '".$start."' and bookingDate <= '".$end."'
+        group by iban order by transactionAmount limit 15");
+        return $query->result();
+    }
 }

@@ -57,6 +57,7 @@ class Dashboard extends Admin_Controller
                 'clientStatistic' => $this->mdl_dashboard->getClientStatistic($start,$end),
                 'roomStatistic' => $this->mdl_dashboard->getRoomStatistic($start,$end),
                 'monthVisitors' => $this->mdl_dashboard->getMonthVisitors($start,$end),
+                'expenditure' => $this->mdl_dashboard->getExpenditure($start,$end),
                 "dateStart" => $start,
                 "dateEnd"  => $end,
                 "dateDiff" => $diff
