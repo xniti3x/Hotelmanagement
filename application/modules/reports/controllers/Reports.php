@@ -79,6 +79,23 @@ class Reports extends Admin_Controller
         $this->layout->set(['payment_methods'=>$this->mdl_reports->getAllPaymentMethods()]);
         $this->layout->buffer('content', 'reports/payment_history_index')->render();
     }
+    public function expenditure_history()
+    {
+        if ($this->input->post('btn_submit')) {
+            $data = array(
+                'results' => $this->mdl_reports->expenditure_history($this->input->post('from_date'), $this->input->post('to_date'),$this->input->post('payment_method')),
+                'from_date' => $this->input->post('from_date'),
+                'to_date' => $this->input->post('to_date'),
+            );
+
+            $html = $this->load->view('reports/expenditure_history', $data, true);
+            echo $html;
+            //$this->load->helper('mpdf');
+
+           // pdf_create($html, trans('expenditure_history'), true);
+        }
+        $this->layout->buffer('content', 'reports/expenditure_history_index')->render();
+    }
 
     public function invoice_aging()
     {

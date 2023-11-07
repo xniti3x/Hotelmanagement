@@ -744,7 +744,8 @@ $lang = array(
     'create_reservation'=> 'Reservierung erstellen',
     'list_month' => 'Monatsliste',
     'recent_reservations' => 'Letze Reservierungen',
-    'room_salery'          => 'Umsatz pro Zimmer'
+    'room_salery'          => 'Umsatz pro Zimmer',
+    'expenditure_history' => 'Ausgaben'
     
     
 );

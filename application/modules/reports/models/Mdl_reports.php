@@ -136,6 +136,30 @@ class Mdl_Reports extends CI_Model
         if($method_id!='0') $this->mdl_payments->where('ip_payments.payment_method_id', $method_id);
         return $this->mdl_payments->get()->result();
     }
+
+
+    
+    /**
+     * @param null $from_date
+     * @param null $to_date
+     * @param null $method_id
+     * @return mixed
+     */
+    public function expenditure_history($from_date = null, $to_date = null)
+    {
+        if ($from_date and $to_date) {
+            $from_date = date_to_mysql($from_date);
+            $to_date = date_to_mysql($to_date);
+        }
+        $query="SELECT *
+        FROM `ip_transactions`
+        where transactionAmount < 0 and bookingDate >= '".$from_date."' and bookingDate <= '".$to_date."'
+        order by transactionAmount";
+        
+        return $this->db->query($query)->result();
+    }
+
+
     /**
      * @return mixed
      */
