@@ -36,7 +36,7 @@
     if (!empty($results)) {
         ?>
         <tr>
-            <td colspan=5><?php echo trans('total'); ?></td>
+            <td colspan="3"><?php echo trans('total'); ?></td>
             <td class="amount"><?php echo format_currency($sum); ?></td>
         </tr>
     <?php } ?>

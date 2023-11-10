@@ -83,16 +83,16 @@ class Reports extends Admin_Controller
     {
         if ($this->input->post('btn_submit')) {
             $data = array(
-                'results' => $this->mdl_reports->expenditure_history($this->input->post('from_date'), $this->input->post('to_date'),$this->input->post('payment_method')),
+                'results' => $this->mdl_reports->expenditure_history($this->input->post('from_date'), $this->input->post('to_date'),$this->input->post('ord_trans')),
                 'from_date' => $this->input->post('from_date'),
                 'to_date' => $this->input->post('to_date'),
             );
 
             $html = $this->load->view('reports/expenditure_history', $data, true);
-            echo $html;
-            //$this->load->helper('mpdf');
+            //echo $html;
+            $this->load->helper('mpdf');
 
-           // pdf_create($html, trans('expenditure_history'), true);
+           pdf_create($html, trans('expenditure_history'), true);
         }
         $this->layout->buffer('content', 'reports/expenditure_history_index')->render();
     }

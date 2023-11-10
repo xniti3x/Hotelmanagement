@@ -23,7 +23,13 @@
 
                         <input type="hidden" name="<?php echo $this->config->item('csrf_token_name'); ?>"
                                value="<?php echo $this->security->get_csrf_hash() ?>">
-
+                        <div class="form-group has-feedback">
+                            <div class="input-group">
+                                <input type="checkbox" name="ord_trans">
+                                Group Transactions 
+                            </div>
+                        </div>
+                        
                         <div class="form-group has-feedback">
                             <label for="from_date">
                                 <?php _trans('from_date'); ?>

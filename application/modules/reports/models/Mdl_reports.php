@@ -145,18 +145,23 @@ class Mdl_Reports extends CI_Model
      * @param null $method_id
      * @return mixed
      */
-    public function expenditure_history($from_date = null, $to_date = null)
+    public function expenditure_history($from_date = null, $to_date = null, $groupByIban = true)
     {
         if ($from_date and $to_date) {
             $from_date = date_to_mysql($from_date);
             $to_date = date_to_mysql($to_date);
         }
+        $query_group_by_iban="SELECT *,sum(transactionAmount) as 'transactionAmount'
+        FROM `ip_transactions`
+        where transactionAmount < 0 and bookingDate >= '".$from_date."' and bookingDate <= '".$to_date."'
+        group by iban order by transactionAmount";
+        
         $query="SELECT *
         FROM `ip_transactions`
         where transactionAmount < 0 and bookingDate >= '".$from_date."' and bookingDate <= '".$to_date."'
         order by transactionAmount";
         
-        return $this->db->query($query)->result();
+        return $this->db->query($groupByIban?$query_group_by_iban:$query)->result();
     }
 
 
