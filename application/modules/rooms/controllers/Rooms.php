@@ -55,6 +55,13 @@ class Rooms extends Admin_Controller{
 					'active' => $this->input->post('active'),
                     'show_on_system' => $this->input->post('show_on_system'),
 					'name' => $this->input->post('name'),
+                    'capacity' => $this->input->post('capacity'),
+                    'beschreibung' => $this->input->post('beschreibung'),
+                    'kategorie' => $this->input->post('kategorie'),
+                    'preis1' => $this->input->post('preis1'),
+                    'preis2' => $this->input->post('preis2'),
+                    'preis3' => $this->input->post('preis3'),
+                    
                 );
 
                 $this->mdl_rooms->update_ip_room($id,$params);            
