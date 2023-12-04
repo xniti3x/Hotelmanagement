@@ -8,7 +8,7 @@
   <div class="headerbar-item pull-right">
         <div class="btn-group btn-group-sm index-options">
           
-          <a class="btn btn-default btn-xs" href="<?php echo site_url("banking/save/").$transaction["transactionId"]; ?>"> add </a>
+          <a class="btn btn-default btn-xs" href="<?php echo site_url("banking/save/").$transaction["transactionId"]; ?>"> add to filter </a>
         
         </div>
   </div> 

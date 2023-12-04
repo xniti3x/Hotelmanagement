@@ -129,10 +129,15 @@ class Banking extends Admin_Controller
 
     public function view($id){
         $transaction = $this->mdl_bank_api->getTransactionBy($id);
-        $correspondent=$this->mdl_bank_api->getCorrespondentByIban($transaction['iban']);
-        $documentsNoFile=$this->mdl_bank_api->getAllDocumentsNoTransactionBy($correspondent['correspondent_id']);
-        $documentsWithFile=$this->mdl_bank_api->getAllDocumentsWithTransactionBy($correspondent['correspondent_id']);
         
+        $correspondent=$this->mdl_bank_api->getCorrespondentByIban($transaction['iban']);
+        $documentsNoFile=[];
+        $documentsWithFile=[];
+        
+        if(!empty($correspondent)){
+            $documentsNoFile=$this->mdl_bank_api->getAllDocumentsNoTransactionBy($correspondent['correspondent_id']);
+            $documentsWithFile=$this->mdl_bank_api->getAllDocumentsWithTransactionBy($correspondent['correspondent_id']);
+        }
 
         $this->layout->set("correspondent",$correspondent);
         $this->layout->set("transaction",$transaction);
