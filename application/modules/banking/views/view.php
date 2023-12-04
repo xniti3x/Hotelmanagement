@@ -11,8 +11,7 @@
           <a class="btn btn-default btn-xs" href="<?php echo site_url("banking/save/").$transaction["transactionId"]; ?>"> add </a>
         
         </div>
-  </div>
-  
+  </div> 
   <div class="headerbar-item pull-left">
         <div class="btn-group btn-group-sm index-options">
           <a class="btn btn-default btn-xs" href="<?php echo site_url("banking/index/all"); ?>"> zurück </a>
@@ -32,7 +31,13 @@
     "<tr><td>".$transaction["iban"]."</td></tr>".
     "<tr><td>".$transaction["remittanceInformationStructured"]."</td></tr>".
     "<tr><td>".$transaction["additionalInformation"]."</td></tr>";
-    ?>    
+    ?>   
+    <tr><td><br></td></tr>
+    <?php 
+    foreach($documentsNoFile as $doc){
+      echo "<tr><td>".$doc->filename."</td></tr>";
+    }
+    ?> 
   </table>
   </div>
 </div>
@@ -67,6 +72,9 @@
     </tr></form>";
   }
   ?>
+  <?php foreach($documentsWithFile as $doc){
+    echo "<tr><td>".$doc->filename."</td><td><a href=''>delete</a></td></tr>";
+  } ?>
   </tbody>
   </table>
   </div>

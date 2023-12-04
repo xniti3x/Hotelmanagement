@@ -137,5 +137,42 @@ public function saveTransactionFile($array){
         $this->db->where('id', $dbId);
         $this->db->delete('ip_transaction_files');
     }
+
+    public function getCorrespondentByIban($iban){
+        $DB2 = $this->load->database('paperless', TRUE);
+        return $DB2->query("SELECT *
+        FROM `documents_bank_correspondent`
+        where iban = '".$iban."'")->row_array();
+
+    }
+
+    public function getAllDocumentsBy($corespondent_id){
+        $DB2 = $this->load->database('paperless', TRUE);
+        return $DB2->query("SELECT * FROM `documents_bank_correspondent` where iban = '".$iban."'")->result();
+    }
+
+    public function getAllDocumentsNoTransactionBy($corespondent_id){
+        $DB2 = $this->load->database('paperless', TRUE);
+        return $DB2->query("SELECT *
+        FROM 
+         documents_document,
+         documents_bank_transactions
+        where 
+         documents_document.id!=documents_bank_transactions.document_id
+        AND
+         documents_document.correspondent_id=".$corespondent_id)->result();
+    }
+
+    public function getAllDocumentsWithTransactionBy($corespondent_id){
+        $DB2 = $this->load->database('paperless', TRUE);
+        return $DB2->query("SELECT *
+        FROM 
+         documents_document,
+         documents_bank_transactions
+        where 
+         documents_document.id=documents_bank_transactions.document_id
+        AND
+         documents_document.correspondent_id=".$corespondent_id)->result();
+    }
     
 }
