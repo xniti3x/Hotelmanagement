@@ -22,7 +22,7 @@
   </div>
   <div class="panel-body">
   <table class="table table-hover">
-    <?php 
+    <?php  
     $color= $transaction["transactionAmount"] <0?"red":"green";
     echo 
     "<tr><td>".$transaction["bookingDate"]."</td></tr>".
@@ -32,7 +32,27 @@
     "<tr><td>".$transaction["remittanceInformationStructured"]."</td></tr>".
     "<tr><td>".$transaction["additionalInformation"]."</td></tr>";
     ?>   
-    <tr><td><br></td></tr>
+    <tr><td>
+      
+    <form method="post" name="myform" action="<?php echo site_url("banking/view/".$transaction["transactionId"]); ?>" enctype="multipart/form-data">
+      <input type="hidden" name="<?php echo $this->config->item('csrf_token_name'); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+      <select name="correspondent_id" id="correspondent"  onchange="this.form.submit()">
+        <option value="">--Please choose an correspondent--</option>
+        <?php
+        
+        foreach($correspondents as $c){
+        if($c->id==$selected_correspondent['correspondent_id']){
+          echo "<option selected value='".$c->id."'>".$c->name."</option>";
+        }else{
+          echo "<option value='".$c->id."'>".$c->name."</option>";
+        }
+          
+        } 
+        ?>
+      </select>
+      </form>
+
+    </td></tr>
     <?php 
     foreach($documentsNoFile as $doc){
       echo "<tr><td>".$doc->filename."</td></tr>";
@@ -64,7 +84,6 @@
   <tbody>
   <?php
   foreach($transfiles as $tran){
-    //print_r($tran);
     echo "<form method='post' action='".site_url("banking/delete/".$tran->id."/".$id)."'>";
     $str=$tran->full_path;
     echo "<tr><td><a target='_blank' href='".base_url().substr($str,strpos($str, 'uploads/'))."'>".$tran->file_name."</a></td>

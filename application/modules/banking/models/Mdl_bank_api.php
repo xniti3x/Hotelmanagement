@@ -138,12 +138,16 @@ public function saveTransactionFile($array){
         $this->db->delete('ip_transaction_files');
     }
 
+    public function getAllCorrespondents(){
+        $DB2 = $this->load->database('paperless', TRUE);
+        return $DB2->query("SELECT * FROM `documents_correspondent`")->result();
+    }
+
     public function getCorrespondentByIban($iban){
         $DB2 = $this->load->database('paperless', TRUE);
         return $DB2->query("SELECT *
         FROM `documents_bank_correspondent`
         where iban = '".$iban."'")->row_array();
-
     }
 
     public function getAllDocumentsBy($corespondent_id){
