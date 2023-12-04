@@ -164,6 +164,8 @@ public function saveTransactionFile($array){
         where 
          documents_document.id!=documents_bank_transactions.document_id
         AND
+         documents_document.storage_path_id=1
+        AND
          documents_document.correspondent_id=".$corespondent_id)->result();
     }
 
@@ -175,6 +177,8 @@ public function saveTransactionFile($array){
          documents_bank_transactions
         where 
          documents_document.id=documents_bank_transactions.document_id
+        AND
+        documents_document.storage_path_id=1
         AND
          documents_document.correspondent_id=".$corespondent_id)->result();
     }
