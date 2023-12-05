@@ -53,9 +53,19 @@
       </form>
 
     </td></tr>
+    <tr><td>
+      <form method="post" name="f_search" action="<?php echo site_url("banking/view/".$transaction["transactionId"]); ?>" enctype="multipart/form-data">
+       <input type="hidden" name="<?php echo $this->config->item('csrf_token_name'); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+       <input type="text" name="search" id="search" /> <input type="submit" value="suchen" />
+      </form>
+    </td></tr>
     <?php 
-    foreach($documentsNoFile as $doc){
+    foreach($documentsNoTransaction as $doc){
       echo "<tr><td>".$doc->filename."</td></tr>";
+    }
+    
+    foreach($found_documents as $doc){
+      echo "<tr style='color:red;'><td>".$doc->filename."</td></tr>";
     }
     ?> 
   </table>

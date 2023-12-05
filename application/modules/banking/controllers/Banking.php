@@ -132,7 +132,7 @@ class Banking extends Admin_Controller
         $transaction = $this->mdl_bank_api->getTransactionBy($id);
         $ip_document_correspondent=$this->mdl_bank_api->getCorrespondentByIban($transaction["iban"]);
 
-        if(isset($_POST) && count($_POST) > 0){ //form submit onchange select option  
+        if(isset($_POST['correspondent_id']) && count($_POST) > 0){ //form submit onchange select option  
 
             $data = array(
                 'correspondent_id' => $this->input->post("correspondent_id"),
@@ -147,25 +147,53 @@ class Banking extends Admin_Controller
                 $DB2->update('documents_bank_correspondent', $data);
             }         
         }
+
         $ip_document_correspondent=$this->mdl_bank_api->getCorrespondentByIban($transaction["iban"]);
         $correspondent=$this->mdl_bank_api->getCorrespondentByIban($transaction['iban']);
         $correspondents=$this->mdl_bank_api->getAllCorrespondents();
-        $documentsNoFile=[];
+        $documentsNoTransaction=[];
         $documentsWithFile=[];
         
         if(!empty($correspondent)){
-            $documentsNoFile=$this->mdl_bank_api->getAllDocumentsNoTransactionBy($correspondent['correspondent_id']);
+            $documentsNoTransaction=$this->mdl_bank_api->getAllDocumentsNoTransactionBy($correspondent['correspondent_id']);
             $documentsWithFile=$this->mdl_bank_api->getAllDocumentsWithTransactionBy($correspondent['correspondent_id']);
+        }
+
+        $found_documents=[];
+
+        if(isset($_POST['search']) && count($_POST) > 0){ //form submit search query
+            foreach($documentsNoTransaction as $doc){
+                
+                $foundKomaPrice=strpos(strtolower($doc->content), str_replace(".",",",substr($transaction["transactionAmount"],1)));
+                $foundDotPrice = strpos(strtolower($doc->content), substr($transaction["transactionAmount"],1));
+                $foundSearchQuery=strpos(strtolower($doc->content), $_POST['search']);
+                
+                if(($foundKomaPrice || $foundDotPrice) && $foundSearchQuery ){
+                        array_push($found_documents,$doc);
+                }
+            }         
+        }else{
+            foreach($documentsNoTransaction as $doc){                
+              
+                $foundKomaPrice=strpos(strtolower($doc->content), str_replace(".",",",substr($transaction["transactionAmount"],1)));
+                $foundDotPrice = strpos(strtolower($doc->content), substr($transaction["transactionAmount"],1));
+                
+                if(($foundKomaPrice || $foundDotPrice) ){
+                        array_push($found_documents,$doc);
+                }
+            }   
         }
 
         $this->layout->set("correspondent",$correspondent);
         $this->layout->set("correspondents",$correspondents);
         $this->layout->set("transaction",$transaction);
-        $this->layout->set("documentsNoFile",$documentsNoFile);
+        $this->layout->set("documentsNoTransaction",$documentsNoTransaction);
         $this->layout->set("documentsWithFile",$documentsWithFile);
         $this->layout->set("transfiles",$this->mdl_bank_api->getAllTransactionFiles($id));
         $this->layout->set("selected_correspondent",$ip_document_correspondent);
+        $this->layout->set("found_documents",$found_documents);
         $this->layout->set("id",$id);
+
         $this->layout->buffer('content', 'banking/view');
         $this->layout->render();
     }
