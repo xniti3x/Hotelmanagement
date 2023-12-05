@@ -61,11 +61,11 @@
     </td></tr>
     <?php 
     foreach($documentsNoTransaction as $doc){
-      echo "<tr><td>".$doc->filename."</td></tr>";
+      echo "<tr><td><a target='_blank' href='".base_url()."uploads/paperless/".substr($doc->filename, 16)."'>".substr($doc->filename, 16)."</a> - - - - - <a href='".site_url("banking/addDocument/".$doc->id."/".$transaction['transactionId'])."'>ADD</a></td></tr>";
     }
     
     foreach($found_documents as $doc){
-      echo "<tr style='color:red;'><td>".$doc->filename."</td></tr>";
+      echo "<tr><td>Vorschlag: <a style='font-size:11pt;color:green;' target='_blank' href='".base_url()."uploads/paperless/".substr($doc->filename, 16)."'>".substr($doc->filename, 16)."</a> - - - - - <a href='".site_url("banking/addDocument/".$doc->id."/".$transaction['transactionId'])."'>ADD</a></td></tr>";
     }
     ?> 
   </table>
@@ -102,7 +102,7 @@
   }
   ?>
   <?php foreach($documentsWithFile as $doc){
-    echo "<tr><td>".$doc->filename."</td><td><a href=''>delete</a></td></tr>";
+    echo "<tr><td><a style='font-size:11pt;color:green;' target='_blank' href='".base_url()."uploads/paperless/".substr($doc->filename, 16)."'>".substr($doc->filename, 16)."</a></td><td><a href='".site_url("banking/remove/").$doc->id."/".$transaction["transactionId"]."'>delete</a></td></tr>";
   } ?>
   </tbody>
   </table>

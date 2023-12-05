@@ -198,6 +198,16 @@ class Banking extends Admin_Controller
         $this->layout->render();
     }
 
+    public function addDocument($document_id,$transaction_id){
+        $this->mdl_bank_api->addDocument(array("document_id"=>$document_id,"transaction_id"=>$transaction_id));
+        header("Location:".site_url("banking/view/".$transaction_id));
+    }
+
+    public function remove($id,$transactionId){
+        $this->mdl_bank_api->deleteDocumentRelation($id);
+        header("Location:".site_url("banking/view/".$transactionId));
+    }
+
     public function delete($id,$transactionId){
         $this->mdl_bank_api->deleteTransactionFile($id);
         header("Location:".site_url("banking/view/".$transactionId));

@@ -158,29 +158,30 @@ public function saveTransactionFile($array){
     public function getAllDocumentsNoTransactionBy($corespondent_id){
         $DB2 = $this->load->database('paperless', TRUE);
         return $DB2->query("SELECT *
-        FROM 
-         documents_document,
-         documents_bank_transactions
-        where 
-         documents_document.id!=documents_bank_transactions.document_id
-        AND
-         documents_document.storage_path_id=1
-        AND
-         documents_document.correspondent_id=".$corespondent_id)->result();
+        FROM  documents_document
+        WHERE documents_document.correspondent_id=".$corespondent_id." 
+        AND  documents_document.storage_path_id=1
+        AND  documents_document.id NOT IN (select document_id from documents_bank_transactions)")->result();
     }
 
     public function getAllDocumentsWithTransactionBy($corespondent_id){
         $DB2 = $this->load->database('paperless', TRUE);
-        return $DB2->query("SELECT *
-        FROM 
-         documents_document,
-         documents_bank_transactions
-        where 
-         documents_document.id=documents_bank_transactions.document_id
-        AND
-        documents_document.storage_path_id=1
-        AND
-         documents_document.correspondent_id=".$corespondent_id)->result();
+        return $DB2->query("SELECT documents_document.*,documents_bank_transactions.*
+        FROM documents_document, documents_bank_transactions
+        where documents_document.id=documents_bank_transactions.document_id
+        AND documents_document.storage_path_id=1
+        AND documents_document.correspondent_id=".$corespondent_id)->result();
     }
     
+    public function addDocument($data){
+        $DB2 = $this->load->database('paperless', TRUE);
+        $DB2->set($data);
+        return $DB2->insert('documents_bank_transactions'); 
+    }
+    
+    public function deleteDocumentRelation($id){
+        $DB2 = $this->load->database('paperless', TRUE);
+        $DB2->where('id', $id);
+        $DB2->delete('documents_bank_transactions'); 
+    }
 }
