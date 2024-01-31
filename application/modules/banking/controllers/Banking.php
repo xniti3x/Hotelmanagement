@@ -58,31 +58,39 @@ class Banking extends Admin_Controller
         echo "<pre>";print_r($response);
     }
 
-    public function transactions(){
+    public function transactions($ui=true){
         $api = new Api();
         $transactions=$api->getAllTransactions($this->mdl_bank_api->getValue('access'),$this->mdl_bank_api->getValue('account_id'));
-        $transactions=($transactions["result"]["transactions"]["booked"]);
-        $last_transactions=$this->mdl_bank_api->getAllTransactions();
-        $update=true;
-        foreach($transactions as $item){
-            $insert=true;
-            foreach($last_transactions as $db_item){
-                if(strcmp($item["transactionId"],$db_item["transactionId"])==0){
-                    $insert=false;
-                    break;
+        if($transactions["code"]==200){
+            $transactions=($transactions["result"]["transactions"]["booked"]);
+            $last_transactions=$this->mdl_bank_api->getAllTransactions();
+            $update=true;
+            foreach($transactions as $item){
+                $insert=true;
+                foreach($last_transactions as $db_item){
+                    if(strcmp($item["transactionId"],$db_item["transactionId"])==0){
+                        $insert=false;
+                        break;
+                    }
+                }
+                if($insert && $ui) {
+                    $update=false;
+                    echo "<pre>";
+                    print_r($item);
+                    $this->mdl_bank_api->saveTransaction($item);
                 }
             }
-            if($insert) {
-                $update=false;
-                echo "<pre>";
-                print_r($item);
-                $this->mdl_bank_api->saveTransaction($item);
+            if($update) {
+                $this->session->set_flashdata('alert_success', trans('record_successfully_updated'));
             }
+            echo $ui?"<a href='".site_url("banking/index")."'>index</a>":"";
+        }else if($transactions["code"]==401){
+            $this->login();
+            $this->transactions();
+        }else{
+            print_r($transactions);
+            echo "vermutlich ist ihr kontozugriff abgelaufen führen sie den registrierungsprozess erneut aus.";
         }
-        if($update) {
-        $this->session->set_flashdata('alert_success', trans('record_successfully_updated'));
-        }
-        echo "<a href='".site_url("banking/index")."'>index</a>";
     }
 
     public function save($transactionId){
@@ -103,7 +111,7 @@ class Banking extends Admin_Controller
     }
 
     public function index($status = 'all'){
-        
+        $this->transactions(false);
         switch ($status) {
             case 'all':
                 $status="all";

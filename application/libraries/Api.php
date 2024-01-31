@@ -68,13 +68,18 @@ class Api
     //Step 4: Show your Acc Transactions by giving account_id
     public function getAllTransactions($accessToken,$account_id){
         $client = new \GuzzleHttp\Client();
-        $response=$client->request('GET', $this->BASE_URL.'accounts/'.$account_id.'/transactions/', [
-            'headers' => [
-                'accept'        =>"application/json",
-                'Content-Type'        =>"application/json",
-                'Authorization'     => 'Bearer '.$accessToken,
-            ]
-        ]); 
+        try{
+            $response=$client->request('GET', $this->BASE_URL.'accounts/'.$account_id.'/transactions/', [
+                'headers' => [
+                    'accept'        =>"application/json",
+                    'Content-Type'        =>"application/json",
+                    'Authorization'     => 'Bearer '.$accessToken,
+                ]
+            ]); 
+        }catch(GuzzleHttp\Exception\ClientException $e){
+            $response = $e->getResponse();
+            return array('result'=>json_decode($response->getBody(),true),'code'=>$response->getStatusCode()); 
+        }
         return array('result'=>json_decode($response->getBody(),true),'code'=>$response->getStatusCode());
     }
     // oly if needed

@@ -294,7 +294,7 @@
                                         <?php echo format_currency($item->summe); ?>
                                     </td>
                                     <td>
-                                        <?php echo format_currency($item->summe / ($dateDiff["m"])); ?>
+                                        <?php echo format_currency($item->summe / ($dateDiff["m"]==0? 1:$dateDiff["m"])); ?>
                                     </td>
                                     <td>
                                         <?php echo format_currency($item->summe / $diff = $dateDiff["y"] * 365 + $dateDiff["m"] * 30 + $dateDiff["d"]); ?>
