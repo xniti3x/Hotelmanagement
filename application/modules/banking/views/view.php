@@ -101,9 +101,6 @@
     </tr></form>";
   }
   ?>
-  <?php foreach($documentsWithFile as $doc){
-    echo "<tr><td><a style='font-size:11pt;color:green;' target='_blank' href='".base_url()."uploads/paperless/".substr($doc->filename, 16)."'>".substr($doc->filename, 16)."</a></td><td><a href='".site_url("banking/remove/").$doc->id."/".$transaction["transactionId"]."'>delete</a></td></tr>";
-  } ?>
   </tbody>
   </table>
   </div>

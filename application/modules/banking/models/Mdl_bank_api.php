@@ -160,22 +160,6 @@ public function saveTransactionFile($array){
         return $DB2->query("SELECT *
         FROM  documents_document
         WHERE documents_document.correspondent_id=".$corespondent_id." 
-        AND  documents_document.storage_path_id=1
-        AND  documents_document.id NOT IN (select document_id from documents_bank_transactions)")->result();
-    }
-
-    public function getAllDocumentsWithTransactionBy($transaction_id){
-        $DB2 = $this->load->database('paperless', TRUE);
-        return $DB2->query("SELECT documents_document.*,documents_bank_transactions.*
-        FROM documents_document, documents_bank_transactions
-        where documents_document.id=documents_bank_transactions.document_id
-        AND documents_document.storage_path_id=1
-        AND documents_bank_transactions.transaction_id='".$transaction_id."';")->result();
-    }
-    
-    public function deleteDocumentRelation($id){
-        $DB2 = $this->load->database('paperless', TRUE);
-        $DB2->where('id', $id);
-        $DB2->delete('documents_bank_transactions'); 
+        AND  documents_document.storage_path_id=1")->result();
     }
 }

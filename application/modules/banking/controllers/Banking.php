@@ -160,11 +160,9 @@ class Banking extends Admin_Controller
         $correspondent=$this->mdl_bank_api->getCorrespondentByIban($transaction['iban']);
         $correspondents=$this->mdl_bank_api->getAllCorrespondents();
         $documentsNoTransaction=[];
-        $documentsWithFile=[];
         
         if(!empty($correspondent)){
             $documentsNoTransaction=$this->mdl_bank_api->getAllDocumentsNoTransactionBy($correspondent['correspondent_id']);
-            $documentsWithFile=$this->mdl_bank_api->getAllDocumentsWithTransactionBy($transaction['transactionId']);
         }
 
         $found_documents=[];
@@ -196,7 +194,6 @@ class Banking extends Admin_Controller
         $this->layout->set("correspondents",$correspondents);
         $this->layout->set("transaction",$transaction);
         $this->layout->set("documentsNoTransaction",$documentsNoTransaction);
-        $this->layout->set("documentsWithFile",$documentsWithFile);
         $this->layout->set("transfiles",$this->mdl_bank_api->getAllTransactionFiles($id));
         $this->layout->set("selected_correspondent",$ip_document_correspondent);
         $this->layout->set("found_documents",$found_documents);
@@ -213,19 +210,14 @@ class Banking extends Admin_Controller
         $this->mdl_bank_api->saveTransactionFile(array(
             "file_name" =>$document["filename"],
             "file_type"=>$document["document_type_id"],
-            "file_path"=>$document["archive_filename"],
-            "full_path"=>$document["original_filename"],
+            "file_path"=>$document["original_filename"],
+            "full_path"=>str_replace(env("REPLACE_PREFIX"),env("FILE_PATH"),$document["archive_filename"]),
             "raw_name"=>$document["title"],
             "file_ext"=>$document["mime_type"],
             "file_size"=>0,	
             "transactionId"=>$transaction_id
         ));
         header("Location:".site_url("banking/view/".$transaction_id));
-    }
-
-    public function remove($id,$transactionId){
-        $this->mdl_bank_api->deleteDocumentRelation($id);
-        header("Location:".site_url("banking/view/".$transactionId));
     }
 
     public function delete($id,$transactionId){
