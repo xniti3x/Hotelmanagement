@@ -22,21 +22,6 @@
 </div>
 <br>
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="row" >
-    <?php  echo form_open_multipart('guest/banking/do_upload/'.$this->mdl_bank_api->getValue('ckey').'/'.$id); ?>
-    <div class="col-lg-6">
-      <div class="input-group">
-        <span class="input-group-btn">
-          <button class="btn btn-primary" type="submit">upload</button>
-        </span>
-        <input type="file" name="userfile" class="form-control" placeholder="Search for...">
-      </div>
-    </div>
-    </form>
-    </div>
-  </div>
-
 <div class="panel-body">
   <div class="table-responsive">
     <table class="table table-hover table-striped">

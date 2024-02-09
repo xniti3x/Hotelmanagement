@@ -1,7 +1,7 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed'); 
 
-class Banking extends Base_Controller
+class Banking extends Guest_Controller
 {
     public function __construct(){
         parent::__construct();
@@ -9,7 +9,7 @@ class Banking extends Base_Controller
         $this->load->helper(array('form', 'url'));
         $this->load->library('api');
     }
-    public function index($status='all',$ckey=null){if(strcmp($ckey,$this->mdl_bank_api->getValue('ckey'))!=0) exit('No access allowed');
+    public function index($status='done',$ckey=null){//if(strcmp($ckey,$this->mdl_bank_api->getValue('ckey'))!=0) exit('No access allowed');
                 
         switch ($status) {
             case 'all':
@@ -27,7 +27,7 @@ class Banking extends Base_Controller
         $this->layout->set("status",$status);
         $this->layout->set("transactions",$transactions);
         $this->layout->buffer('content', 'guest/transcation_index');
-        $this->layout->render('layout_no_navbar');
+        $this->layout->render("layout_guest");
     }
 
     public function refreshTransactions($ckey){
@@ -44,7 +44,7 @@ class Banking extends Base_Controller
         $this->layout->set("transfiles",$transfiles);
         $this->layout->set("id",$id);
         $this->layout->buffer('content', 'guest/transaction_view');
-        $this->layout->render('layout_no_navbar');
+        $this->layout->render('layout_guest');
     }
     public function do_api_upload($ckey,$id){if(strcmp($ckey,$this->mdl_bank_api->getValue('ckey'))!=0) exit('No access allowed');
         $config['upload_path']          = './uploads/';

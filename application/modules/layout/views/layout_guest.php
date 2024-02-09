@@ -61,6 +61,7 @@
                 <li><?php echo anchor('guest/quotes/index', trans('quotes')); ?></li>
                 <li><?php echo anchor('guest/invoices/index', trans('invoices')); ?></li>
                 <li><?php echo anchor('guest/payments/index', trans('payments')); ?></li>
+                <li><?php echo anchor('guest/banking/index', trans('Umsätze')); ?></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right settings">
