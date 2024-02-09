@@ -164,7 +164,7 @@ class Banking extends Admin_Controller
         
         if(!empty($correspondent)){
             $documentsNoTransaction=$this->mdl_bank_api->getAllDocumentsNoTransactionBy($correspondent['correspondent_id']);
-            $documentsWithFile=$this->mdl_bank_api->getAllDocumentsWithTransactionBy($correspondent['correspondent_id']);
+            $documentsWithFile=$this->mdl_bank_api->getAllDocumentsWithTransactionBy($transaction['transactionId']);
         }
 
         $found_documents=[];
@@ -207,7 +207,19 @@ class Banking extends Admin_Controller
     }
 
     public function addDocument($document_id,$transaction_id){
-        $this->mdl_bank_api->addDocument(array("document_id"=>$document_id,"transaction_id"=>$transaction_id));
+        $DB2 = $this->load->database('paperless', TRUE);
+        $document=$DB2->query("select * from documents_document where id=".$document_id)->row_array();
+
+        $this->mdl_bank_api->saveTransactionFile(array(
+            "file_name" =>$document["filename"],
+            "file_type"=>$document["document_type_id"],
+            "file_path"=>$document["archive_filename"],
+            "full_path"=>$document["original_filename"],
+            "raw_name"=>$document["title"],
+            "file_ext"=>$document["mime_type"],
+            "file_size"=>0,	
+            "transactionId"=>$transaction_id
+        ));
         header("Location:".site_url("banking/view/".$transaction_id));
     }
 
