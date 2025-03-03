@@ -92,15 +92,15 @@ class Rooms extends Admin_Controller{
     }
 
     function get_by_id($id){
-        return $this->db->query("Select * From ip_rooms where ip_rooms.id=".$id)->row_array();
+         echo json_encode($this->db->query("Select * From ip_rooms where ip_rooms.id=".$id)->row_array());
     }
 
     function select_free_room($start,$end){
-        return $this->db->query("Select * From ip_rooms where show_on_system=1 AND ip_rooms.id not in (SELECT item_room FROM ip_invoice_items WHERE item_date_start < '".$end."' AND item_date_end > '".$start."') order by ip_rooms.preis1")->result(); 
+         echo json_encode($this->db->query("Select * From ip_rooms where show_on_system=1 AND ip_rooms.id not in (SELECT item_room FROM ip_invoice_items WHERE item_date_start < '".$end."' AND item_date_end > '".$start."') order by ip_rooms.preis1")->result()); 
     }
     
     function get_companyData(){
-        return $this->db->query("SELECT * FROM `ip_users` where user_id=1")->row_array();
+         echo json_encode($this->db->query("SELECT user_name,user_company,user_address_1,user_city,user_zip,user_phone,user_email,user_web,user_subscribernumber,user_iban FROM `ip_users` where user_id=1")->row_array());
     }
     
 }
