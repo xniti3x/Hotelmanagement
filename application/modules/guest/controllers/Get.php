@@ -202,6 +202,10 @@ class Get extends Base_Controller
         echo $event->name." - ".$event->order_id."<br>";
 
     }
+    public function select_free_room($start,$end){
+		header('Content-Type: application/json');
+        echo json_encode($this->db->query("Select * From ip_rooms where show_on_system=1 AND ip_rooms.id not in (SELECT item_room FROM ip_invoice_items WHERE item_date_start < '".$end."' AND item_date_end > '".$start."') order by ip_rooms.preis1")->result()); 
+    }
     private function getItemsFrom($date){
         return $this->db->query("select * from ip_invoice_items 
         where   (ip_invoice_items.item_room=5 or ip_invoice_items.item_room=6 or ip_invoice_items.item_room=14) 
